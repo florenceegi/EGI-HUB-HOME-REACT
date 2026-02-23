@@ -1,4 +1,5 @@
 import { useRef, useState, createContext, useContext } from 'react';
+import { DesktopAboutSection } from './sections/DesktopAboutSection';
 import { DesktopHeroSection } from './sections/DesktopHeroSection';
 import { DesktopExamplesSection } from './sections/DesktopExamplesSection';
 import { DesktopImpactSection } from './sections/DesktopImpactSection';
@@ -31,10 +32,11 @@ export const DesktopHomeSidebar = () => {
             <aside
                 ref={containerRef}
                 onScroll={handleScroll}
-                className="fixed right-0 top-0 bottom-0 z-30 overflow-y-auto bg-black/90 border-l border-white/20 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur-xl no-scrollbar"
-                style={{ background: '#05080ce6', width: '25vw', minWidth: '360px' }}
+                className="fixed top-0 bottom-0 z-30 overflow-y-auto bg-black/90 border-r border-white/20 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur-xl no-scrollbar"
+                style={{ background: '#05080ce6', width: '25vw', minWidth: '360px', left: '80px' }}
             >
                 <div className="flex flex-col min-h-full">
+                    <DesktopAboutSection />
                     <DesktopHeroSection />
                     <DesktopExamplesSection />
                     <DesktopImpactSection />

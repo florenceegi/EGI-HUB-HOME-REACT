@@ -156,7 +156,7 @@ export function DesktopEgiCube() {
         <div
             className="fixed z-25"
             style={{
-                left: '12vw', // Relative position
+                right: '8vw', // Positioned on the right
                 top: '18vh', // Relative position
                 width: '18vw', // Always 18% of viewport width
                 height: '18vw', // Square aspect ratio

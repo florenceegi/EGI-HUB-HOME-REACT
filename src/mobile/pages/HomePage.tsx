@@ -1,3 +1,4 @@
+import { AboutSection } from '@/mobile/sections/AboutSection';
 import { HeroSection } from '@/mobile/sections/HeroSection';
 import { EgiExamplesSection } from '@/mobile/sections/EgiExamplesSection';
 import { TransitionSection } from '@/mobile/sections/TransitionSection';
@@ -12,6 +13,7 @@ export function HomePage() {
     return (
         <div className="flex flex-col gap-0 pb-20">
             {/* State 1: Air & Light */}
+            <AboutSection />
             <HeroSection />
             <EgiExamplesSection />
 
