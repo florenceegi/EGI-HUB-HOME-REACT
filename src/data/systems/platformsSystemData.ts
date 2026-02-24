@@ -32,8 +32,8 @@ export const platformsSystemData: EcosystemData = {
         color: 0x00FF88, // Green
         desc: "La prima piattaforma al mondo per la certificazione 4D delle opere d'arte.",
         bullets: ["Certificazione 4D", "Marketplace NFT", "Royalties Perpetue"],
-        egi_link: config.florenceUrl,
-        route: config.florenceUrl,
+        egi_link: config.florenceUrl + '?ref=hub',
+        route: config.florenceUrl + '?ref=hub',
         radius: 42 // Same as home satellites
     },
 

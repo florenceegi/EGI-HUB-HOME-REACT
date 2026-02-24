@@ -32,8 +32,8 @@ export const natanSystemData: EcosystemData = {
         color: 0xFF6347, // Tomato
         desc: "Certificazione documentale per Albi Pretori e Trasparenza PA.",
         bullets: ["Albo Pretorio", "Trasparenza", "Immutabilità"],
-        egi_link: config.natanUrl,
-        route: config.natanUrl,
+        egi_link: config.natanUrl + '?ref=hub',
+        route: config.natanUrl + '?ref=hub',
         radius: 42 // Same as home satellites
     },
 
