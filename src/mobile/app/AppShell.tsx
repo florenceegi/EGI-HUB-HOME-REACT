@@ -99,6 +99,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                                 {t['nav.howItWorks']}
                             </Link>
                             <Link
+                                to="/team"
+                                onClick={() => setIsMenuOpen(false)}
+                                className="text-3xl font-medium tracking-tight text-[var(--text)]"
+                            >
+                                {t['nav.team'] ?? 'Team'}
+                            </Link>
+                            <Link
                                 to="/ecosystem"
                                 onClick={() => setIsMenuOpen(false)}
                                 className="text-3xl font-medium tracking-tight text-[var(--text)] hover:opacity-80 transition-opacity"

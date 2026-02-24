@@ -11,6 +11,7 @@ import { useUIStore } from '@/stores/useUIStore';
 import { PlatformsPage } from '@/pages/PlatformsPage';
 import { NatanSystemPage } from '@/pages/NatanSystemPage';
 import { HowItWorksPage } from '@/pages/HowItWorksPage';
+import { TeamPage } from '@/pages/TeamPage';
 import { UnderConstructionPage } from '@/pages/UnderConstructionPage';
 
 // Mobile components
@@ -70,10 +71,11 @@ function App() {
                         {currentPath === '/ecosystem' && <UnderConstructionPage />}
                         {currentPath === '/what-is' && <WhatIsEgiPage />}
                         {currentPath === '/how-it-works' && <HowItWorksPage />}
+                        {currentPath === '/team' && <TeamPage />}
                         {currentPath === '/under-construction' && <UnderConstructionPage />}
 
                         {/* Fallback for unknown mobile routes */}
-                        {!['/', '/corporate', '/platforms', '/ecosystem', '/what-is', '/how-it-works', '/under-construction'].includes(currentPath) && <MobileHomePage />}
+                        {!['/', '/corporate', '/platforms', '/ecosystem', '/what-is', '/how-it-works', '/team', '/under-construction'].includes(currentPath) && <MobileHomePage />}
                     </AppShell>
                 </QueryClientProvider>
             </HelmetProvider>
@@ -89,6 +91,7 @@ function App() {
         if (currentPath === '/under-construction') return <UnderConstructionPage />;
         if (currentPath === '/what-is') return <WhatIsEgiPage />;
         if (currentPath === '/how-it-works') return <HowItWorksPage />;
+        if (currentPath === '/team') return <TeamPage />;
 
         // Desktop-specific pages
         if (currentPath === '/platforms') return <PlatformsPage />;
