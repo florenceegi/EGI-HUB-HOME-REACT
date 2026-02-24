@@ -10,6 +10,10 @@ export default {
                 danger: '#ff0044',
                 gold: '#ffaa00',
                 purple: '#aa00ff',
+                // Dark theme palette (used by CorporatePage, WhatIsEgiPage, etc.)
+                dark: '#0A1222',
+                'dark-light': '#132338',
+                light: '#ffffff',
                 'glass-dark': 'rgba(5, 8, 12, 0.95)',
                 'border-light': 'rgba(255, 255, 255, 0.1)',
                 'border-active': 'rgba(0, 255, 221, 0.5)',
