@@ -44,13 +44,14 @@ export const EgiWrapperAnimation = () => (
         `}</style>
 
         <div className="relative w-full flex items-center justify-center" style={{ height: 300 }}>
-            {/* Dark panel — l'animazione è progettata per sfondo scuro */}
+            {/* Dark card — sfondo scuro per mantenere il contrasto dell'animazione */}
             <div style={{
                 position: 'absolute',
                 inset: 0,
-                borderRadius: 24,
-                background: 'radial-gradient(ellipse at 50% 40%, rgba(10,20,40,0.96) 0%, rgba(5,8,18,0.98) 100%)',
-                boxShadow: 'inset 0 0 60px rgba(16,185,129,0.06)',
+                borderRadius: 20,
+                background: 'radial-gradient(ellipse at 50% 35%, rgba(8,16,36,0.92) 0%, rgba(4,7,16,0.96) 100%)',
+                border: '1px solid rgba(16,185,129,0.18)',
+                boxShadow: '0 4px 32px rgba(0,0,0,0.35), inset 0 0 40px rgba(16,185,129,0.04)',
             }} />
             <div className="relative" style={{ width: 270, height: 270 }}>
 

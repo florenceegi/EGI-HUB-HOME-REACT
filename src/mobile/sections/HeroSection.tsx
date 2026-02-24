@@ -13,7 +13,8 @@ export function HeroSection() {
     // Parallax/Scale logic: title scales up slightly as you scroll down (State 1 dynamics)
     // Scale 1 -> 1.05 during the first 20% of scroll
     const scale = 1 + (Math.min(progress, 0.2) * 0.25);
-    const opacity = 1 - Math.min(progress * 3, 1); // Fades out quickly
+    // Fade-out solo dopo il 40% di scroll globale — evita il fade prematuro su mobile
+    const opacity = 1 - Math.min(Math.max(progress - 0.4, 0) * 4, 1);
 
     return (
         <section className="min-h-[92vh] flex flex-col justify-center px-6 pt-32 relative overflow-hidden">
