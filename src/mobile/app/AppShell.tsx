@@ -35,7 +35,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     <div className="px-6 h-20 pt-4 flex items-center justify-between">
                         {/* Logo */}
                         <Link to="/" className="relative z-50 flex items-center gap-2 group">
-                            <FlorenceEgiLogo className="h-8 w-8 text-emerald-500 group-hover:scale-105 transition-transform" />
+                            <FlorenceEgiLogo className="h-14 w-14 text-emerald-500 group-hover:scale-105 transition-transform" />
                             <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-gray-400 to-emerald-500 bg-clip-text text-transparent">
                                 Florence EGI
                             </span>

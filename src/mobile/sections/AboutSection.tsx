@@ -15,7 +15,7 @@ export function AboutSection() {
             <div ref={ref} className={className}>
                 {/* Title block */}
                 <div className="mb-6">
-                    <span className="text-sm font-bold tracking-[0.3em] text-[var(--accent)] opacity-70 uppercase block mb-3">
+                    <span className="text-base font-bold tracking-[0.2em] text-[var(--accent)] uppercase block mb-3">
                         FlorenceEGI
                     </span>
                     <h2 className="text-4xl font-bold tracking-tight text-[var(--text)] leading-none">
