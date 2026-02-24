@@ -44,6 +44,14 @@ export const EgiWrapperAnimation = () => (
         `}</style>
 
         <div className="relative w-full flex items-center justify-center" style={{ height: 300 }}>
+            {/* Dark panel — l'animazione è progettata per sfondo scuro */}
+            <div style={{
+                position: 'absolute',
+                inset: 0,
+                borderRadius: 24,
+                background: 'radial-gradient(ellipse at 50% 40%, rgba(10,20,40,0.96) 0%, rgba(5,8,18,0.98) 100%)',
+                boxShadow: 'inset 0 0 60px rgba(16,185,129,0.06)',
+            }} />
             <div className="relative" style={{ width: 270, height: 270 }}>
 
                 {/* ── Outer spinning conic ring (EGI wrapper visual) ── */}
@@ -62,7 +70,7 @@ export const EgiWrapperAnimation = () => (
                     top: '50%', left: '50%',
                     transform: 'translate(-50%,-50%)',
                     borderRadius: '50%',
-                    border: '1.5px solid rgba(16,185,129,0.25)',
+                    border: '1.5px solid rgba(16,185,129,0.5)',
                     animation: 'egi-ring-pulse 3s ease-in-out infinite',
                 }} />
 
@@ -132,16 +140,18 @@ export const EgiWrapperAnimation = () => (
                         }}
                     >
                         <div style={{
-                            background: `${color}18`,
-                            border: `1px solid ${color}70`,
+                            background: `${color}28`,
+                            border: `1.5px solid ${color}cc`,
                             borderRadius: 20,
                             padding: '4px 0',
                             fontSize: 10,
-                            fontWeight: 700,
+                            fontWeight: 800,
                             color,
                             textAlign: 'center',
                             whiteSpace: 'nowrap',
                             letterSpacing: '0.03em',
+                            textShadow: `0 0 8px ${color}`,
+                            boxShadow: `0 0 10px ${color}30`,
                         }}>
                             {label}
                         </div>
