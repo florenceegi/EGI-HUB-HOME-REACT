@@ -10,6 +10,7 @@ import { useUIStore } from '@/stores/useUIStore';
 
 import { PlatformsPage } from '@/pages/PlatformsPage';
 import { NatanSystemPage } from '@/pages/NatanSystemPage';
+import { HowItWorksPage } from '@/pages/HowItWorksPage';
 import { UnderConstructionPage } from '@/pages/UnderConstructionPage';
 
 // Mobile components
@@ -68,7 +69,7 @@ function App() {
                         {currentPath === '/platforms' && <UnderConstructionPage />} {/* Fallback for now */}
                         {currentPath === '/ecosystem' && <UnderConstructionPage />}
                         {currentPath === '/what-is' && <WhatIsEgiPage />}
-                        {currentPath === '/how-it-works' && <UnderConstructionPage />}
+                        {currentPath === '/how-it-works' && <HowItWorksPage />}
                         {currentPath === '/under-construction' && <UnderConstructionPage />}
 
                         {/* Fallback for unknown mobile routes */}
@@ -87,6 +88,7 @@ function App() {
         if (currentPath === '/corporate') return <CorporatePage />;
         if (currentPath === '/under-construction') return <UnderConstructionPage />;
         if (currentPath === '/what-is') return <WhatIsEgiPage />;
+        if (currentPath === '/how-it-works') return <HowItWorksPage />;
 
         // Desktop-specific pages
         if (currentPath === '/platforms') return <PlatformsPage />;

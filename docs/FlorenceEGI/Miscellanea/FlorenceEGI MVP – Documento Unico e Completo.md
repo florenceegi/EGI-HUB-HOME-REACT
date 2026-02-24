@@ -61,7 +61,7 @@ FlorenceEGI è il marketplace digitale che integra **arte, innovazione, impatto 
   - **Trading**: Fee fissa (50 Egili) sul mercato secondario, zero royalties artistiche.
 - **EGI fisici**: NFT collegati a beni reali (opere, azioni ambientali, prodotti). Narrazione, autenticità, tracciabilità e impatto EPP garantiti.
 - **EGI pt (pure trading)**: asset digitali collegati agli EGI fisici, pensati per trading, viralità, reward.
-  - Fee bassissime (1,5% totali), trasparenza: 1% sempre destinato a EPP, 0,5% alla piattaforma.
+  - **Zero fee** (0% totali): né la piattaforma né i creator guadagnano. Guadagna solo chi trada. Serve da veicolo marketing per l'intero ecosistema.
   - I creator possono creare serie di EGI pt a supporto degli EGI fisici per generare engagement, reward e popolarità.
 - **Obiettivo**: unire collezionismo fisico e trading digitale, coinvolgendo sia artisti/collezionisti sia trader pro, con etica e trasparenza.
 
