@@ -1,4 +1,4 @@
-import { Brain, Globe, Info, Home } from 'lucide-react';
+import { Brain, Globe, Info, Home, Fingerprint } from 'lucide-react';
 import { useUIStore } from '@/stores/useUIStore';
 import { useI18n } from '@/i18n';
 import config from '@/utils/config';
@@ -36,6 +36,15 @@ export const Sidebar = () => {
                 active={isActive('/projects')}
                 title={t('nav.projects.title')}
             />
+            {/* Sigillo */}
+            <NavButton
+                icon={<Fingerprint />}
+                label="Sigillo"
+                onClick={() => navigate('/sigillo')}
+                active={isActive('/sigillo')}
+                title="Sigillo — Certifica su Blockchain"
+                badge="FREE"
+            />
             {/* External Apps */}
             <NavButton
                 icon={<Globe />}
@@ -66,9 +75,10 @@ interface NavButtonProps {
     onClick?: () => void;
     active?: boolean;
     title?: string;
+    badge?: string;
 }
 
-const NavButton = ({ icon, label, href, onClick, active, title }: NavButtonProps) => {
+const NavButton = ({ icon, label, href, onClick, active, title, badge }: NavButtonProps) => {
     const handleClick = () => {
         console.log(`[Sidebar] Clicked ${label}`, { href, hasOnClick: !!onClick });
         if (onClick) {
@@ -94,7 +104,14 @@ const NavButton = ({ icon, label, href, onClick, active, title }: NavButtonProps
             disabled={!href && !onClick}
             style={{ fontFamily: 'Share Tech Mono, monospace' }}
         >
-            <div className="w-5 h-5">{icon}</div>
+            <div className="relative w-5 h-5">
+                {icon}
+                {badge && (
+                    <span className="absolute -top-1.5 -right-2.5 text-[7px] font-bold px-0.5 rounded bg-[var(--accent)] text-white leading-tight">
+                        {badge}
+                    </span>
+                )}
+            </div>
             <span className="text-[9px] tracking-wider uppercase">{label}</span>
         </button>
     );

@@ -112,6 +112,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                             >
                                 {t['nav.ecosystem']}
                             </Link>
+                            <Link
+                                to="/sigillo"
+                                onClick={() => setIsMenuOpen(false)}
+                                className="text-3xl font-medium tracking-tight text-[var(--text)] hover:opacity-80 transition-opacity flex items-center gap-3"
+                            >
+                                🏛️ Sigillo
+                                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-[var(--accent)] text-white align-middle">
+                                    GRATIS
+                                </span>
+                            </Link>
                             {/* Azienda Section */}
                             <div className="flex flex-col gap-3">
                                 <span className="text-2xl font-bold tracking-tight text-[var(--muted)] uppercase opacity-90 mb-2 mt-4 block">

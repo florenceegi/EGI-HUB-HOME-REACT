@@ -14,6 +14,7 @@ import { HowItWorksPage } from '@/pages/HowItWorksPage';
 import { TeamPage } from '@/pages/TeamPage';
 import { EcosystemPage } from '@/pages/EcosystemPage';
 import { UnderConstructionPage } from '@/pages/UnderConstructionPage';
+import { SigilloPage } from '@/pages/SigilloPage';
 
 // Mobile components
 import { AppShell } from '@/mobile/app/AppShell';
@@ -74,9 +75,10 @@ function App() {
                         {currentPath === '/how-it-works' && <HowItWorksPage />}
                         {currentPath === '/team' && <TeamPage />}
                         {currentPath === '/under-construction' && <UnderConstructionPage />}
+                        {currentPath === '/sigillo' && <SigilloPage />}
 
                         {/* Fallback for unknown mobile routes */}
-                        {!['/', '/corporate', '/platforms', '/ecosystem', '/what-is', '/how-it-works', '/team', '/under-construction'].includes(currentPath) && <MobileHomePage />}
+                        {!['/', '/corporate', '/platforms', '/ecosystem', '/what-is', '/how-it-works', '/team', '/under-construction', '/sigillo'].includes(currentPath) && <MobileHomePage />}
 
                     </AppShell>
                 </QueryClientProvider>
@@ -95,6 +97,9 @@ function App() {
         if (currentPath === '/how-it-works') return <HowItWorksPage />;
         if (currentPath === '/team') return <TeamPage />;
         if (currentPath === '/ecosystem') return <EcosystemPage />;
+
+        // Sigillo
+        if (currentPath === '/sigillo') return <SigilloPage />;
 
         // Desktop-specific pages
         if (currentPath === '/platforms') return <PlatformsPage />;
