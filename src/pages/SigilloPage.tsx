@@ -20,6 +20,21 @@ export function SigilloPage() {
                 {/* Particelle sfondo */}
                 <Particles />
 
+                {/* Logo EGI */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, ease: 'easeOut' }}
+                    className="flex justify-center"
+                >
+                    <img
+                        src="/images/logo_egi.svg"
+                        alt="FlorenceEGI"
+                        className="w-20 h-20 rounded-full ring-2 ring-[var(--accent)]/40 shadow-lg shadow-[var(--accent)]/10"
+                        style={{ filter: 'drop-shadow(0 0 12px rgba(14,165,164,0.3))' }}
+                    />
+                </motion.div>
+
                 {/* Eyebrow */}
                 <motion.p
                     initial={{ opacity: 0, y: -8 }}
@@ -38,7 +53,7 @@ export function SigilloPage() {
                     className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                 >
-                    🏛️ Sigillo
+                    Sigillo
                     <span className="block text-2xl md:text-3xl mt-2 text-white/70 font-semibold" style={{ fontFamily: 'Rajdhani, sans-serif' }}>
                         Prova matematica dell'esistenza
                     </span>
