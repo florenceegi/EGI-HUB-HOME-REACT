@@ -49,16 +49,16 @@ export const platformsSystemData: EcosystemData = {
         radius: 42 // Same as home satellites
     },
 
-    tosca: {
-        label: "TOSCA BANDI",
-        tagline: "AI Matching Bandi",
-        cat: "COMING_SOON",
-        color: 0x00FFFF, // Cyan brillante (visibile su nero)
-        desc: "AI-driven platform per il matching e la gestione dei bandi pubblici.",
-        bullets: ["AI Matching", "Deadline Tracking", "Reporting Automatico"],
-        egi_link: "UNDER_CONSTRUCTION",
-        route: "/under-construction",
-        radius: 42 // Same as home satellites
+    sigillo: {
+        label: "SIGILLO",
+        tagline: "Certificazione Blockchain",
+        cat: "ACTIVE",
+        color: 0x0EA5A4, // Teal — colore accent Sigillo
+        desc: "Certifica qualsiasi file su Algorand. SHA-256 + Merkle tree. Prova matematica dell'esistenza.",
+        bullets: ["SHA-256 Client-Side", "Algorand Blockchain", "Merkle Batch"],
+        egi_link: "#",
+        route: "/sigillo",
+        radius: 42
     },
 
     partners: {
@@ -93,7 +93,9 @@ export const platformsOrbitConfig: OrbitalConfig[] = [
     { id: "natan", orbit: 1 },
     { id: "back", orbit: 1 },
 
+    // Orbit 1: Active
+    { id: "sigillo", orbit: 1 },
+
     // Orbit 2: Coming Soon
-    { id: "tosca", orbit: 2 },
     { id: "partners", orbit: 2 }
 ];
