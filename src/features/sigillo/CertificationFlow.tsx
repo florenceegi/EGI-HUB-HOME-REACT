@@ -9,6 +9,7 @@ import { BlockchainAnimation } from './BlockchainAnimation';
 import { CertificateCard } from './CertificateCard';
 import { SigilloPaywall } from './SigilloPaywall';
 import { useCertification } from './hooks/useCertification';
+import config from '@/utils/config';
 
 const POLL_INTERVAL_MS = 8000;   // controlla stato ogni 8s durante 'anchoring'
 const POLL_MAX_ATTEMPTS = 45;    // max 6 minuti di polling
@@ -125,9 +126,9 @@ export function CertificationFlow() {
                     >
                         <SigilloPaywall
                             egiliBalance={paywallInfo?.egili_balance}
-                            onUseEgili={() => { /* TODO: redirect acquisto Egili */ }}
-                            onBuyPack={() => { /* TODO: redirect checkout pack */ }}
-                            onBuyPro={() => { /* TODO: redirect checkout pro */ }}
+                            onUseEgili={() => { reset(); certify(); }}
+                            onBuyPack={() => { window.location.href = `${config.florenceUrl}/features/sigillo_pack_50/purchase`; }}
+                            onBuyPro={() => { window.location.href = `${config.florenceUrl}/features/sigillo_monthly_100/purchase`; }}
                         />
                         <button
                             onClick={reset}
