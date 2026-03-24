@@ -1,13 +1,16 @@
 /**
  * AnonCertificatesPanel — Accesso ai certificati per utenti anonimi Sigillo.
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 1.0.0 (FlorenceEGI - Sigillo)
- * @date 2026-03-24
+ * @version 1.1.0 (FlorenceEGI - Sigillo)
+ * @date 2026-03-25
  * @purpose Permette agli utenti anonimi di recuperare la lista dei propri
  *          certificati inserendo il token ricevuto via email alla conferma.
+ *          v1.1.0: aggiunta link download PDF/JSON per certificati ancorati.
  */
 
 import { useState, useCallback, useRef } from 'react';
+
+const EGI_BASE_URL = (import.meta.env.VITE_EGI_URL as string | undefined) ?? 'https://art.florenceegi.com';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCertification } from './hooks/useCertification';
 import type { AnonCertificate, AnonCertificatesResult } from './hooks/useCertification';
@@ -104,7 +107,7 @@ function CertificateCard({ cert }: { cert: AnonCertificate }) {
                 </span>
 
                 {cert.status === 'anchored' && (
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 flex-wrap">
                         {cert.algorand_tx_id && (
                             <a
                                 href={`https://allo.info/tx/${cert.algorand_tx_id}`}
@@ -129,6 +132,35 @@ function CertificateCard({ cert }: { cert: AnonCertificate }) {
                         >
                             Verifica →
                         </button>
+                        <a
+                            href={`${EGI_BASE_URL}/api/sigillo/${cert.uuid}/download/pdf`}
+                            download={`sigillo-${cert.uuid.slice(0, 8)}.pdf`}
+                            rel="noopener noreferrer"
+                            className="text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] rounded px-2 py-0.5"
+                            style={{
+                                background: 'rgba(14,165,164,0.15)',
+                                color: 'var(--accent)',
+                                border: '1px solid rgba(14,165,164,0.25)',
+                            }}
+                            aria-label={`Scarica PDF del certificato ${cert.file_name}`}
+                        >
+                            📄 PDF
+                        </a>
+                        <a
+                            href={`${EGI_BASE_URL}/api/sigillo/${cert.uuid}/download/json`}
+                            download={`sigillo-${cert.uuid.slice(0, 8)}.json`}
+                            rel="noopener noreferrer"
+                            className="text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] rounded px-2 py-0.5"
+                            style={{
+                                background: 'rgba(255,255,255,0.05)',
+                                color: 'rgba(255,255,255,0.55)',
+                                border: '1px solid rgba(255,255,255,0.12)',
+                                fontFamily: 'monospace',
+                            }}
+                            aria-label={`Scarica JSON del certificato ${cert.file_name}`}
+                        >
+                            {'{ }'} JSON
+                        </a>
                     </div>
                 )}
             </div>

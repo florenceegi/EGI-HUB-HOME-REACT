@@ -1,10 +1,16 @@
 /**
  * CertificateCard — Mostra il certificato completato.
- * Bordo gold, QR code, download PDF/JSON, link verifica.
+ * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
+ * @version 1.1.0 (FlorenceEGI - Sigillo)
+ * @date 2026-03-25
+ * @purpose Render della carta certificato con download PDF/JSON da backend
+ *          e box informativo su come usare il certificato.
  */
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Certificate } from './hooks/useCertification';
+
+const EGI_BASE_URL = (import.meta.env.VITE_EGI_URL as string | undefined) ?? 'https://art.florenceegi.com';
 
 interface CertificateCardProps {
     certificate: Certificate;
@@ -12,8 +18,9 @@ interface CertificateCardProps {
 }
 
 export function CertificateCard({ certificate, onCertifyAnother }: CertificateCardProps) {
-    const [copied, setCopied] = useState(false);
+    const [copied, setCopied]           = useState(false);
     const [showConfetti, setShowConfetti] = useState(true);
+    const [showGuide, setShowGuide]     = useState(false);
 
     const verifyUrl = `${window.location.origin}/sigillo/certificato/${certificate.uuid}`;
 
@@ -28,26 +35,20 @@ export function CertificateCard({ certificate, onCertifyAnother }: CertificateCa
         setTimeout(() => setCopied(false), 2000);
     };
 
-    const downloadJson = () => {
-        const receipt = {
-            sigillo_version: '1.0',
-            uuid:             certificate.uuid,
-            file_name:        certificate.file_name,
-            file_hash_sha256: certificate.file_hash_sha256,
-            algorand_tx_id:   certificate.algorand_tx_id,
-            merkle_root:      certificate.merkle_root,
-            anchored_at:      certificate.anchored_at,
-            ipfs_cid:         certificate.ipfs_cid,
-            verify_url:       verifyUrl,
-            issued_by:        'FlorenceEGI — Sigillo',
-        };
-        const blob = new Blob([JSON.stringify(receipt, null, 2)], { type: 'application/json' });
-        const url  = URL.createObjectURL(blob);
-        const a    = document.createElement('a');
+    /**
+     * Scarica il file (PDF o JSON) dall'endpoint backend.
+     * Usa un tag <a> temporaneo con l'URL diretto — il browser gestisce
+     * il download nativo senza fetch intermedio, compatibile con tutti i browser.
+     */
+    const downloadFile = (type: 'pdf' | 'json') => {
+        const url = `${EGI_BASE_URL}/sigillo/${certificate.uuid}/download/${type}`;
+        const a   = document.createElement('a');
         a.href     = url;
-        a.download = `sigillo-${certificate.uuid.slice(0, 8)}.json`;
+        a.download = `sigillo-${certificate.uuid.slice(0, 8)}.${type}`;
+        a.rel      = 'noopener noreferrer';
+        document.body.appendChild(a);
         a.click();
-        URL.revokeObjectURL(url);
+        document.body.removeChild(a);
     };
 
     const isAnchored = certificate.status === 'anchored';
@@ -87,7 +88,7 @@ export function CertificateCard({ certificate, onCertifyAnother }: CertificateCa
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <span className="text-2xl">🏛️</span>
+                        <span className="text-2xl" aria-hidden="true">🏛️</span>
                         <div>
                             <p className="font-bold text-white/90 tracking-wide text-sm">SIGILLO</p>
                             <p className="text-[10px] text-white/40 font-mono">FlorenceEGI · Algorand</p>
@@ -98,6 +99,7 @@ export function CertificateCard({ certificate, onCertifyAnother }: CertificateCa
                         animate={{ scale: 1 }}
                         transition={{ delay: 0.3, type: 'spring' }}
                         className="text-3xl"
+                        aria-label={isAnchored ? 'Certificato ancorato' : 'Ancoraggio in corso'}
                     >
                         {isAnchored ? '✅' : '⏳'}
                     </motion.div>
@@ -142,28 +144,125 @@ export function CertificateCard({ certificate, onCertifyAnother }: CertificateCa
                     <p className="text-[10px] text-white/40 font-mono truncate">{verifyUrl}</p>
                 </div>
 
-                {/* Azioni */}
+                {/* Azioni download — visibili solo se ancorato */}
+                {isAnchored && (
+                    <div className="grid grid-cols-2 gap-3">
+                        <button
+                            type="button"
+                            onClick={() => downloadFile('pdf')}
+                            className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                            style={{ background: 'var(--accent)', color: '#0A1222' }}
+                            aria-label="Scarica certificato in formato PDF"
+                        >
+                            <span aria-hidden="true">📄</span>
+                            Scarica PDF
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => downloadFile('json')}
+                            className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                            style={{
+                                background: 'transparent',
+                                border: '1px solid rgba(255,255,255,0.2)',
+                                color: 'rgba(255,255,255,0.75)',
+                            }}
+                            aria-label="Scarica ricevuta in formato JSON"
+                        >
+                            <span aria-hidden="true" className="font-mono text-base leading-none">{'{}'}</span>
+                            Scarica JSON
+                        </button>
+                    </div>
+                )}
+
+                {/* Azioni non-download */}
                 <div className="grid grid-cols-2 gap-3">
                     <button
-                        onClick={downloadJson}
-                        className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white/80 text-sm font-medium transition-colors"
-                    >
-                        ⬇ JSON
-                    </button>
-                    <button
+                        type="button"
                         onClick={copyLink}
-                        className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white/80 text-sm font-medium transition-colors"
+                        className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white/80 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                        aria-label="Copia link di verifica"
                     >
                         {copied ? '✓ Copiato' : '🔗 Link'}
                     </button>
+                    <button
+                        type="button"
+                        onClick={onCertifyAnother}
+                        className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white/80 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                    >
+                        + Altro file
+                    </button>
                 </div>
 
-                <button
-                    onClick={onCertifyAnother}
-                    className="w-full py-3 rounded-xl bg-[var(--accent)] hover:opacity-90 text-white font-semibold text-sm transition-opacity"
+                {/* Box informativo collassabile */}
+                <div
+                    className="rounded-xl overflow-hidden"
+                    style={{ border: '1px solid rgba(255,255,255,0.10)' }}
                 >
-                    Certifica un altro file
-                </button>
+                    <button
+                        type="button"
+                        onClick={() => setShowGuide((v) => !v)}
+                        className="w-full flex items-center justify-between px-4 py-3 text-left transition-colors hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[var(--accent)]"
+                        aria-expanded={showGuide}
+                        aria-controls="cert-guide-panel"
+                    >
+                        <span className="text-xs font-medium text-white/60 flex items-center gap-2">
+                            <span aria-hidden="true">ℹ️</span>
+                            Come usare questo certificato
+                        </span>
+                        <span
+                            className="text-white/40 text-xs transition-transform duration-200"
+                            style={{ display: 'inline-block', transform: showGuide ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                            aria-hidden="true"
+                        >
+                            ↓
+                        </span>
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                        {showGuide && (
+                            <motion.div
+                                id="cert-guide-panel"
+                                key="guide"
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.22, ease: 'easeInOut' }}
+                                style={{ overflow: 'hidden' }}
+                            >
+                                <div
+                                    className="px-4 pb-4 space-y-2.5"
+                                    style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
+                                >
+                                    <p className="text-xs text-white/50 pt-3 leading-relaxed">
+                                        Il PDF è la tua prova legale di anteriorità temporale.
+                                        Conservalo insieme al file originale.
+                                    </p>
+                                    <GuideRow icon="✅">
+                                        <strong>Cosa dimostra:</strong> il file esisteva in questa forma esatta alla data indicata.
+                                    </GuideRow>
+                                    <GuideRow icon="⚠️">
+                                        <strong>Cosa NON dimostra da solo:</strong> che sei tu l'autore. Per rafforzare la paternità, inserisci il tuo nome e contatti nel file prima di certificarlo.
+                                    </GuideRow>
+                                    <GuideRow icon="🔒">
+                                        <strong>Conserva il file originale:</strong> senza di esso il certificato non è verificabile.
+                                    </GuideRow>
+                                    <GuideRow icon="📋">
+                                        <strong>Verifica indipendente:</strong> chiunque può verificare su{' '}
+                                        <a
+                                            href="https://allo.info"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="underline hover:text-white/70 focus:outline-none focus:ring-1 focus:ring-[var(--accent)] rounded"
+                                        >
+                                            allo.info
+                                        </a>
+                                        {' '}usando il TX Algorand, senza dipendere da FlorenceEGI.
+                                    </GuideRow>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
 
                 {/* Nota conservazione */}
                 <p className="text-center text-xs text-[#B08D2A]/70 bg-[#B08D2A]/10 rounded-lg px-3 py-2">
@@ -174,6 +273,10 @@ export function CertificateCard({ certificate, onCertifyAnother }: CertificateCa
     );
 }
 
+// ---------------------------------------------------------------------------
+// Componenti ausiliari
+// ---------------------------------------------------------------------------
+
 function Row({ label, value, mono = false, small = false }: {
     label: string; value: string; mono?: boolean; small?: boolean;
 }) {
@@ -183,6 +286,15 @@ function Row({ label, value, mono = false, small = false }: {
             <span className={`text-right break-all ${mono ? 'font-mono text-[var(--accent)]' : 'text-white/80'} ${small ? 'text-[10px]' : 'text-xs'}`}>
                 {value}
             </span>
+        </div>
+    );
+}
+
+function GuideRow({ icon, children }: { icon: string; children: React.ReactNode }) {
+    return (
+        <div className="flex gap-2 text-xs text-white/45 leading-relaxed">
+            <span className="shrink-0 mt-px" aria-hidden="true">{icon}</span>
+            <span>{children}</span>
         </div>
     );
 }
