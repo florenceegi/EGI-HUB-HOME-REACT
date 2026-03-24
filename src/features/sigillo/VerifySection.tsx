@@ -17,13 +17,17 @@ export function VerifySection() {
     const { compute, isHashing } = useFileHasher();
     const { verify }             = useCertification();
 
-    // Pre-riempie l'UUID se il link contiene #verifica?uuid=...
+    // Pre-riempie l'UUID da #verifica?uuid=... al mount e ad ogni hashchange
     React.useEffect(() => {
-        const hash = window.location.hash; // es. "#verifica?uuid=xxx"
-        if (!hash.startsWith('#verifica')) return;
-        const hashParams = new URLSearchParams(hash.split('?')[1] ?? '');
-        const uuidParam = hashParams.get('uuid');
-        if (uuidParam) setUuid(uuidParam);
+        const readUuidFromHash = () => {
+            const hash = window.location.hash;
+            if (!hash.startsWith('#verifica')) return;
+            const uuidParam = new URLSearchParams(hash.split('?')[1] ?? '').get('uuid');
+            if (uuidParam) setUuid(uuidParam);
+        };
+        readUuidFromHash();
+        window.addEventListener('hashchange', readUuidFromHash);
+        return () => window.removeEventListener('hashchange', readUuidFromHash);
     }, []);
 
     const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {

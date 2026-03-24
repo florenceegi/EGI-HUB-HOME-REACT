@@ -104,14 +104,18 @@ function CertificateCard({ cert }: { cert: AnonCertificate }) {
                 </span>
 
                 {cert.status === 'anchored' && (
-                    <a
-                        href={`#verifica?uuid=${encodeURIComponent(cert.uuid)}`}
+                    <button
+                        type="button"
+                        onClick={() => {
+                            window.location.hash = `verifica?uuid=${encodeURIComponent(cert.uuid)}`;
+                            document.getElementById('verifica')?.scrollIntoView({ behavior: 'smooth' });
+                        }}
                         className="text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] rounded"
                         style={{ color: 'var(--accent)' }}
                         aria-label={`Verifica certificato ${cert.file_name}`}
                     >
                         Verifica →
-                    </a>
+                    </button>
                 )}
             </div>
         </div>
