@@ -3,12 +3,28 @@
  * Dark layout, full experience: certifica → verifica → casi d'uso → come funziona
  */
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { CertificationFlow } from '../features/sigillo/CertificationFlow';
 import { VerifySection }     from '../features/sigillo/VerifySection';
 import { HowItWorksSection } from '../features/sigillo/HowItWorksSection';
 import { UseCasesSection }   from '../features/sigillo/UseCasesSection';
 
+type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
+
 export function SigilloPage() {
+    const [confirmStatus, setConfirmStatus] = useState<ConfirmStatus>(null);
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('confirmed'))                           setConfirmStatus('confirmed');
+        if (params.get('confirm_error') === 'expired')        setConfirmStatus('expired');
+        if (params.get('confirm_error') === 'not_found')      setConfirmStatus('not_found');
+        // Pulisci URL senza ricaricare la pagina
+        if (params.has('confirmed') || params.has('confirm_error')) {
+            window.history.replaceState({}, '', '/sigillo');
+        }
+    }, []);
+
     return (
         <div
             className="min-h-screen text-white"
@@ -69,6 +85,24 @@ export function SigilloPage() {
                     Certifica qualsiasi file su blockchain. Gratuito. Immutabile. Per sempre.
                 </motion.p>
             </section>
+
+            {/* Banner conferma email / errore link */}
+            {confirmStatus === 'confirmed' && (
+                <div className="px-6 mb-4 max-w-lg mx-auto">
+                    <div className="rounded-xl bg-emerald-500/15 border border-emerald-500/30 p-4 text-sm text-emerald-400 text-center">
+                        Email confermata! La tua certificazione è in corso di ancoraggio blockchain.
+                    </div>
+                </div>
+            )}
+            {(confirmStatus === 'expired' || confirmStatus === 'not_found') && (
+                <div className="px-6 mb-4 max-w-lg mx-auto">
+                    <div className="rounded-xl bg-red-500/15 border border-red-500/30 p-4 text-sm text-red-400 text-center">
+                        {confirmStatus === 'expired'
+                            ? 'Link scaduto. Ricomincia la certificazione.'
+                            : 'Link non valido.'}
+                    </div>
+                </div>
+            )}
 
             {/* CertificationFlow — la box principale */}
             <section className="px-6 pb-10 max-w-lg mx-auto">

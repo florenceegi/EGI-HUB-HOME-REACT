@@ -16,6 +16,7 @@ export type CertificationState =
     | 'selected'
     | 'hashing'
     | 'certifying'
+    | 'pending_email'
     | 'anchoring'
     | 'done'
     | 'error';
@@ -42,6 +43,7 @@ export interface Certificate {
     anchored_at: string | null;
     merkle_root: string | null;
     ipfs_cid: string | null;
+    email?: string;
 }
 
 export interface PaywallInfo {
@@ -64,9 +66,10 @@ export interface UseCertificationResult {
     errorMessage: string | null;
     selectFile: (file: File) => void;
     setHash: (hash: string) => void;
-    certify: () => Promise<void>;
+    certify: (email?: string) => Promise<void>;
     verify: (uuid: string, fileHashSha256: string) => Promise<VerifyResult | null>;
     getCertificate: (uuid: string) => Promise<Certificate | null>;
+    confirmFromUrl: (uuid: string) => Promise<void>;
     reset: () => void;
 }
 
@@ -107,7 +110,7 @@ export function useCertification(): UseCertificationResult {
         setState('selected');
     }, []);
 
-    const certify = useCallback(async () => {
+    const certify = useCallback(async (email?: string) => {
         if (!file?.hash) return;
 
         setState('certifying');
@@ -115,17 +118,19 @@ export function useCertification(): UseCertificationResult {
         setErrorMessage(null);
 
         try {
-            const response = await api.post('/sigillo/certify', {
+            const body: Record<string, unknown> = {
                 file_hash_sha256: file.hash,
                 file_name:        file.name,
                 file_size_bytes:  file.size,
                 file_mime_type:   file.mimeType || null,
-            });
+            };
+            if (email) body.email = email;
 
+            const response = await api.post('/sigillo/certify', body);
             const data = response.data;
 
             // Costruisce il certificato parziale (non ancora ancorato)
-            setCertificate({
+            const cert: Certificate = {
                 uuid:             data.uuid,
                 status:           data.status,
                 tier:             data.tier,
@@ -137,9 +142,17 @@ export function useCertification(): UseCertificationResult {
                 anchored_at:      null,
                 merkle_root:      null,
                 ipfs_cid:         null,
-            });
+                email:            email,
+            };
 
-            setState('anchoring');
+            setCertificate(cert);
+
+            if (data.status === 'pending_email') {
+                // Utente anonimo: in attesa di conferma email
+                setState('pending_email');
+            } else {
+                setState('anchoring');
+            }
 
         } catch (err: any) {
             if (err?.response?.status === 402) {
@@ -173,6 +186,7 @@ export function useCertification(): UseCertificationResult {
                 anchored_at:      data.anchored_at,
                 merkle_root:      data.merkle_root,
                 ipfs_cid:         data.ipfs_cid,
+                email:            data.email,
             };
 
             if (data.status === 'anchored') {
@@ -183,6 +197,44 @@ export function useCertification(): UseCertificationResult {
             return cert;
         } catch {
             return null;
+        }
+    }, []);
+
+    /**
+     * Chiamato da SigilloPage quando l'URL contiene ?confirmed=UUID.
+     * Recupera lo stato del certificato e aggiorna la macchina a stati di conseguenza.
+     */
+    const confirmFromUrl = useCallback(async (uuid: string): Promise<void> => {
+        try {
+            const response = await api.get(`/sigillo/${uuid}`);
+            const data = response.data;
+
+            const cert: Certificate = {
+                uuid:             data.uuid,
+                status:           data.status,
+                tier:             data.tier ?? 'free',
+                created_at:       data.created_at,
+                file_name:        data.file_name,
+                file_size_human:  data.file_size_human,
+                file_hash_sha256: data.file_hash_sha256,
+                algorand_tx_id:   data.algorand_tx_id,
+                anchored_at:      data.anchored_at,
+                merkle_root:      data.merkle_root,
+                ipfs_cid:         data.ipfs_cid,
+                email:            data.email,
+            };
+
+            setCertificate(cert);
+
+            if (data.status === 'anchored') {
+                setState('done');
+            } else if (data.status === 'pending' || data.status === 'anchoring') {
+                setState('anchoring');
+            }
+            // Se status è ancora 'pending_email' rimane nello stato che il componente padre
+            // gestisce tramite il banner — non forziamo uno stato qui.
+        } catch {
+            // Errore silenzioso: il banner di errore è gestito da SigilloPage
         }
     }, []);
 
@@ -200,7 +252,7 @@ export function useCertification(): UseCertificationResult {
 
     return {
         state, file, certificate, paywallInfo, errorMessage,
-        selectFile, setHash, certify, verify, getCertificate, reset,
+        selectFile, setHash, certify, verify, getCertificate, confirmFromUrl, reset,
     };
 }
 
