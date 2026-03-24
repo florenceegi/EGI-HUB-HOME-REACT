@@ -58,6 +58,33 @@ export interface VerifyResult {
     merkle_root: string | null;
 }
 
+// ---------------------------------------------------------------------------
+// Tipi certificati anonimi
+// ---------------------------------------------------------------------------
+
+export interface AnonCertificate {
+    uuid: string;
+    file_name: string;
+    file_size_human: string;
+    short_hash: string;
+    status: string;
+    anchored_at: string | null;
+    created_at: string;
+}
+
+export interface AnonCertificatesMeta {
+    total: number;
+    page: number;
+    per_page: number;
+}
+
+export interface AnonCertificatesResult {
+    data: AnonCertificate[];
+    meta: AnonCertificatesMeta;
+}
+
+// ---------------------------------------------------------------------------
+
 export interface UseCertificationResult {
     state: CertificationState;
     file: CertFile | null;
@@ -70,6 +97,7 @@ export interface UseCertificationResult {
     verify: (uuid: string, fileHashSha256: string) => Promise<VerifyResult | null>;
     getCertificate: (uuid: string) => Promise<Certificate | null>;
     confirmFromUrl: (uuid: string) => Promise<void>;
+    fetchAnonCertificates: (token: string) => Promise<AnonCertificatesResult | null>;
     reset: () => void;
 }
 
@@ -250,9 +278,26 @@ export function useCertification(): UseCertificationResult {
         }
     }, []);
 
+    const fetchAnonCertificates = useCallback(async (
+        token: string
+    ): Promise<AnonCertificatesResult | null> => {
+        try {
+            const response = await egiApi.post('/sigillo/anon/certificates', { token });
+            return response.data as AnonCertificatesResult;
+        } catch (err: any) {
+            if (err?.response?.status === 401) {
+                // Token non valido — il componente mostra il messaggio di errore
+                return null;
+            }
+            // Altri errori (500, network) → propagati al chiamante
+            throw err;
+        }
+    }, []);
+
     return {
         state, file, certificate, paywallInfo, errorMessage,
-        selectFile, setHash, certify, verify, getCertificate, confirmFromUrl, reset,
+        selectFile, setHash, certify, verify, getCertificate, confirmFromUrl,
+        fetchAnonCertificates, reset,
     };
 }
 

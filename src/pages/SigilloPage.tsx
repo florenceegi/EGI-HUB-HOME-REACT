@@ -4,10 +4,11 @@
  */
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { CertificationFlow } from '../features/sigillo/CertificationFlow';
-import { VerifySection }     from '../features/sigillo/VerifySection';
-import { HowItWorksSection } from '../features/sigillo/HowItWorksSection';
-import { UseCasesSection }   from '../features/sigillo/UseCasesSection';
+import { CertificationFlow }      from '../features/sigillo/CertificationFlow';
+import { VerifySection }           from '../features/sigillo/VerifySection';
+import { HowItWorksSection }       from '../features/sigillo/HowItWorksSection';
+import { UseCasesSection }         from '../features/sigillo/UseCasesSection';
+import { AnonCertificatesPanel }   from '../features/sigillo/AnonCertificatesPanel';
 
 type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
 
@@ -112,6 +113,16 @@ export function SigilloPage() {
             {/* CertificationFlow — la box principale */}
             <section className="px-6 pb-10 max-w-lg mx-auto">
                 <CertificationFlow confirmedUuid={confirmedUuid} />
+            </section>
+
+            {/* Separatore visivo */}
+            <div className="px-6 max-w-lg mx-auto pb-6">
+                <div className="h-px bg-white/10" />
+            </div>
+
+            {/* Accesso certificati anonimi */}
+            <section className="px-6 pb-6 max-w-lg mx-auto">
+                <AnonCertificatesPanel />
             </section>
 
             {/* Separatore con link verifica */}
