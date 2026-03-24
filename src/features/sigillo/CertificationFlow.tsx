@@ -134,7 +134,7 @@ export function CertificationFlow({ confirmedUuid }: { confirmedUuid?: string | 
                             >
                                 UUID: <span className="font-mono text-white/60">{certificate.uuid}</span>
                                 <br />
-                                Ancoraggio blockchain entro 1 ora.
+                                Ancoraggio blockchain in corso...
                             </motion.p>
                         )}
                     </motion.div>
