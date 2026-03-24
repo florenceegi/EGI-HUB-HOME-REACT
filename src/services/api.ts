@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Base API instance
+// Base API instance (hub.florenceegi.com)
 export const api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8010/api',
     headers: {
@@ -42,4 +42,29 @@ api.interceptors.response.use(
 
         return Promise.reject(error);
     }
+);
+
+// EGI API instance (art.florenceegi.com — Sigillo, EGI backend)
+const egiBaseUrl = import.meta.env.VITE_EGI_URL
+    ? `${import.meta.env.VITE_EGI_URL}/api`
+    : 'https://art.florenceegi.com/api';
+
+export const egiApi = axios.create({
+    baseURL: egiBaseUrl,
+    headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+    },
+    timeout: 15000,
+});
+
+egiApi.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('auth_token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
 );

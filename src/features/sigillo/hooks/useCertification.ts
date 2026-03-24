@@ -5,7 +5,7 @@
  * Wrappa le chiamate API verso EGI backend (/api/sigillo/*).
  */
 import { useState, useCallback } from 'react';
-import { api } from '../../../services/api';
+import { egiApi } from '../../../services/api';
 
 // ---------------------------------------------------------------------------
 // Tipi
@@ -126,7 +126,7 @@ export function useCertification(): UseCertificationResult {
             };
             if (email) body.email = email;
 
-            const response = await api.post('/sigillo/certify', body);
+            const response = await egiApi.post('/sigillo/certify', body);
             const data = response.data;
 
             // Costruisce il certificato parziale (non ancora ancorato)
@@ -171,7 +171,7 @@ export function useCertification(): UseCertificationResult {
 
     const getCertificate = useCallback(async (uuid: string): Promise<Certificate | null> => {
         try {
-            const response = await api.get(`/sigillo/${uuid}`);
+            const response = await egiApi.get(`/sigillo/${uuid}`);
             const data = response.data;
 
             const cert: Certificate = {
@@ -206,7 +206,7 @@ export function useCertification(): UseCertificationResult {
      */
     const confirmFromUrl = useCallback(async (uuid: string): Promise<void> => {
         try {
-            const response = await api.get(`/sigillo/${uuid}`);
+            const response = await egiApi.get(`/sigillo/${uuid}`);
             const data = response.data;
 
             const cert: Certificate = {
@@ -243,7 +243,7 @@ export function useCertification(): UseCertificationResult {
         fileHashSha256: string
     ): Promise<VerifyResult | null> => {
         try {
-            const response = await api.post('/sigillo/verify', { uuid, file_hash_sha256: fileHashSha256 });
+            const response = await egiApi.post('/sigillo/verify', { uuid, file_hash_sha256: fileHashSha256 });
             return response.data as VerifyResult;
         } catch {
             return null;
