@@ -45,6 +45,15 @@ export function EgiOperationalSystemsSection() {
                     glowColor="innovation" // Violet/Pink for Pure Trading
                     className="blue-glass"
                 />
+
+                <Card
+                    title={content.systems.sigillo.title}
+                    description={content.systems.sigillo.description}
+                    link="/sigillo"
+                    linkText={content.systems.sigillo.linkText}
+                    glowColor="equilibrium" // Teal — accent color
+                    className="blue-glass"
+                />
             </div>
         </section>
     );

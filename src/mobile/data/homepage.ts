@@ -40,6 +40,11 @@ export interface HomepageContent {
             description: string;
             linkText: string;
         };
+        sigillo: {
+            title: string;
+            description: string;
+            linkText: string;
+        };
     };
     pillars: {
         title: string;
@@ -140,6 +145,11 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
                 title: 'EGI-PT',
                 description: 'Piattaforma di donazione libera e circolazione no-fee di cloni digitai EGI unici. Zero guadagni, solo marketing virale e visibilità tramite cloni puri.',
                 linkText: 'Scopri EGI-PT',
+            },
+            sigillo: {
+                title: 'Sigillo',
+                description: 'Certifica qualsiasi file su blockchain Algorand. SHA-256 client-side, Merkle tree, prova matematica dell\'esistenza. Gratuito.',
+                linkText: 'Certifica un file',
             },
         },
         pillars: {
@@ -264,6 +274,11 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
                 description: 'Free donation platform and no-fee circulation of unique EGI digital clones. Zero earnings, only viral marketing and visibility via pure clones.',
                 linkText: 'Discover EGI-PT',
             },
+            sigillo: {
+                title: 'Sigillo',
+                description: 'Certify any file on the Algorand blockchain. SHA-256 client-side, Merkle tree, mathematical proof of existence. Free.',
+                linkText: 'Certify a file',
+            },
         },
         pillars: {
             title: 'Our 3 Pillars',
@@ -386,6 +401,11 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
                 title: 'EGI-PT',
                 description: 'Plataforma de doação livre e circulação sem taxas de clones digitais EGI únicos. Zero ganhos, apenas marketing viral e visibilidade via clones puros.',
                 linkText: 'Descubra EGI-PT',
+            },
+            sigillo: {
+                title: 'Sigillo',
+                description: 'Certifique qualquer ficheiro na blockchain Algorand. SHA-256 client-side, Merkle tree, prova matemática da existência. Gratuito.',
+                linkText: 'Certifique um ficheiro',
             },
         },
         pillars: {
@@ -510,6 +530,11 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
                 description: 'Plataforma de donación libre y circulación sin tarifas de clones digitales EGI únicos. Cero ganancias, solo marketing viral y visibilidad a través de clones puros.',
                 linkText: 'Descubre EGI-PT',
             },
+            sigillo: {
+                title: 'Sigillo',
+                description: 'Certifica cualquier archivo en la blockchain Algorand. SHA-256 client-side, Merkle tree, prueba matemática de existencia. Gratuito.',
+                linkText: 'Certifica un archivo',
+            },
         },
         pillars: {
             title: 'Nuestros 3 Pilares',
@@ -633,6 +658,11 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
                 description: 'Plateforme de don libre et circulation sans frais de clones numériques EGI uniques. Zéro gain, uniquement du marketing viral et de la visibilité via des clones purs.',
                 linkText: 'Découvrir EGI-PT',
             },
+            sigillo: {
+                title: 'Sigillo',
+                description: 'Certifiez n\'importe quel fichier sur la blockchain Algorand. SHA-256 côté client, Merkle tree, preuve mathématique d\'existence. Gratuit.',
+                linkText: 'Certifier un fichier',
+            },
         },
         pillars: {
             title: 'Nos 3 Piliers',
@@ -755,6 +785,11 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
                 title: 'EGI-PT',
                 description: 'Plattform für freie Spenden und gebührenfreie Zirkulation einzigartiger digitaler EGI-Klone. Null Einnahmen, nur virales Marketing und Sichtbarkeit durch reine Klone.',
                 linkText: 'Entdecke EGI-PT',
+            },
+            sigillo: {
+                title: 'Sigillo',
+                description: 'Zertifiziere jede Datei auf der Algorand-Blockchain. SHA-256 Client-seitig, Merkle-Baum, mathematischer Existenzbeweis. Kostenlos.',
+                linkText: 'Datei zertifizieren',
             },
         },
         pillars: {
