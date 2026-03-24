@@ -13,10 +13,15 @@ type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
 
 export function SigilloPage() {
     const [confirmStatus, setConfirmStatus] = useState<ConfirmStatus>(null);
+    const [confirmedUuid, setConfirmedUuid] = useState<string | null>(null);
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
-        if (params.get('confirmed'))                           setConfirmStatus('confirmed');
+        const uuid = params.get('confirmed');
+        if (uuid) {
+            setConfirmStatus('confirmed');
+            setConfirmedUuid(uuid);
+        }
         if (params.get('confirm_error') === 'expired')        setConfirmStatus('expired');
         if (params.get('confirm_error') === 'not_found')      setConfirmStatus('not_found');
         // Pulisci URL senza ricaricare la pagina
@@ -106,7 +111,7 @@ export function SigilloPage() {
 
             {/* CertificationFlow — la box principale */}
             <section className="px-6 pb-10 max-w-lg mx-auto">
-                <CertificationFlow />
+                <CertificationFlow confirmedUuid={confirmedUuid} />
             </section>
 
             {/* Separatore con link verifica */}

@@ -21,16 +21,24 @@ import config from '@/utils/config';
 const POLL_INTERVAL_MS  = 8000;   // controlla stato ogni 8s durante 'anchoring'
 const POLL_MAX_ATTEMPTS = 45;     // max 6 minuti di polling
 
-export function CertificationFlow() {
+export function CertificationFlow({ confirmedUuid }: { confirmedUuid?: string | null }) {
     const {
         state, file, certificate, paywallInfo, errorMessage,
-        selectFile, setHash, certify, getCertificate, reset,
+        selectFile, setHash, certify, getCertificate, confirmFromUrl, reset,
     } = useCertification();
 
     const [email, setEmail] = useState('');
 
     const pollCount = useRef(0);
     const pollTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+
+    // Se l'utente arriva dal magic link di conferma email, carica il certificato
+    // e porta la macchina a stati in 'anchoring' (o 'done' se già ancorato)
+    useEffect(() => {
+        if (confirmedUuid) {
+            confirmFromUrl(confirmedUuid);
+        }
+    }, [confirmedUuid]);
 
     // Polling durante 'anchoring': controlla se il cron ha ancorato
     useEffect(() => {
