@@ -104,18 +104,32 @@ function CertificateCard({ cert }: { cert: AnonCertificate }) {
                 </span>
 
                 {cert.status === 'anchored' && (
-                    <button
-                        type="button"
-                        onClick={() => {
-                            window.location.hash = `verifica?uuid=${encodeURIComponent(cert.uuid)}`;
-                            document.getElementById('verifica')?.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                        className="text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] rounded"
-                        style={{ color: 'var(--accent)' }}
-                        aria-label={`Verifica certificato ${cert.file_name}`}
-                    >
-                        Verifica →
-                    </button>
+                    <div className="flex items-center gap-3">
+                        {cert.algorand_tx_id && (
+                            <a
+                                href={`https://allo.info/tx/${cert.algorand_tx_id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] rounded"
+                                style={{ color: 'var(--accent)' }}
+                                aria-label={`Vedi transazione Algorand per ${cert.file_name}`}
+                            >
+                                Algorand ↗
+                            </a>
+                        )}
+                        <button
+                            type="button"
+                            onClick={() => {
+                                window.location.hash = `verifica?uuid=${encodeURIComponent(cert.uuid)}`;
+                                document.getElementById('verifica')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            className="text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] rounded"
+                            style={{ color: 'rgba(255,255,255,0.5)' }}
+                            aria-label={`Verifica certificato ${cert.file_name}`}
+                        >
+                            Verifica →
+                        </button>
+                    </div>
                 )}
             </div>
         </div>

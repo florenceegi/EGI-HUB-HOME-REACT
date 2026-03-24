@@ -69,6 +69,7 @@ export interface AnonCertificate {
     short_hash: string;
     status: string;
     anchored_at: string | null;
+    algorand_tx_id: string | null;
     created_at: string;
 }
 

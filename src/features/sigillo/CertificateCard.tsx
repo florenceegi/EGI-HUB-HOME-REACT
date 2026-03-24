@@ -112,12 +112,24 @@ export function CertificateCard({ certificate, onCertifyAnother }: CertificateCa
                     <Row label="Dimensione" value={certificate.file_size_human} />
                     <Row label="Hash SHA-256" value={`${certificate.file_hash_sha256.slice(0, 16)}...${certificate.file_hash_sha256.slice(-8)}`} mono />
                     {certificate.algorand_tx_id && (
-                        <Row label="TX Algorand" value={`${certificate.algorand_tx_id.slice(0, 16)}...`} mono />
+                        <div className="flex items-center justify-between gap-2">
+                            <span className="text-white/40 text-xs">TX Algorand</span>
+                            <a
+                                href={`https://allo.info/tx/${certificate.algorand_tx_id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs font-mono text-[var(--accent)] hover:underline focus:outline-none focus:ring-1 focus:ring-[var(--accent)] rounded"
+                                title={certificate.algorand_tx_id}
+                                aria-label="Vedi transazione su Algorand Explorer"
+                            >
+                                {certificate.algorand_tx_id.slice(0, 16)}... ↗
+                            </a>
+                        </div>
                     )}
                     {certificate.anchored_at ? (
                         <Row label="Data certificazione" value={new Date(certificate.anchored_at).toLocaleString('it-IT')} />
                     ) : (
-                        <Row label="Stato" value="In attesa ancoraggio (entro 1 ora)" />
+                        <Row label="Stato" value="Ancoraggio blockchain in corso..." />
                     )}
                     <Row label="UUID" value={certificate.uuid} mono small />
                 </div>

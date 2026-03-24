@@ -159,7 +159,18 @@ export function VerifySection() {
                             <div className="text-xs text-white/50 space-y-1 border-t border-white/10 pt-3">
                                 <p>Certificato il: <span className="text-white/70">{new Date(result.anchored_at).toLocaleString('it-IT')}</span></p>
                                 {result.algorand_tx_id && (
-                                    <p className="font-mono break-all text-[var(--accent)]/70">TX: {result.algorand_tx_id}</p>
+                                    <p>
+                                        TX:{' '}
+                                        <a
+                                            href={`https://allo.info/tx/${result.algorand_tx_id}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="font-mono break-all text-[var(--accent)] hover:underline"
+                                            aria-label="Vedi transazione su Algorand Explorer"
+                                        >
+                                            {result.algorand_tx_id} ↗
+                                        </a>
+                                    </p>
                                 )}
                             </div>
                         )}
