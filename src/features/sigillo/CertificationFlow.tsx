@@ -21,7 +21,13 @@ import config from '@/utils/config';
 const POLL_INTERVAL_MS  = 8000;   // controlla stato ogni 8s durante 'anchoring'
 const POLL_MAX_ATTEMPTS = 45;     // max 6 minuti di polling
 
-export function CertificationFlow({ confirmedUuid }: { confirmedUuid?: string | null }) {
+export function CertificationFlow({
+    confirmedUuid,
+    isAuthenticated = false,
+}: {
+    confirmedUuid?:    string | null;
+    isAuthenticated?:  boolean;
+}) {
     const {
         state, file, certificate, paywallInfo, errorMessage,
         selectFile, setHash, certify, getCertificate, confirmFromUrl, reset,
@@ -66,7 +72,7 @@ export function CertificationFlow({ confirmedUuid }: { confirmedUuid?: string | 
         certify(email.trim() || undefined);
     };
 
-    const isEmailValid = email.includes('@') && email.includes('.');
+    const isEmailValid = isAuthenticated || (email.includes('@') && email.includes('.'));
     const isPaywall    = state === 'error' && paywallInfo;
 
     return (
@@ -89,14 +95,16 @@ export function CertificationFlow({ confirmedUuid }: { confirmedUuid?: string | 
                         {/* Email + bottone certifica (visibili solo quando l'hash è pronto) */}
                         {file?.hash && state === 'selected' && (
                             <div className="mt-3 space-y-3">
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="La tua email per ricevere il certificato"
-                                    className="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-sm text-white/80 placeholder:text-white/25 focus:outline-none focus:border-[var(--accent)]/60"
-                                    aria-label="Email per ricevere il certificato"
-                                />
+                                {!isAuthenticated && (
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="La tua email per ricevere il certificato"
+                                        className="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-sm text-white/80 placeholder:text-white/25 focus:outline-none focus:border-[var(--accent)]/60"
+                                        aria-label="Email per ricevere il certificato"
+                                    />
+                                )}
                                 <motion.button
                                     initial={{ opacity: 0, y: 8 }}
                                     animate={{ opacity: 1, y: 0 }}

@@ -38,24 +38,33 @@ export interface UseSigilloAuthReturn {
     clearError: () => void;
 }
 
+const AUTH_EVENT = 'sigillo:auth-change';
+
+function readFromStorage(): SigilloUser | null {
+    const token  = localStorage.getItem(TOKEN_KEY);
+    const stored = localStorage.getItem(USER_KEY);
+    if (!token || !stored) return null;
+    try { return JSON.parse(stored); } catch { return null; }
+}
+
 export function useSigilloAuth(): UseSigilloAuthReturn {
-    const [user, setUser]         = useState<SigilloUser | null>(null);
+    const [user, setUser]         = useState<SigilloUser | null>(readFromStorage);
     const [isLoading, setLoading] = useState(false);
     const [error, setError]       = useState<string | null>(null);
 
-    // Ripristina utente dal localStorage al montaggio
+    // Ascolta l'evento custom per sincronizzare tutte le istanze dell'hook
+    // (il modal e SigilloPage usano istanze separate — questo le allinea)
     useEffect(() => {
-        const token  = localStorage.getItem(TOKEN_KEY);
-        const stored = localStorage.getItem(USER_KEY);
-        if (token && stored) {
-            try { setUser(JSON.parse(stored)); } catch { /* stored malformato */ }
-        }
+        const handler = () => setUser(readFromStorage());
+        window.addEventListener(AUTH_EVENT, handler);
+        return () => window.removeEventListener(AUTH_EVENT, handler);
     }, []);
 
     const persist = (token: string, userData: SigilloUser) => {
         localStorage.setItem(TOKEN_KEY, token);
         localStorage.setItem(USER_KEY, JSON.stringify(userData));
         setUser(userData);
+        window.dispatchEvent(new CustomEvent(AUTH_EVENT));
     };
 
     const login = useCallback(async (email: string, password: string) => {
@@ -101,6 +110,7 @@ export function useSigilloAuth(): UseSigilloAuthReturn {
         localStorage.removeItem(TOKEN_KEY);
         localStorage.removeItem(USER_KEY);
         setUser(null);
+        window.dispatchEvent(new CustomEvent(AUTH_EVENT));
     }, []);
 
     const clearError = useCallback(() => setError(null), []);

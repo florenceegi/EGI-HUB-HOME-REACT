@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 24 24">
+  <!-- Logo FlorenceEGI - Versione filled con oro fiorentino -->
+  <g fill="#D4AF37">
+    <!-- Livello superiore (diamante/piramide) -->
+    <path d="M12 2L2 7l10 5 10-5z"/>
+    <!-- Livello centrale -->
+    <path d="M2 12l10 5 10-5-10-5z" opacity="0.8"/>
+    <!-- Livello inferiore -->
+    <path d="M2 17l10 5 10-5-10-5z" opacity="0.6"/>
+  </g>
+</svg>

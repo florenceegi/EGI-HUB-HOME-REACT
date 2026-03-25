@@ -9,7 +9,8 @@
 ## 🌐 OSZ — Ruolo nell'Ecosistema
 
 ```
-EGI-HUB-HOME-REACT è la vetrina visiva dell'organismo FlorenceEGI.
+EGI-HUB-HOME-REACT è la radice pubblica dell'organismo FlorenceEGI.
+URL produzione: florenceegi.com | EC2: i-0940cdb7b955d1632 | Path: /home/forge/florenceegi.com
 NON è un pannello di controllo (quello è EGI-HUB).
 È l'interfaccia pubblica che mostra l'ecosistema in forma tridimensionale.
 
@@ -44,6 +45,7 @@ Sospetti candidati: `EcosystemView.tsx`, `DesktopHeroSection.tsx`, `HomeAtmosphe
 | P0-6 | **Anti-Service-Method** | `Read` + `grep` prima di qualsiasi service call |
 | P0-8 | **Complete Flow Analysis** | Mappa il flusso COMPLETO prima di qualsiasi fix |
 | P0-11 | **DOC-SYNC** | Task non chiusa senza EGI-DOC aggiornato |
+| P0-12 | **Anti-Infra-Invention** | Qualsiasi info di deploy/infrastruttura (URL, path EC2, branch) va verificata dalla fonte reale — SSM `ls`, `git remote -v`, `git branch` — MAI copiata da altri file o dedotta dal nome del progetto |
 
 ### P0 specifici — Three.js / 3D
 
@@ -171,6 +173,7 @@ Prima di chiudere ogni task, classifica la modifica:
 6. Sto toccando file [LEGACY]?               → SÌ  = 🛑 DICHIARA + piano
 7. Tipo modifica → [1-6]?                    → ?   = classifica con Trigger Matrix sopra
 8. DOC-SYNC eseguito (se Tipo 2+)?           → NO  = 🛑 NON CHIUDERE (P0-11)
+9. Info deploy/infra scritte o usate?        → SÌ  = 🛑 VERIFICA da SSM/git, MAI dedurre (P0-12)
 ```
 
 ---
@@ -187,6 +190,22 @@ find src -name "*.tsx" | xargs wc -l | sort -rn | head -15
 # Build TypeScript (zero errori prima di commit)
 npm run build
 ```
+
+### Pipeline Post-Commit — OBBLIGATORIA E AUTOMATICA
+
+Dopo ogni `git commit`, **senza aspettare istruzioni**, eseguire sempre nell'ordine:
+
+```
+1. npm run build  (public/build/ è in .gitignore — buildata localmente prima del push)
+2. git push origin main
+3. SSM deploy su EC2 (i-0940cdb7b955d1632, path /home/forge/florenceegi.com):
+   git pull origin main && npm run build
+4. Verificare output SSM (Status: Success)
+```
+
+**Nessuna eccezione. Nessuna richiesta di conferma. Il deploy è parte del commit.**
+
+Se il deploy SSM fallisce → riportare l'errore immediatamente e bloccarsi.
 
 ---
 

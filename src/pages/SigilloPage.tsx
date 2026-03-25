@@ -106,17 +106,25 @@ export function SigilloPage() {
                 >
                     {user ? (
                         <>
-                            <span className="text-sm text-white/70">
-                                👤 {user.name}
-                            </span>
-                            <button
-                                type="button"
-                                onClick={logout}
-                                className="px-4 py-2 rounded-xl text-xs font-medium transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
-                                style={{ border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.5)' }}
+                            <a
+                                href="https://art.florenceegi.com/features/sigillo_monthly_100/purchase"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                                style={{ background: 'var(--accent)', color: '#0A1222' }}
                             >
-                                Esci
-                            </button>
+                                Sblocca illimitato — €7,90/mese
+                            </a>
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs text-white/40">👤 {user.name}</span>
+                                <button
+                                    type="button"
+                                    onClick={logout}
+                                    className="text-xs text-white/25 hover:text-white/50 transition-colors focus:outline-none"
+                                >
+                                    Esci
+                                </button>
+                            </div>
                         </>
                     ) : (
                         <>
@@ -169,7 +177,7 @@ export function SigilloPage() {
 
             {/* CertificationFlow — la box principale */}
             <section className="px-6 pb-10 max-w-lg mx-auto">
-                <CertificationFlow confirmedUuid={confirmedUuid} />
+                <CertificationFlow confirmedUuid={confirmedUuid} isAuthenticated={!!user} />
             </section>
 
             {/* Separatore visivo */}
