@@ -234,37 +234,32 @@ export function SigilloPage() {
     );
 }
 
-const EGI_PURCHASE_URL = (import.meta.env.VITE_EGI_URL as string | undefined) ?? 'https://art.florenceegi.com';
-
 /** I 3 piani Sigillo — sempre visibili (non solo al paywall) */
 function SubscriptionTiers() {
     const tiers = [
         {
-            code:  'sigillo_single_cert',
             icon:  '⚡',
             title: 'Spot con Egili',
             price: '50 Egili / cert',
             note:  'Se hai Egili nel wallet',
-            color: 'rgba(14,165,164,0.15)',
-            border: 'rgba(14,165,164,0.3)',
+            color: 'rgba(14,165,164,0.10)',
+            border: 'rgba(14,165,164,0.2)',
         },
         {
-            code:  'sigillo_pack_50',
             icon:  '📦',
             title: 'Pack 50 cert',
             price: '€4,90',
-            note:  '50 cert · 1 anno · 500 Egili',
-            color: 'rgba(59,130,246,0.10)',
-            border: 'rgba(59,130,246,0.25)',
+            note:  '50 cert · 1 anno · 500 Egili in regalo',
+            color: 'rgba(59,130,246,0.07)',
+            border: 'rgba(59,130,246,0.18)',
         },
         {
-            code:  'sigillo_monthly_100',
             icon:  '🏆',
             title: 'Pro mensile',
             price: '€7,90/mese',
-            note:  '100 cert/mese · 800 Egili',
-            color: 'rgba(176,141,42,0.10)',
-            border: 'rgba(176,141,42,0.30)',
+            note:  '100 cert/mese · 800 Egili in regalo',
+            color: 'rgba(176,141,42,0.08)',
+            border: 'rgba(176,141,42,0.22)',
         },
     ];
 
@@ -274,12 +269,9 @@ function SubscriptionTiers() {
                 Piani disponibili
             </p>
             {tiers.map((t) => (
-                <a
-                    key={t.code}
-                    href={`${EGI_PURCHASE_URL}/features/${t.code}/purchase`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between gap-3 rounded-xl px-4 py-3 transition-opacity hover:opacity-80"
+                <div
+                    key={t.title}
+                    className="flex items-center justify-between gap-3 rounded-xl px-4 py-3"
                     style={{ background: t.color, border: `1px solid ${t.border}` }}
                 >
                     <div className="flex items-center gap-3">
@@ -289,11 +281,11 @@ function SubscriptionTiers() {
                             <p className="text-[10px] text-white/35">{t.note}</p>
                         </div>
                     </div>
-                    <span className="text-sm font-bold text-white/60 shrink-0">{t.price} →</span>
-                </a>
+                    <span className="text-sm font-bold text-white/55 shrink-0">{t.price}</span>
+                </div>
             ))}
             <p className="text-[10px] text-white/20 text-center pt-1">
-                Egili = crediti ecosistema FlorenceEGI · MiCA-safe · nessun valore monetario
+                Accedi e certifica un file — il sistema ti guiderà all'acquisto quando necessario
             </p>
         </div>
     );
