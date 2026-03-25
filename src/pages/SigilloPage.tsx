@@ -2,19 +2,25 @@
  * SigilloPage — Pagina principale del servizio Sigillo su florenceegi.com/sigillo
  * Dark layout, full experience: certifica → verifica → casi d'uso → come funziona
  */
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { CertificationFlow }      from '../features/sigillo/CertificationFlow';
 import { VerifySection }           from '../features/sigillo/VerifySection';
 import { HowItWorksSection }       from '../features/sigillo/HowItWorksSection';
 import { UseCasesSection }         from '../features/sigillo/UseCasesSection';
 import { AnonCertificatesPanel }   from '../features/sigillo/AnonCertificatesPanel';
+import { SigilloAuthModal }        from '../features/sigillo/SigilloAuthModal';
+import { useSigilloAuth }          from '../features/sigillo/hooks/useSigilloAuth';
 
 type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
+type AuthModal = 'login' | 'register' | null;
 
 export function SigilloPage() {
     const [confirmStatus, setConfirmStatus] = useState<ConfirmStatus>(null);
     const [confirmedUuid, setConfirmedUuid] = useState<string | null>(null);
+    const [authModal, setAuthModal]         = useState<AuthModal>(null);
+
+    const { user, logout } = useSigilloAuth();
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -98,20 +104,40 @@ export function SigilloPage() {
                     transition={{ delay: 0.4 }}
                     className="flex items-center justify-center gap-3 flex-wrap"
                 >
-                    <a
-                        href="https://art.florenceegi.com/features/sigillo_monthly_100/purchase"
-                        className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
-                        style={{ background: 'var(--accent)', color: '#0A1222' }}
-                    >
-                        Registrati — Sblocca illimitato
-                    </a>
-                    <a
-                        href="https://art.florenceegi.com/login"
-                        className="px-5 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
-                        style={{ border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.75)' }}
-                    >
-                        Accedi
-                    </a>
+                    {user ? (
+                        <>
+                            <span className="text-sm text-white/70">
+                                👤 {user.name}
+                            </span>
+                            <button
+                                type="button"
+                                onClick={logout}
+                                className="px-4 py-2 rounded-xl text-xs font-medium transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+                                style={{ border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.5)' }}
+                            >
+                                Esci
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <button
+                                type="button"
+                                onClick={() => setAuthModal('register')}
+                                className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                                style={{ background: 'var(--accent)', color: '#0A1222' }}
+                            >
+                                Registrati — Sblocca illimitato
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setAuthModal('login')}
+                                className="px-5 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+                                style={{ border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.75)' }}
+                            >
+                                Accedi
+                            </button>
+                        </>
+                    )}
                 </motion.div>
                 <motion.p
                     initial={{ opacity: 0 }}
@@ -191,6 +217,17 @@ export function SigilloPage() {
                     Sigillo è un servizio FlorenceEGI · Powered by Algorand Blockchain
                 </p>
             </div>
+
+            {/* Modal auth — inline, nessun redirect */}
+            <AnimatePresence>
+                {authModal && (
+                    <SigilloAuthModal
+                        key="auth-modal"
+                        initialMode={authModal}
+                        onClose={() => setAuthModal(null)}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 }
