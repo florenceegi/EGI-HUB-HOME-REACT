@@ -105,27 +105,16 @@ export function SigilloPage() {
                     className="flex items-center justify-center gap-3 flex-wrap"
                 >
                     {user ? (
-                        <>
-                            <a
-                                href="https://art.florenceegi.com/features/sigillo_monthly_100/purchase"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
-                                style={{ background: 'var(--accent)', color: '#0A1222' }}
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs text-white/40">👤 {user.name}</span>
+                            <button
+                                type="button"
+                                onClick={logout}
+                                className="text-xs text-white/25 hover:text-white/50 transition-colors focus:outline-none"
                             >
-                                Sblocca illimitato — €7,90/mese
-                            </a>
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs text-white/40">👤 {user.name}</span>
-                                <button
-                                    type="button"
-                                    onClick={logout}
-                                    className="text-xs text-white/25 hover:text-white/50 transition-colors focus:outline-none"
-                                >
-                                    Esci
-                                </button>
-                            </div>
-                        </>
+                                Esci
+                            </button>
+                        </div>
                     ) : (
                         <>
                             <button
@@ -178,6 +167,11 @@ export function SigilloPage() {
             {/* CertificationFlow — la box principale */}
             <section className="px-6 pb-10 max-w-lg mx-auto">
                 <CertificationFlow confirmedUuid={confirmedUuid} isAuthenticated={!!user} />
+            </section>
+
+            {/* Piani di abbonamento — visibili sempre */}
+            <section className="px-6 pb-6 max-w-lg mx-auto">
+                <SubscriptionTiers />
             </section>
 
             {/* Separatore visivo */}
@@ -236,6 +230,71 @@ export function SigilloPage() {
                     />
                 )}
             </AnimatePresence>
+        </div>
+    );
+}
+
+const EGI_PURCHASE_URL = (import.meta.env.VITE_EGI_URL as string | undefined) ?? 'https://art.florenceegi.com';
+
+/** I 3 piani Sigillo — sempre visibili (non solo al paywall) */
+function SubscriptionTiers() {
+    const tiers = [
+        {
+            code:  'sigillo_single_cert',
+            icon:  '⚡',
+            title: 'Spot con Egili',
+            price: '50 Egili / cert',
+            note:  'Se hai Egili nel wallet',
+            color: 'rgba(14,165,164,0.15)',
+            border: 'rgba(14,165,164,0.3)',
+        },
+        {
+            code:  'sigillo_pack_50',
+            icon:  '📦',
+            title: 'Pack 50 cert',
+            price: '€4,90',
+            note:  '50 cert · 1 anno · 500 Egili',
+            color: 'rgba(59,130,246,0.10)',
+            border: 'rgba(59,130,246,0.25)',
+        },
+        {
+            code:  'sigillo_monthly_100',
+            icon:  '🏆',
+            title: 'Pro mensile',
+            price: '€7,90/mese',
+            note:  '100 cert/mese · 800 Egili',
+            color: 'rgba(176,141,42,0.10)',
+            border: 'rgba(176,141,42,0.30)',
+        },
+    ];
+
+    return (
+        <div className="space-y-2">
+            <p className="text-[10px] text-white/30 uppercase tracking-widest text-center pb-1">
+                Piani disponibili
+            </p>
+            {tiers.map((t) => (
+                <a
+                    key={t.code}
+                    href={`${EGI_PURCHASE_URL}/features/${t.code}/purchase`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between gap-3 rounded-xl px-4 py-3 transition-opacity hover:opacity-80"
+                    style={{ background: t.color, border: `1px solid ${t.border}` }}
+                >
+                    <div className="flex items-center gap-3">
+                        <span className="text-lg" aria-hidden="true">{t.icon}</span>
+                        <div>
+                            <p className="text-sm font-medium text-white/80">{t.title}</p>
+                            <p className="text-[10px] text-white/35">{t.note}</p>
+                        </div>
+                    </div>
+                    <span className="text-sm font-bold text-white/60 shrink-0">{t.price} →</span>
+                </a>
+            ))}
+            <p className="text-[10px] text-white/20 text-center pt-1">
+                Egili = crediti ecosistema FlorenceEGI · MiCA-safe · nessun valore monetario
+            </p>
         </div>
     );
 }
