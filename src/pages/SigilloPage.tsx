@@ -11,6 +11,7 @@ import { UseCasesSection }         from '../features/sigillo/UseCasesSection';
 import { AnonCertificatesPanel }   from '../features/sigillo/AnonCertificatesPanel';
 import { SigilloAuthModal }        from '../features/sigillo/SigilloAuthModal';
 import { useSigilloAuth }          from '../features/sigillo/hooks/useSigilloAuth';
+import config from '@/utils/config';
 
 type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
 type AuthModal = 'login' | 'register' | null;
@@ -238,28 +239,34 @@ export function SigilloPage() {
 function SubscriptionTiers() {
     const tiers = [
         {
-            icon:  '⚡',
-            title: 'Spot con Egili',
-            price: '50 Egili / cert',
-            note:  'Se hai Egili nel wallet',
-            color: 'rgba(14,165,164,0.10)',
-            border: 'rgba(14,165,164,0.2)',
+            icon:    '⚡',
+            title:   'Spot con Egili',
+            price:   '50 Egili / cert',
+            note:    'Se hai Egili nel wallet',
+            color:   'rgba(14,165,164,0.10)',
+            border:  'rgba(14,165,164,0.2)',
+            href:    null,  // Gestito dal paywall inline dopo la certificazione
+            cta:     null,
         },
         {
-            icon:  '📦',
-            title: 'Pack 50 cert',
-            price: '€4,90',
-            note:  '50 cert · 1 anno · 500 Egili in regalo',
-            color: 'rgba(59,130,246,0.07)',
-            border: 'rgba(59,130,246,0.18)',
+            icon:    '📦',
+            title:   'Pack 50 cert',
+            price:   '€4,90',
+            note:    '50 cert · 1 anno · 500 Egili in regalo',
+            color:   'rgba(59,130,246,0.07)',
+            border:  'rgba(59,130,246,0.18)',
+            href:    `${config.florenceUrl}/features/sigillo_pack_50/purchase`,
+            cta:     'Acquista',
         },
         {
-            icon:  '🏆',
-            title: 'Pro mensile',
-            price: '€7,90/mese',
-            note:  '100 cert/mese · 800 Egili in regalo',
-            color: 'rgba(176,141,42,0.08)',
-            border: 'rgba(176,141,42,0.22)',
+            icon:    '🏆',
+            title:   'Pro mensile',
+            price:   '€7,90/mese',
+            note:    '100 cert/mese · 800 Egili in regalo',
+            color:   'rgba(176,141,42,0.08)',
+            border:  'rgba(176,141,42,0.22)',
+            href:    `${config.florenceUrl}/features/sigillo_monthly_100/purchase`,
+            cta:     'Abbonati',
         },
     ];
 
@@ -281,7 +288,19 @@ function SubscriptionTiers() {
                             <p className="text-[10px] text-white/35">{t.note}</p>
                         </div>
                     </div>
-                    <span className="text-sm font-bold text-white/55 shrink-0">{t.price}</span>
+                    <div className="flex items-center gap-2 shrink-0">
+                        <span className="text-sm font-bold text-white/55">{t.price}</span>
+                        {t.href && t.cta && (
+                            <a
+                                href={t.href}
+                                className="px-3 py-1 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-white/30"
+                                style={{ background: t.border, color: '#fff' }}
+                                aria-label={`${t.cta} ${t.title}`}
+                            >
+                                {t.cta}
+                            </a>
+                        )}
+                    </div>
                 </div>
             ))}
             <p className="text-[10px] text-white/20 text-center pt-1">
