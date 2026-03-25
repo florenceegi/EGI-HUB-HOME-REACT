@@ -146,7 +146,7 @@ export function SigilloPage() {
                             <button
                                 type="button"
                                 onClick={logout}
-                                className="text-xs text-white/25 hover:text-white/50 transition-colors focus:outline-none"
+                                className="text-xs text-white/50 hover:text-white/80 underline transition-colors focus:outline-none"
                             >
                                 Esci
                             </button>
