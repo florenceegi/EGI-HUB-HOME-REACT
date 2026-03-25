@@ -90,6 +90,37 @@ export function SigilloPage() {
                 >
                     Certifica qualsiasi file su blockchain. Gratuito. Immutabile. Per sempre.
                 </motion.p>
+
+                {/* Auth CTA */}
+                <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="flex items-center justify-center gap-3 flex-wrap"
+                >
+                    <a
+                        href="https://art.florenceegi.com/features/sigillo_monthly_100/purchase"
+                        className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                        style={{ background: 'var(--accent)', color: '#0A1222' }}
+                    >
+                        Registrati — Sblocca illimitato
+                    </a>
+                    <a
+                        href="https://art.florenceegi.com/login"
+                        className="px-5 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+                        style={{ border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.75)' }}
+                    >
+                        Accedi
+                    </a>
+                </motion.div>
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="text-xs text-white/30"
+                >
+                    3 certificazioni gratuite senza registrazione · Illimitato con account
+                </motion.p>
             </section>
 
             {/* Banner conferma email / errore link */}
