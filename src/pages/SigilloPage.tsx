@@ -215,7 +215,9 @@ export function SigilloPage() {
                             ? 'Pagamento non completato.'
                             : purchaseError === 'user_not_found'
                                 ? 'Utente non trovato. Accedi e riprova.'
-                                : "Errore durante l'acquisto. Contatta il supporto."}
+                                : purchaseError === 'activation_failed_refunded'
+                                    ? 'Attivazione fallita — rimborso emesso automaticamente. Riprova tra qualche minuto o contatta il supporto.'
+                                    : "Errore durante l'acquisto. Contatta il supporto."}
                     </div>
                 </div>
             )}
