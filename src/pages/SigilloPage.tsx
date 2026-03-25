@@ -11,15 +11,19 @@ import { UseCasesSection }         from '../features/sigillo/UseCasesSection';
 import { AnonCertificatesPanel }   from '../features/sigillo/AnonCertificatesPanel';
 import { SigilloAuthModal }        from '../features/sigillo/SigilloAuthModal';
 import { useSigilloAuth }          from '../features/sigillo/hooks/useSigilloAuth';
-import config from '@/utils/config';
+import { egiApi }                  from '../services/api';
 
 type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
 type AuthModal = 'login' | 'register' | null;
 
 export function SigilloPage() {
-    const [confirmStatus, setConfirmStatus] = useState<ConfirmStatus>(null);
-    const [confirmedUuid, setConfirmedUuid] = useState<string | null>(null);
-    const [authModal, setAuthModal]         = useState<AuthModal>(null);
+    const [confirmStatus, setConfirmStatus]   = useState<ConfirmStatus>(null);
+    const [confirmedUuid, setConfirmedUuid]   = useState<string | null>(null);
+    const [authModal, setAuthModal]           = useState<AuthModal>(null);
+    const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+    const [checkoutError, setCheckoutError]   = useState<string | null>(null);
+    const [purchaseStatus, setPurchaseStatus] = useState<'success' | 'error' | null>(null);
+    const [purchaseError, setPurchaseError]   = useState<string | null>(null);
 
     const { user, logout } = useSigilloAuth();
 
@@ -36,7 +40,38 @@ export function SigilloPage() {
         if (params.has('confirmed') || params.has('confirm_error')) {
             window.history.replaceState({}, '', '/sigillo');
         }
+        const purchaseComplete = params.get('purchase_complete');
+        const purchaseErr      = params.get('purchase_error');
+        if (purchaseComplete) {
+            setPurchaseStatus('success');
+            window.history.replaceState({}, '', '/sigillo');
+        }
+        if (purchaseErr) {
+            setPurchaseStatus('error');
+            setPurchaseError(purchaseErr);
+            window.history.replaceState({}, '', '/sigillo');
+        }
     }, []);
+
+    const handleCheckout = async (featureCode: string) => {
+        if (!user) {
+            setAuthModal('login');
+            return;
+        }
+        setCheckoutLoading(featureCode);
+        setCheckoutError(null);
+        try {
+            const { data } = await egiApi.post<{ checkout_url: string }>(
+                '/sigillo/checkout',
+                { feature_code: featureCode }
+            );
+            window.location.href = data.checkout_url;
+        } catch (err: any) {
+            const msg = err.response?.data?.message ?? 'Errore durante il checkout. Riprova.';
+            setCheckoutError(msg);
+            setCheckoutLoading(null);
+        }
+    };
 
     return (
         <div
@@ -165,6 +200,34 @@ export function SigilloPage() {
                 </div>
             )}
 
+            {/* Banner acquisto completato */}
+            {purchaseStatus === 'success' && (
+                <div className="px-6 mb-4 max-w-lg mx-auto">
+                    <div className="rounded-xl bg-emerald-500/15 border border-emerald-500/30 p-4 text-sm text-emerald-400 text-center">
+                        Acquisto completato! Il pacchetto è ora attivo sul tuo account.
+                    </div>
+                </div>
+            )}
+            {purchaseStatus === 'error' && (
+                <div className="px-6 mb-4 max-w-lg mx-auto">
+                    <div className="rounded-xl bg-red-500/15 border border-red-500/30 p-4 text-sm text-red-400 text-center">
+                        {purchaseError === 'payment_not_completed'
+                            ? 'Pagamento non completato.'
+                            : purchaseError === 'user_not_found'
+                                ? 'Utente non trovato. Accedi e riprova.'
+                                : "Errore durante l'acquisto. Contatta il supporto."}
+                    </div>
+                </div>
+            )}
+            {/* Banner errore checkout lato client */}
+            {checkoutError && (
+                <div className="px-6 mb-4 max-w-lg mx-auto">
+                    <div className="rounded-xl bg-red-500/15 border border-red-500/30 p-4 text-sm text-red-400 text-center">
+                        {checkoutError}
+                    </div>
+                </div>
+            )}
+
             {/* CertificationFlow — la box principale */}
             <section className="px-6 pb-10 max-w-lg mx-auto">
                 <CertificationFlow confirmedUuid={confirmedUuid} isAuthenticated={!!user} />
@@ -172,7 +235,7 @@ export function SigilloPage() {
 
             {/* Piani di abbonamento — visibili sempre */}
             <section className="px-6 pb-6 max-w-lg mx-auto">
-                <SubscriptionTiers />
+                <SubscriptionTiers onCheckout={handleCheckout} checkoutLoading={checkoutLoading} />
             </section>
 
             {/* Separatore visivo */}
@@ -236,37 +299,47 @@ export function SigilloPage() {
 }
 
 /** I 3 piani Sigillo — sempre visibili (non solo al paywall) */
-function SubscriptionTiers() {
-    const tiers = [
+function SubscriptionTiers({
+    onCheckout,
+    checkoutLoading,
+}: {
+    onCheckout:      (featureCode: string) => void;
+    checkoutLoading: string | null;
+}) {
+    const tiers: Array<{
+        icon: string; title: string; price: string; note: string;
+        color: string; border: string;
+        featureCode: string | null; cta: string | null;
+    }> = [
         {
-            icon:    '⚡',
-            title:   'Spot con Egili',
-            price:   '50 Egili / cert',
-            note:    'Se hai Egili nel wallet',
-            color:   'rgba(14,165,164,0.10)',
-            border:  'rgba(14,165,164,0.2)',
-            href:    null,  // Gestito dal paywall inline dopo la certificazione
-            cta:     null,
+            icon:        '⚡',
+            title:       'Spot con Egili',
+            price:       '50 Egili / cert',
+            note:        'Se hai Egili nel wallet',
+            color:       'rgba(14,165,164,0.10)',
+            border:      'rgba(14,165,164,0.2)',
+            featureCode: null,
+            cta:         null,
         },
         {
-            icon:    '📦',
-            title:   'Pack 50 cert',
-            price:   '€4,90',
-            note:    '50 cert · 1 anno · 500 Egili in regalo',
-            color:   'rgba(59,130,246,0.07)',
-            border:  'rgba(59,130,246,0.18)',
-            href:    `${config.florenceUrl}/features/sigillo_pack_50/purchase`,
-            cta:     'Acquista',
+            icon:        '📦',
+            title:       'Pack 50 cert',
+            price:       '€4,90',
+            note:        '50 cert · 1 anno · 500 Egili in regalo',
+            color:       'rgba(59,130,246,0.07)',
+            border:      'rgba(59,130,246,0.18)',
+            featureCode: 'sigillo_pack_50',
+            cta:         'Acquista',
         },
         {
-            icon:    '🏆',
-            title:   'Pro mensile',
-            price:   '€7,90/mese',
-            note:    '100 cert/mese · 800 Egili in regalo',
-            color:   'rgba(176,141,42,0.08)',
-            border:  'rgba(176,141,42,0.22)',
-            href:    `${config.florenceUrl}/features/sigillo_monthly_100/purchase`,
-            cta:     'Abbonati',
+            icon:        '🏆',
+            title:       'Pro mensile',
+            price:       '€7,90/mese',
+            note:        '100 cert/mese · 800 Egili in regalo',
+            color:       'rgba(176,141,42,0.08)',
+            border:      'rgba(176,141,42,0.22)',
+            featureCode: 'sigillo_monthly_100',
+            cta:         'Abbonati',
         },
     ];
 
@@ -290,15 +363,17 @@ function SubscriptionTiers() {
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                         <span className="text-sm font-bold text-white/55">{t.price}</span>
-                        {t.href && t.cta && (
-                            <a
-                                href={t.href}
-                                className="px-3 py-1 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-white/30"
+                        {t.featureCode && t.cta && (
+                            <button
+                                type="button"
+                                onClick={() => onCheckout(t.featureCode!)}
+                                disabled={checkoutLoading === t.featureCode}
+                                className="px-3 py-1 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-white/30 disabled:opacity-50"
                                 style={{ background: t.border, color: '#fff' }}
                                 aria-label={`${t.cta} ${t.title}`}
                             >
-                                {t.cta}
-                            </a>
+                                {checkoutLoading === t.featureCode ? '...' : t.cta}
+                            </button>
                         )}
                     </div>
                 </div>
