@@ -302,10 +302,17 @@ export function SigilloPage() {
             </div>
 
             {/* Footer mini */}
-            <div className="px-6 py-10 text-center border-t border-white/5">
+            <div className="px-6 py-10 text-center border-t border-white/5 space-y-2">
                 <p className="text-xs text-white/25">
                     Sigillo è un servizio FlorenceEGI · Powered by Algorand Blockchain
                 </p>
+                <button
+                    type="button"
+                    onClick={() => navigate('/sigillo/valore-legale')}
+                    className="text-xs text-white/30 hover:text-white/60 transition-colors focus:outline-none underline underline-offset-2"
+                >
+                    Valore legale e limiti di Sigillo →
+                </button>
             </div>
 
             {/* Flusso demo: file reale → hash SHA-256 → PDF ANTEPRIMA */}

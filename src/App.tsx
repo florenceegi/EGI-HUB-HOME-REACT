@@ -14,8 +14,9 @@ import { HowItWorksPage } from '@/pages/HowItWorksPage';
 import { TeamPage } from '@/pages/TeamPage';
 import { EcosystemPage } from '@/pages/EcosystemPage';
 import { UnderConstructionPage } from '@/pages/UnderConstructionPage';
-import { SigilloPage }      from '@/pages/SigilloPage';
-import { SigilloPlansPage } from '@/pages/SigilloPlansPage';
+import { SigilloPage }           from '@/pages/SigilloPage';
+import { SigilloPlansPage }      from '@/pages/SigilloPlansPage';
+import { SigilloLegalValuePage } from '@/pages/SigilloLegalValuePage';
 
 // Mobile components
 import { AppShell } from '@/mobile/app/AppShell';
@@ -78,9 +79,10 @@ function App() {
                         {currentPath === '/under-construction' && <UnderConstructionPage />}
                         {currentPath === '/sigillo' && <SigilloPage />}
                         {currentPath === '/sigillo/piani' && <SigilloPlansPage />}
+                        {currentPath === '/sigillo/valore-legale' && <SigilloLegalValuePage />}
 
                         {/* Fallback for unknown mobile routes */}
-                        {!['/', '/corporate', '/platforms', '/ecosystem', '/what-is', '/how-it-works', '/team', '/under-construction', '/sigillo', '/sigillo/piani'].includes(currentPath) && <MobileHomePage />}
+                        {!['/', '/corporate', '/platforms', '/ecosystem', '/what-is', '/how-it-works', '/team', '/under-construction', '/sigillo', '/sigillo/piani', '/sigillo/valore-legale'].includes(currentPath) && <MobileHomePage />}
 
                     </AppShell>
                 </QueryClientProvider>
@@ -103,6 +105,7 @@ function App() {
         // Sigillo
         if (currentPath === '/sigillo') return <SigilloPage />;
         if (currentPath === '/sigillo/piani') return <SigilloPlansPage />;
+        if (currentPath === '/sigillo/valore-legale') return <SigilloLegalValuePage />;
 
         // Desktop-specific pages
         if (currentPath === '/platforms') return <PlatformsPage />;
