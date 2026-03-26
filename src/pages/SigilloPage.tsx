@@ -15,6 +15,7 @@ import { CertificationDemoFlow }     from '../features/sigillo/CertificationDemo
 import { useSigilloAuth }            from '../features/sigillo/hooks/useSigilloAuth';
 import { useUIStore }                from '../stores/useUIStore';
 import { egiApi }                  from '../services/api';
+import { SigilloAdvisor }           from '../features/sigillo/SigilloAdvisor';
 
 type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
 type AuthModal = 'login' | 'register' | null;
@@ -332,6 +333,9 @@ export function SigilloPage() {
                     />
                 )}
             </AnimatePresence>
+
+            {/* AI Advisor sidebar — FAB + sliding panel */}
+            <SigilloAdvisor user={user} />
         </div>
     );
 }
