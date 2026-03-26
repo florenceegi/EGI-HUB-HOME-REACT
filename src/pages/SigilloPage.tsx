@@ -202,14 +202,6 @@ export function SigilloPage() {
                         </>
                     )}
                 </motion.div>
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="text-xs text-white/30"
-                >
-                    3 certificazioni gratuite senza registrazione · Illimitato con account
-                </motion.p>
             </section>
 
             {/* Banner conferma email / errore link */}
