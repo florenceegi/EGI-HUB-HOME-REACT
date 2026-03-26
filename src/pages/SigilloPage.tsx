@@ -4,14 +4,16 @@
  */
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { CertificationFlow }      from '../features/sigillo/CertificationFlow';
-import { VerifySection }           from '../features/sigillo/VerifySection';
-import { HowItWorksSection }       from '../features/sigillo/HowItWorksSection';
-import { UseCasesSection }         from '../features/sigillo/UseCasesSection';
-import { AnonCertificatesPanel }   from '../features/sigillo/AnonCertificatesPanel';
-import { SigilloAuthModal }        from '../features/sigillo/SigilloAuthModal';
-import { SigilloPlans }            from '../features/sigillo/SigilloPlans';
-import { useSigilloAuth }          from '../features/sigillo/hooks/useSigilloAuth';
+import { CertificationFlow }        from '../features/sigillo/CertificationFlow';
+import { VerifySection }             from '../features/sigillo/VerifySection';
+import { HowItWorksSection }         from '../features/sigillo/HowItWorksSection';
+import { UseCasesSection }           from '../features/sigillo/UseCasesSection';
+import { AnonCertificatesPanel }     from '../features/sigillo/AnonCertificatesPanel';
+import { SigilloAuthModal }          from '../features/sigillo/SigilloAuthModal';
+import { SigilloPlans }              from '../features/sigillo/SigilloPlans';
+import { CertificateMockModal }      from '../features/sigillo/CertificateMockModal';
+import { useSigilloAuth }            from '../features/sigillo/hooks/useSigilloAuth';
+import { useUIStore }                from '../stores/useUIStore';
 import { egiApi }                  from '../services/api';
 
 type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
@@ -25,8 +27,10 @@ export function SigilloPage() {
     const [checkoutError, setCheckoutError]   = useState<string | null>(null);
     const [purchaseStatus, setPurchaseStatus] = useState<'success' | 'error' | null>(null);
     const [purchaseError, setPurchaseError]   = useState<string | null>(null);
+    const [showMockModal, setShowMockModal]   = useState(false);
 
     const { user, logout } = useSigilloAuth();
+    const navigate = useUIStore((state) => state.navigate);
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -133,6 +137,31 @@ export function SigilloPage() {
                 >
                     Certifica qualsiasi file su blockchain. Gratuito. Immutabile. Per sempre.
                 </motion.p>
+
+                {/* CTA principali: demo + piani */}
+                <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="flex items-center justify-center gap-3 flex-wrap"
+                >
+                    <button
+                        type="button"
+                        onClick={() => setShowMockModal(true)}
+                        className="px-5 py-2.5 rounded-xl text-sm font-bold transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                        style={{ background: 'var(--accent)', color: '#0A1222' }}
+                    >
+                        Vedi come funziona →
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => navigate('/sigillo/piani')}
+                        className="px-5 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+                        style={{ border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.75)' }}
+                    >
+                        Vedi i piani
+                    </button>
+                </motion.div>
 
                 {/* Auth CTA */}
                 <motion.div
@@ -286,6 +315,18 @@ export function SigilloPage() {
                     Sigillo è un servizio FlorenceEGI · Powered by Algorand Blockchain
                 </p>
             </div>
+
+            {/* Modal certificato demo */}
+            {showMockModal && (
+                <CertificateMockModal
+                    onClose={() => setShowMockModal(false)}
+                    onBuy={(featureCode) => {
+                        setShowMockModal(false);
+                        handleCheckout(featureCode);
+                    }}
+                    buyLoading={checkoutLoading}
+                />
+            )}
 
             {/* Modal auth — inline, nessun redirect */}
             <AnimatePresence>
