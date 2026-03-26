@@ -10,6 +10,7 @@ import { HowItWorksSection }       from '../features/sigillo/HowItWorksSection';
 import { UseCasesSection }         from '../features/sigillo/UseCasesSection';
 import { AnonCertificatesPanel }   from '../features/sigillo/AnonCertificatesPanel';
 import { SigilloAuthModal }        from '../features/sigillo/SigilloAuthModal';
+import { SigilloPlans }            from '../features/sigillo/SigilloPlans';
 import { useSigilloAuth }          from '../features/sigillo/hooks/useSigilloAuth';
 import { egiApi }                  from '../services/api';
 
@@ -237,7 +238,7 @@ export function SigilloPage() {
 
             {/* Piani di abbonamento — visibili sempre */}
             <section className="px-6 pb-6 max-w-lg mx-auto">
-                <SubscriptionTiers onCheckout={handleCheckout} checkoutLoading={checkoutLoading} />
+                <SigilloPlans onCheckout={handleCheckout} checkoutLoading={checkoutLoading} />
             </section>
 
             {/* Separatore visivo */}
@@ -296,93 +297,6 @@ export function SigilloPage() {
                     />
                 )}
             </AnimatePresence>
-        </div>
-    );
-}
-
-/** I 3 piani Sigillo — sempre visibili (non solo al paywall) */
-function SubscriptionTiers({
-    onCheckout,
-    checkoutLoading,
-}: {
-    onCheckout:      (featureCode: string) => void;
-    checkoutLoading: string | null;
-}) {
-    const tiers: Array<{
-        icon: string; title: string; price: string; note: string;
-        color: string; border: string;
-        featureCode: string | null; cta: string | null;
-    }> = [
-        {
-            icon:        '⚡',
-            title:       'Spot con Egili',
-            price:       '50 Egili / cert',
-            note:        'Se hai Egili nel wallet',
-            color:       'rgba(14,165,164,0.10)',
-            border:      'rgba(14,165,164,0.2)',
-            featureCode: null,
-            cta:         null,
-        },
-        {
-            icon:        '📦',
-            title:       'Pack 50 cert',
-            price:       '€4,90',
-            note:        '50 cert · 1 anno · 500 Egili in regalo',
-            color:       'rgba(59,130,246,0.07)',
-            border:      'rgba(59,130,246,0.18)',
-            featureCode: 'sigillo_pack_50',
-            cta:         'Acquista',
-        },
-        {
-            icon:        '🏆',
-            title:       'Pro mensile',
-            price:       '€7,90/mese',
-            note:        '100 cert/mese · 800 Egili in regalo',
-            color:       'rgba(176,141,42,0.08)',
-            border:      'rgba(176,141,42,0.22)',
-            featureCode: 'sigillo_monthly_100',
-            cta:         'Abbonati',
-        },
-    ];
-
-    return (
-        <div className="space-y-2">
-            <p className="text-[10px] text-white/30 uppercase tracking-widest text-center pb-1">
-                Piani disponibili
-            </p>
-            {tiers.map((t) => (
-                <div
-                    key={t.title}
-                    className="flex items-center justify-between gap-3 rounded-xl px-4 py-3"
-                    style={{ background: t.color, border: `1px solid ${t.border}` }}
-                >
-                    <div className="flex items-center gap-3">
-                        <span className="text-lg" aria-hidden="true">{t.icon}</span>
-                        <div>
-                            <p className="text-sm font-medium text-white/80">{t.title}</p>
-                            <p className="text-[10px] text-white/35">{t.note}</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                        <span className="text-sm font-bold text-white/55">{t.price}</span>
-                        {t.featureCode && t.cta && (
-                            <button
-                                type="button"
-                                onClick={() => onCheckout(t.featureCode!)}
-                                disabled={checkoutLoading === t.featureCode}
-                                className="px-3 py-1 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-white/30 disabled:opacity-50"
-                                style={{ background: t.border, color: '#fff' }}
-                                aria-label={`${t.cta} ${t.title}`}
-                            >
-                                {checkoutLoading === t.featureCode ? '...' : t.cta}
-                            </button>
-                        )}
-                    </div>
-                </div>
-            ))}
-            <p className="text-[10px] text-white/20 text-center pt-1">
-                Accedi e certifica un file — il sistema ti guiderà all'acquisto quando necessario
-            </p>
         </div>
     );
 }

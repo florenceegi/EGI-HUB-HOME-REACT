@@ -10,7 +10,7 @@ interface SigilloPaywallProps {
     onBuyPro: () => void;
 }
 
-const EGILI_PER_CERT = 50;
+const EGILI_PER_CERT = 1500;
 
 export function SigilloPaywall({ egiliBalance = 0, onUseEgili, onBuyPack, onBuyPro }: SigilloPaywallProps) {
     const canUseEgili = egiliBalance >= EGILI_PER_CERT;
@@ -20,7 +20,7 @@ export function SigilloPaywall({ egiliBalance = 0, onUseEgili, onBuyPack, onBuyP
             id: 'egili',
             icon: '⚡',
             title: 'Usa i tuoi Egili',
-            price: '50 Egili / cert',
+            price: '1.500 Egili / cert',
             description: 'Usa gli Egili che hai già nel wallet, guadagnati in qualsiasi modo nell\'ecosistema.',
             cta: canUseEgili ? `Usa Egili (saldo: ${egiliBalance})` : `Egili insufficienti (hai ${egiliBalance})`,
             disabled: !canUseEgili,
@@ -29,12 +29,12 @@ export function SigilloPaywall({ egiliBalance = 0, onUseEgili, onBuyPack, onBuyP
         },
         {
             id: 'pack',
-            icon: '📦',
-            title: 'Pack 50 Certificazioni',
-            price: '€4,90',
-            description: '50 certificazioni valide 1 anno. Include 500 Egili in regalo.',
-            cta: 'Acquista Pack — €4,90',
-            badge: '500 Egili in regalo',
+            icon: '📋',
+            title: 'Pack 10 Certificazioni',
+            price: '€29,90',
+            description: '10 certificazioni valide 2 anni. Include 1.500 Egili in regalo.',
+            cta: 'Acquista Pack — €29,90',
+            badge: '1.500 Egili in regalo',
             disabled: false,
             color: 'blue',
             action: onBuyPack,

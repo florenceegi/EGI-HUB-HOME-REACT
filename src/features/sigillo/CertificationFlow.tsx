@@ -205,7 +205,7 @@ export function CertificationFlow({
                         <SigilloPaywall
                             egiliBalance={paywallInfo?.egili_balance}
                             onUseEgili={() => { reset(); certify(); }}
-                            onBuyPack={() => { window.location.href = `${config.florenceUrl}/features/sigillo_pack_50/purchase`; }}
+                            onBuyPack={() => { window.location.href = `${config.florenceUrl}/features/sigillo_pack_10/purchase`; }}
                             onBuyPro={() => { window.location.href = `${config.florenceUrl}/features/sigillo_monthly_100/purchase`; }}
                         />
                         <button
