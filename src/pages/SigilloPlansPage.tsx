@@ -4,9 +4,12 @@
  * Route: /sigillo/piani
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 2.0.0 (FlorenceEGI - Sigillo)
+ * @version 3.0.0 (FlorenceEGI - Sigillo)
  * @date 2026-03-26
- * @purpose Vista prezzi pubblica: piani fetchati da /api/sigillo/plans, no dati hardcoded.
+ * @purpose Vista prezzi pubblica con riconoscimento piano attivo dell'utente.
+ *          Se l'utente ha un piano attivo mostra solo quel piano (full-width),
+ *          altrimenti mostra tutte le sezioni con CTA. Fetch /api/sigillo/my-plan
+ *          fallisce silenziosamente — utenti non loggati vedono tutti i piani.
  */
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -30,6 +33,16 @@ interface SigilloApiPlan {
     display_order:         number;
     is_featured:           boolean;
     badge_color:           string | null;
+}
+
+interface MyPlan {
+    feature_code:        string;
+    amount_paid_eur:     string | null;
+    activated_at:        string;
+    expires_at:          string | null;
+    quantity_purchased:  number | null;
+    quantity_used:       number;
+    remaining:           number | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -77,10 +90,17 @@ function ctaLabel(plan: SigilloApiPlan): string {
     return price ? `Acquista — ${price}` : 'Acquista';
 }
 
-// ---------------------------------------------------------------------------
-// Skeleton loader
-// ---------------------------------------------------------------------------
+function formatDate(iso: string): string {
+    const d = new Date(iso);
+    const dd = String(d.getDate()).padStart(2, '0');
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const yyyy = d.getFullYear();
+    return `${dd}/${mm}/${yyyy}`;
+}
 
+// ---------------------------------------------------------------------------
+// Skeleton
+// ---------------------------------------------------------------------------
 function PlansSkeleton() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-2xl mx-auto">
@@ -95,6 +115,96 @@ function PlansSkeleton() {
 }
 
 // ---------------------------------------------------------------------------
+// Piano attuale
+// ---------------------------------------------------------------------------
+
+function ActivePlanCard({ plan, myPlan, onBack }: {
+    plan: SigilloApiPlan; myPlan: MyPlan; onBack: () => void;
+}) {
+    const certLabel = (n: number): string =>
+        n === 1 ? '1 certificazione disponibile' : `${n} certificazioni disponibili`;
+
+    const usedLabel = (n: number): string =>
+        n === 1 ? '· 1 usata' : `· ${n} usate`;
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="rounded-2xl p-7 flex flex-col gap-5"
+            style={{
+                background: 'rgba(14,165,164,0.13)',
+                border:     '1.5px solid rgba(14,165,164,0.60)',
+                boxShadow:  '0 0 30px rgba(14,165,164,0.18)',
+            }}
+        >
+            {/* Badge + nome */}
+            <div className="flex items-start justify-between gap-3">
+                <div>
+                    <span
+                        className="inline-block text-[10px] px-2.5 py-1 rounded-full font-semibold mb-3"
+                        style={{
+                            background: 'rgba(14,165,164,0.30)',
+                            color:      '#5eead4',
+                        }}
+                    >
+                        Piano attuale
+                    </span>
+                    <h3 className="font-bold text-white/90 text-lg leading-tight">
+                        {plan.feature_name}
+                    </h3>
+                    <p className="text-xs text-white/40 mt-0.5">{plan.feature_description}</p>
+                </div>
+            </div>
+
+            {/* Prezzo pagato */}
+            {myPlan.amount_paid_eur !== null && (
+                <p className="text-sm text-white/55">
+                    Pagato:{' '}
+                    <span className="font-semibold text-white/80">
+                        {formatEur(myPlan.amount_paid_eur)}
+                    </span>
+                </p>
+            )}
+
+            {/* Crediti */}
+            <div className="space-y-1">
+                {myPlan.remaining !== null && (
+                    <p className="text-sm font-semibold" style={{ color: 'rgba(94,234,212,0.80)' }}>
+                        {certLabel(myPlan.remaining)}
+                        {myPlan.quantity_used > 0 && (
+                            <span className="font-normal text-white/40 ml-1">
+                                {usedLabel(myPlan.quantity_used)}
+                            </span>
+                        )}
+                    </p>
+                )}
+                {myPlan.expires_at && (
+                    <p className="text-[10px] text-white/35">
+                        Scade: {formatDate(myPlan.expires_at)}
+                    </p>
+                )}
+            </div>
+
+            {/* CTA unico */}
+            <button
+                type="button"
+                onClick={onBack}
+                className="mt-1 w-full py-3 px-6 rounded-xl text-sm font-bold transition-opacity hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-[rgba(14,165,164,0.60)]"
+                style={{
+                    background: 'rgba(14,165,164,0.20)',
+                    color:      '#5eead4',
+                    border:     '1px solid rgba(14,165,164,0.40)',
+                }}
+                aria-label="Torna a Sigillo"
+            >
+                ← Torna a Sigillo
+            </button>
+        </motion.div>
+    );
+}
+
+// ---------------------------------------------------------------------------
 // Componente pagina
 // ---------------------------------------------------------------------------
 
@@ -105,12 +215,17 @@ export function SigilloPlansPage() {
     const [error, setError]               = useState<string | null>(null);
     const [plans, setPlans]               = useState<SigilloApiPlan[]>([]);
     const [loadingPlans, setLoadingPlans] = useState(true);
+    const [myPlan, setMyPlan]             = useState<MyPlan | null | undefined>(undefined); // undefined = loading
 
     useEffect(() => {
         egiApi.get<{ plans: SigilloApiPlan[] }>('/sigillo/plans')
             .then(({ data }) => setPlans(data.plans))
             .catch(() => setPlans([]))
             .finally(() => setLoadingPlans(false));
+
+        egiApi.get<{ plan: MyPlan | null }>('/sigillo/my-plan')
+            .then(({ data }) => setMyPlan(data.plan))
+            .catch(() => setMyPlan(null));
     }, []);
 
     const handleCheckout = async (featureCode: string) => {
@@ -128,10 +243,18 @@ export function SigilloPlansPage() {
         }
     };
 
-    // Raggruppamento dinamico per tipo piano
+    // Piano attivo: cercato nell'elenco piani fetchati
+    const activePlan = myPlan
+        ? plans.find((p) => p.feature_code === myPlan.feature_code) ?? null
+        : null;
+
+    // Raggruppamento dinamico per tipo piano (usato solo quando nessun piano attivo)
     const spotPlans = plans.filter((p) => !p.is_recurring && (p.max_uses_per_purchase === null || p.max_uses_per_purchase === 1));
     const packPlans = plans.filter((p) => !p.is_recurring && p.max_uses_per_purchase !== null && p.max_uses_per_purchase > 1);
     const proPlans  = plans.filter((p) => p.is_recurring);
+
+    // Loading complessivo: attesa sia plans che my-plan
+    const isLoading = loadingPlans || myPlan === undefined;
 
     return (
         <div className="min-h-screen text-white" style={{ background: '#0A1222' }}>
@@ -152,7 +275,7 @@ export function SigilloPlansPage() {
                     className="text-3xl md:text-4xl font-bold"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                 >
-                    Scegli il tuo piano
+                    {activePlan ? 'Il tuo piano' : 'Scegli il tuo piano'}
                 </motion.h1>
                 <motion.p
                     initial={{ opacity: 0 }}
@@ -173,10 +296,29 @@ export function SigilloPlansPage() {
                 )}
             </div>
 
-            {loadingPlans ? (
+            {isLoading ? (
                 <div className="px-6 pb-12">
                     <PlansSkeleton />
                 </div>
+            ) : activePlan && myPlan ? (
+                <>
+                    {/* Piano attuale — full-width card centrata */}
+                    <div className="px-6 pb-12 max-w-5xl mx-auto">
+                        <p
+                            className="text-center text-xs uppercase tracking-widest mb-6"
+                            style={{ color: 'rgba(94,234,212,0.80)' }}
+                        >
+                            Il tuo piano attuale
+                        </p>
+                        <div className="max-w-lg mx-auto">
+                            <ActivePlanCard
+                                plan={activePlan}
+                                myPlan={myPlan}
+                                onBack={() => navigate('/sigillo')}
+                            />
+                        </div>
+                    </div>
+                </>
             ) : (
                 <>
                     {/* Sezione Pay per uso */}
@@ -233,14 +375,14 @@ export function SigilloPlansPage() {
                 </>
             )}
 
-            {/* Enterprise */}
+            {/* Enterprise — sempre visibile */}
             <div className="px-6 pb-16 max-w-4xl mx-auto">
                 <div
                     className="rounded-2xl px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4"
                     style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}
                 >
                     <div className="text-center md:text-left">
-                        <p className="font-bold text-white/80 text-lg">🏢 Enterprise</p>
+                        <p className="font-bold text-white/80 text-lg">Enterprise</p>
                         <p className="text-sm text-white/40 mt-1">Volume personalizzato · API · White-label · SLA dedicato</p>
                     </div>
                     <a
