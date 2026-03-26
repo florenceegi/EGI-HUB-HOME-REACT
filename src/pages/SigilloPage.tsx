@@ -11,7 +11,7 @@ import { UseCasesSection }           from '../features/sigillo/UseCasesSection';
 import { AnonCertificatesPanel }     from '../features/sigillo/AnonCertificatesPanel';
 import { SigilloAuthModal }          from '../features/sigillo/SigilloAuthModal';
 import { SigilloPlans }              from '../features/sigillo/SigilloPlans';
-import { CertificateMockModal }      from '../features/sigillo/CertificateMockModal';
+import { CertificationDemoFlow }     from '../features/sigillo/CertificationDemoFlow';
 import { useSigilloAuth }            from '../features/sigillo/hooks/useSigilloAuth';
 import { useUIStore }                from '../stores/useUIStore';
 import { egiApi }                  from '../services/api';
@@ -316,15 +316,10 @@ export function SigilloPage() {
                 </p>
             </div>
 
-            {/* Modal certificato demo */}
+            {/* Flusso demo: file reale → hash SHA-256 → PDF ANTEPRIMA */}
             {showMockModal && (
-                <CertificateMockModal
+                <CertificationDemoFlow
                     onClose={() => setShowMockModal(false)}
-                    onBuy={(featureCode) => {
-                        setShowMockModal(false);
-                        handleCheckout(featureCode);
-                    }}
-                    buyLoading={checkoutLoading}
                 />
             )}
 
