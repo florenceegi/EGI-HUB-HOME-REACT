@@ -14,6 +14,7 @@ import { SigilloPlans }              from '../features/sigillo/SigilloPlans';
 import { CertificationDemoFlow }     from '../features/sigillo/CertificationDemoFlow';
 import { useSigilloAuth }            from '../features/sigillo/hooks/useSigilloAuth';
 import { useUIStore }                from '../stores/useUIStore';
+import { egiApi }                  from '../services/api';
 import { SigilloAdvisor }           from '../features/sigillo/SigilloAdvisor';
 
 type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
