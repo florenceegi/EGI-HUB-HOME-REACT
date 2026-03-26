@@ -1,4 +1,4 @@
-import { Brain, Globe, Info, Home, Fingerprint, ShoppingBag } from 'lucide-react';
+import { Brain, Globe, Info, Home, Fingerprint } from 'lucide-react';
 import { useUIStore } from '@/stores/useUIStore';
 import { useI18n } from '@/i18n';
 import config from '@/utils/config';
@@ -44,14 +44,6 @@ export const Sidebar = () => {
                 active={isActive('/sigillo')}
                 title="Sigillo — Certifica su Blockchain"
                 badge="FREE"
-            />
-            {/* Admin — Feature Purchases */}
-            <NavButton
-                icon={<ShoppingBag />}
-                label="Acquisti"
-                onClick={() => navigate('/admin/feature-purchases')}
-                active={isActive('/admin/feature-purchases')}
-                title="Admin — Acquisti Feature"
             />
             {/* External Apps */}
             <NavButton
