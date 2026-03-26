@@ -1,11 +1,12 @@
 /**
- * SigilloPlans — Vista prezzi compatta con piani dinamici da API.
- * Design dark, coerente con SigilloPage (#0A1222).
+ * SigilloPlans — Piani Sigillo dinamici da API.
+ * Se l'utente ha un piano attivo: mostra SOLO quello (evidenziato, label "Piano attuale", no CTA).
+ * Se non ha piano attivo: mostra tutti i piani acquistabili.
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 2.0.0 (FlorenceEGI - Sigillo)
+ * @version 3.0.0 (FlorenceEGI - Sigillo)
  * @date 2026-03-26
- * @purpose Sezione pricing pubblica: piani fetchati da /api/sigillo/plans, no dati hardcoded.
+ * @purpose Sezione pricing: piani da /api/sigillo/plans, stato attivo da /api/sigillo/my-plan.
  */
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -30,6 +31,16 @@ interface SigilloApiPlan {
     badge_color:           string | null;
 }
 
+interface MyPlan {
+    feature_code:        string;
+    amount_paid_eur:     string | null;
+    activated_at:        string;
+    expires_at:          string | null;
+    quantity_purchased:  number | null;
+    quantity_used:       number;
+    remaining:           number | null;
+}
+
 interface SigilloPlansProps {
     onCheckout:      (featureCode: string) => void;
     checkoutLoading: string | null;
@@ -41,19 +52,6 @@ interface SigilloPlansProps {
 
 function formatEur(raw: string): string {
     return '€' + parseFloat(raw).toFixed(2).replace('.', ',');
-}
-
-function borderColorFor(plan: SigilloApiPlan): string {
-    if (plan.badge_color) return plan.badge_color;
-    if (plan.is_featured) return 'rgba(14,165,164,0.50)';
-    if (plan.is_recurring) return 'rgba(234,179,8,0.30)';
-    return 'rgba(14,165,164,0.30)';
-}
-
-function accentBgFor(plan: SigilloApiPlan): string {
-    if (plan.is_featured) return 'rgba(14,165,164,0.10)';
-    if (plan.is_recurring) return 'rgba(234,179,8,0.08)';
-    return 'rgba(14,165,164,0.07)';
 }
 
 function buildPriceLabel(plan: SigilloApiPlan): string | null {
@@ -72,6 +70,7 @@ function buildPriceLabel(plan: SigilloApiPlan): string | null {
 
 export function SigilloPlans({ onCheckout, checkoutLoading }: SigilloPlansProps) {
     const [plans, setPlans]               = useState<SigilloApiPlan[]>([]);
+    const [myPlan, setMyPlan]             = useState<MyPlan | null | undefined>(undefined); // undefined = loading
     const [loadingPlans, setLoadingPlans] = useState(true);
 
     useEffect(() => {
@@ -79,29 +78,45 @@ export function SigilloPlans({ onCheckout, checkoutLoading }: SigilloPlansProps)
             .then(({ data }) => setPlans(data.plans))
             .catch(() => setPlans([]))
             .finally(() => setLoadingPlans(false));
+
+        egiApi.get<{ plan: MyPlan | null }>('/sigillo/my-plan')
+            .then(({ data }) => setMyPlan(data.plan))
+            .catch(() => setMyPlan(null));
     }, []);
+
+    const loading = loadingPlans || myPlan === undefined;
+
+    // Piano attivo: trova il piano corrispondente nell'elenco
+    const activePlan = myPlan
+        ? plans.find((p) => p.feature_code === myPlan.feature_code) ?? null
+        : null;
+
+    // Piani da mostrare: solo quello attivo (se presente), altrimenti tutti
+    const visiblePlans = activePlan ? [activePlan] : plans;
+    const hasActivePlan = !!activePlan;
 
     return (
         <section aria-label="Piani Sigillo">
             <p className="text-[10px] text-white/30 uppercase tracking-widest text-center pb-4">
-                Piani disponibili
+                {hasActivePlan ? 'Il tuo piano' : 'Piani disponibili'}
             </p>
 
             <div className="space-y-2.5">
-                {loadingPlans ? (
+                {loading ? (
                     <>
                         {[0, 1, 2].map((n) => (
-                            <div
-                                key={n}
-                                className="rounded-xl h-20 bg-white/5 animate-pulse"
-                            />
+                            <div key={n} className="rounded-xl h-20 bg-white/5 animate-pulse" />
                         ))}
                     </>
                 ) : (
-                    plans.map((plan, i) => {
-                        const border   = borderColorFor(plan);
-                        const accentBg = accentBgFor(plan);
+                    visiblePlans.map((plan, i) => {
+                        const isActive = hasActivePlan;
                         const label    = buildPriceLabel(plan);
+
+                        // Stile: piano attivo = teal pieno, piano acquistabile = normale
+                        const bg     = isActive ? 'rgba(14,165,164,0.13)' : 'rgba(14,165,164,0.07)';
+                        const border = isActive ? '1px solid rgba(14,165,164,0.60)' : '1px solid rgba(14,165,164,0.30)';
+                        const shadow = isActive ? '0 0 24px rgba(14,165,164,0.18)' : 'none';
 
                         return (
                             <motion.div
@@ -110,63 +125,73 @@ export function SigilloPlans({ onCheckout, checkoutLoading }: SigilloPlansProps)
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.06 }}
                                 className="rounded-xl px-4 py-3.5"
-                                style={{
-                                    background: accentBg,
-                                    border:     `1px solid ${border}`,
-                                    boxShadow:  plan.is_featured ? `0 0 20px ${border}` : 'none',
-                                }}
+                                style={{ background: bg, border, boxShadow: shadow }}
                             >
                                 <div className="flex items-center justify-between gap-3">
                                     {/* Left: titolo + dettagli */}
                                     <div className="min-w-0">
                                         <div className="flex items-center gap-2 flex-wrap">
+                                            {isActive && (
+                                                <span
+                                                    className="text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wide"
+                                                    style={{ background: 'rgba(14,165,164,0.30)', color: '#5eead4' }}
+                                                >
+                                                    Piano attuale
+                                                </span>
+                                            )}
                                             <span className="text-sm font-semibold text-white/90">
                                                 {plan.feature_name}
                                             </span>
-                                            {plan.is_featured && (
-                                                <span
-                                                    className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
-                                                    style={{ background: border, color: '#fff' }}
-                                                >
-                                                    Più popolare
-                                                </span>
-                                            )}
                                         </div>
-                                        <p className="text-[11px] text-white/40">
+                                        <p className="text-[11px] text-white/40 mt-0.5">
                                             {plan.feature_description}
                                         </p>
-                                        {plan.max_uses_per_purchase !== null && plan.max_uses_per_purchase > 1 && (
+                                        {/* Crediti residui se piano attivo */}
+                                        {isActive && myPlan && myPlan.remaining !== null && (
+                                            <p className="text-xs text-[#5eead4]/80 mt-1 font-medium">
+                                                {myPlan.remaining} certificazion{myPlan.remaining === 1 ? 'e' : 'i'} disponibil{myPlan.remaining === 1 ? 'e' : 'i'}
+                                                {myPlan.quantity_used > 0 && ` · ${myPlan.quantity_used} usata`}
+                                            </p>
+                                        )}
+                                        {isActive && myPlan?.expires_at && (
+                                            <p className="text-[10px] text-white/35 mt-0.5">
+                                                Scade: {new Date(myPlan.expires_at).toLocaleDateString('it-IT')}
+                                            </p>
+                                        )}
+                                        {!isActive && plan.max_uses_per_purchase !== null && plan.max_uses_per_purchase > 1 && (
                                             <p className="text-[10px] text-white/35 mt-0.5">
                                                 {plan.max_uses_per_purchase} certificazioni
                                             </p>
                                         )}
-                                        {plan.egili_gift !== null && (
+                                        {!isActive && plan.egili_gift !== null && (
                                             <p className="text-[10px] text-[var(--accent)]/70 mt-0.5">
                                                 + {plan.egili_gift.toLocaleString('it-IT')} Egili in omaggio
                                             </p>
                                         )}
                                     </div>
 
-                                    {/* Right: prezzo + cta */}
+                                    {/* Right: prezzo + CTA (solo se NON piano attivo) */}
                                     <div className="flex items-center gap-3 shrink-0">
                                         {label && (
-                                            <p className="text-sm font-bold text-white/80 text-right">
+                                            <p className="text-sm font-bold text-white/80 text-right whitespace-nowrap">
                                                 {label}
                                             </p>
                                         )}
-                                        <button
-                                            type="button"
-                                            onClick={() => onCheckout(plan.feature_code)}
-                                            disabled={checkoutLoading === plan.feature_code}
-                                            className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-white/30"
-                                            style={{ background: border, color: '#fff' }}
-                                            aria-label={`${plan.is_recurring ? 'Abbonati' : 'Acquista'} ${plan.feature_name}`}
-                                        >
-                                            {checkoutLoading === plan.feature_code
-                                                ? '...'
-                                                : plan.is_recurring ? 'Abbonati' : 'Acquista'
-                                            }
-                                        </button>
+                                        {!isActive && (
+                                            <button
+                                                type="button"
+                                                onClick={() => onCheckout(plan.feature_code)}
+                                                disabled={checkoutLoading === plan.feature_code}
+                                                className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-white/30"
+                                                style={{ background: 'rgba(14,165,164,0.60)', color: '#fff' }}
+                                                aria-label={`${plan.is_recurring ? 'Abbonati' : 'Acquista'} ${plan.feature_name}`}
+                                            >
+                                                {checkoutLoading === plan.feature_code
+                                                    ? '...'
+                                                    : plan.is_recurring ? 'Abbonati' : 'Acquista'
+                                                }
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             </motion.div>
