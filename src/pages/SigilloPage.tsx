@@ -20,6 +20,16 @@ import { SigilloAdvisor }           from '../features/sigillo/SigilloAdvisor';
 type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
 type AuthModal = 'login' | 'register' | null;
 
+interface MyPlan {
+    feature_code:       string;
+    amount_paid_eur:    string | null;
+    activated_at:       string;
+    expires_at:         string | null;
+    quantity_purchased: number | null;
+    quantity_used:      number;
+    remaining:          number | null;
+}
+
 export function SigilloPage() {
     const [confirmStatus, setConfirmStatus]   = useState<ConfirmStatus>(null);
     const [confirmedUuid, setConfirmedUuid]   = useState<string | null>(null);
@@ -29,9 +39,18 @@ export function SigilloPage() {
     const [purchaseStatus, setPurchaseStatus] = useState<'success' | 'error' | null>(null);
     const [purchaseError, setPurchaseError]   = useState<string | null>(null);
     const [showMockModal, setShowMockModal]   = useState(false);
+    const [myPlan, setMyPlan]                 = useState<MyPlan | null>(null);
 
     const { user, logout } = useSigilloAuth();
     const navigate = useUIStore((state) => state.navigate);
+
+    // Fetch piano attivo quando utente è loggato
+    useEffect(() => {
+        if (!user) { setMyPlan(null); return; }
+        egiApi.get<{ plan: MyPlan | null }>('/sigillo/my-plan')
+            .then(({ data }) => setMyPlan(data.plan))
+            .catch(() => setMyPlan(null));
+    }, [user]);
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -249,6 +268,34 @@ export function SigilloPage() {
                 <div className="px-6 mb-4 max-w-lg mx-auto">
                     <div className="rounded-xl bg-red-500/15 border border-red-500/30 p-4 text-sm text-red-400 text-center">
                         {checkoutError}
+                    </div>
+                </div>
+            )}
+
+            {/* Banner piano attivo */}
+            {user && myPlan && (
+                <div className="px-6 mb-4 max-w-lg mx-auto">
+                    <div
+                        className="rounded-xl p-4 flex items-start gap-3"
+                        style={{ background: 'rgba(14,165,164,0.10)', border: '1px solid rgba(14,165,164,0.30)' }}
+                    >
+                        <span className="text-xl shrink-0" aria-hidden>✅</span>
+                        <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-white/85">
+                                Piano attivo: {myPlan.feature_code.replace('sigillo_', '').replace(/_/g, ' ')}
+                            </p>
+                            {myPlan.remaining !== null && (
+                                <p className="text-xs text-white/55 mt-0.5">
+                                    {myPlan.remaining} certificazion{myPlan.remaining === 1 ? 'e' : 'i'} disponibil{myPlan.remaining === 1 ? 'e' : 'i'}
+                                    {myPlan.quantity_used > 0 && ` · ${myPlan.quantity_used} utilizzat${myPlan.quantity_used === 1 ? 'a' : 'e'}`}
+                                </p>
+                            )}
+                            {myPlan.expires_at && (
+                                <p className="text-xs text-white/40 mt-0.5">
+                                    Scade: {new Date(myPlan.expires_at).toLocaleDateString('it-IT')}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
             )}
