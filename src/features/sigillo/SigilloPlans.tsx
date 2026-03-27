@@ -4,8 +4,8 @@
  * Se non ha piano attivo: mostra tutti i piani acquistabili.
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 3.0.0 (FlorenceEGI - Sigillo)
- * @date 2026-03-26
+ * @version 3.1.0 (FlorenceEGI - Sigillo)
+ * @date 2026-03-27
  * @purpose Sezione pricing: piani da /api/sigillo/plans, stato attivo da /api/sigillo/my-plan.
  */
 import { useState, useEffect } from 'react';
@@ -172,7 +172,8 @@ export function SigilloPlans({ onCheckout, checkoutLoading }: SigilloPlansProps)
 
                                     {/* Right: prezzo + CTA (solo se NON piano attivo) */}
                                     <div className="flex items-center gap-3 shrink-0">
-                                        {label && (
+                                        {/* Mostra prezzo solo se NON è il piano attivo */}
+                                        {!isActive && label && (
                                             <p className="text-sm font-bold text-white/80 text-right whitespace-nowrap">
                                                 {label}
                                             </p>

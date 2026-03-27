@@ -4,8 +4,8 @@
  * Route: /sigillo/piani
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 3.0.0 (FlorenceEGI - Sigillo)
- * @date 2026-03-26
+ * @version 3.1.0 (FlorenceEGI - Sigillo)
+ * @date 2026-03-27
  * @purpose Vista prezzi pubblica con riconoscimento piano attivo dell'utente.
  *          Se l'utente ha un piano attivo mostra solo quel piano (full-width),
  *          altrimenti mostra tutte le sezioni con CTA. Fetch /api/sigillo/my-plan
@@ -157,12 +157,12 @@ function ActivePlanCard({ plan, myPlan, onBack }: {
                 </div>
             </div>
 
-            {/* Prezzo pagato */}
-            {myPlan.amount_paid_eur !== null && (
+            {/* Prezzo piano corrente */}
+            {plan.cost_fiat_eur && (
                 <p className="text-sm text-white/55">
-                    Pagato:{' '}
+                    Prezzo piano:{' '}
                     <span className="font-semibold text-white/80">
-                        {formatEur(myPlan.amount_paid_eur)}
+                        {formatEur(plan.cost_fiat_eur)}
                     </span>
                 </p>
             )}
