@@ -16,6 +16,7 @@ import { useSigilloAuth }            from '../features/sigillo/hooks/useSigilloA
 import { useUIStore }                from '../stores/useUIStore';
 import { egiApi }                  from '../services/api';
 import { SigilloAdvisor }           from '../features/sigillo/SigilloAdvisor';
+import { ContactSection }           from '../features/sigillo/ContactSection';
 
 type ConfirmStatus = 'confirmed' | 'expired' | 'not_found' | null;
 type AuthModal = 'login' | 'register' | null;
@@ -300,6 +301,11 @@ export function SigilloPage() {
             {/* Casi d'uso */}
             <div className="px-6 max-w-4xl mx-auto border-t border-white/5 pt-4">
                 <UseCasesSection />
+            </div>
+
+            {/* Contatti */}
+            <div className="px-6 max-w-4xl mx-auto border-t border-white/5 pt-4">
+                <ContactSection />
             </div>
 
             {/* Footer mini */}
