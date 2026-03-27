@@ -1,4 +1,4 @@
-@/home/fabio/EGI-DOC/CLAUDE_ECOSYSTEM_CORE.md
+@CLAUDE_ECOSYSTEM_CORE.md
 
 # EGI-HUB-HOME — Contesto Specifico (Oracode OS3)
 
