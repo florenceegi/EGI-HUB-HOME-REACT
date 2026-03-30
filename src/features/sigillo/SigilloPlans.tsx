@@ -4,13 +4,38 @@
  * Se non ha piano attivo: mostra tutti i piani acquistabili.
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 3.1.0 (FlorenceEGI - Sigillo)
- * @date 2026-03-27
+ * @version 3.2.0 (FlorenceEGI - Sigillo)
+ * @date 2026-03-30
  * @purpose Sezione pricing: piani da /api/sigillo/plans, stato attivo da /api/sigillo/my-plan.
+ *          CIE tier mostra badge "In arrivo" — campagna pre-order non ancora attiva.
  */
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { egiApi } from '@/services/api';
+
+// ---------------------------------------------------------------------------
+// i18n minimal — 6 lingue richieste (P0-9)
+// ---------------------------------------------------------------------------
+
+const COMING_SOON_FEATURE_CODE = 'sigillo_single_cert_cid';
+
+type Lang = 'it' | 'en' | 'de' | 'es' | 'fr' | 'pt';
+
+const T: Record<Lang, { comingSoon: string; comingSoonLabel: string }> = {
+    it: { comingSoon: 'In arrivo',    comingSoonLabel: 'Servizio in arrivo' },
+    en: { comingSoon: 'Coming soon',  comingSoonLabel: 'Service coming soon' },
+    de: { comingSoon: 'Demnächst',    comingSoonLabel: 'Dienst demnächst verfügbar' },
+    es: { comingSoon: 'Próximamente', comingSoonLabel: 'Servicio próximamente' },
+    fr: { comingSoon: 'Bientôt',      comingSoonLabel: 'Service bientôt disponible' },
+    pt: { comingSoon: 'Em breve',     comingSoonLabel: 'Serviço em breve' },
+};
+
+function detectLang(): Lang {
+    const raw = (navigator.language ?? 'it').slice(0, 2).toLowerCase();
+    return (raw in T ? raw : 'it') as Lang;
+}
+
+const t = T[detectLang()];
 
 // ---------------------------------------------------------------------------
 // Tipi
@@ -110,12 +135,21 @@ export function SigilloPlans({ onCheckout, checkoutLoading }: SigilloPlansProps)
                     </>
                 ) : (
                     visiblePlans.map((plan, i) => {
-                        const isActive = hasActivePlan;
-                        const label    = buildPriceLabel(plan);
+                        const isActive     = hasActivePlan;
+                        const isComingSoon = !isActive && plan.feature_code === COMING_SOON_FEATURE_CODE;
+                        const label        = buildPriceLabel(plan);
 
-                        // Stile: piano attivo = teal pieno, piano acquistabile = normale
-                        const bg     = isActive ? 'rgba(14,165,164,0.13)' : 'rgba(14,165,164,0.07)';
-                        const border = isActive ? '1px solid rgba(14,165,164,0.60)' : '1px solid rgba(14,165,164,0.30)';
+                        // Stile: piano attivo = teal pieno, in arrivo = grigio muted, acquistabile = normale
+                        const bg     = isActive
+                            ? 'rgba(14,165,164,0.13)'
+                            : isComingSoon
+                                ? 'rgba(255,255,255,0.03)'
+                                : 'rgba(14,165,164,0.07)';
+                        const border = isActive
+                            ? '1px solid rgba(14,165,164,0.60)'
+                            : isComingSoon
+                                ? '1px solid rgba(255,255,255,0.10)'
+                                : '1px solid rgba(14,165,164,0.30)';
                         const shadow = isActive ? '0 0 24px rgba(14,165,164,0.18)' : 'none';
 
                         return (
@@ -124,7 +158,7 @@ export function SigilloPlans({ onCheckout, checkoutLoading }: SigilloPlansProps)
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.06 }}
-                                className="rounded-xl px-4 py-3.5"
+                                className={`rounded-xl px-4 py-3.5${isComingSoon ? ' opacity-75' : ''}`}
                                 style={{ background: bg, border, boxShadow: shadow }}
                             >
                                 <div className="flex items-center justify-between gap-3">
@@ -139,14 +173,14 @@ export function SigilloPlans({ onCheckout, checkoutLoading }: SigilloPlansProps)
                                                     Piano attuale
                                                 </span>
                                             )}
-                                            <span className="text-sm font-semibold text-white/90">
+                                            <span className={`text-sm font-semibold ${isComingSoon ? 'text-white/55' : 'text-white/90'}`}>
                                                 {plan.feature_name}
                                             </span>
                                         </div>
                                         <p className="text-[11px] text-white/40 mt-0.5">
                                             {plan.feature_description}
                                         </p>
-                                        {/* Crediti residui se piano attivo */}
+                                        {/* Egili residui se piano attivo */}
                                         {isActive && myPlan && myPlan.remaining !== null && (
                                             <p className="text-xs text-[#5eead4]/80 mt-1 font-medium">
                                                 {myPlan.remaining} certificazion{myPlan.remaining === 1 ? 'e' : 'i'} disponibil{myPlan.remaining === 1 ? 'e' : 'i'}
@@ -164,7 +198,7 @@ export function SigilloPlans({ onCheckout, checkoutLoading }: SigilloPlansProps)
                                             </p>
                                         )}
                                         {!isActive && plan.egili_gift !== null && (
-                                            <p className="text-[10px] text-[var(--accent)]/70 mt-0.5">
+                                            <p className={`text-[10px] mt-0.5 ${isComingSoon ? 'text-white/30' : 'text-[var(--accent)]/70'}`}>
                                                 + {plan.egili_gift.toLocaleString('it-IT')} Egili in omaggio
                                             </p>
                                         )}
@@ -172,26 +206,35 @@ export function SigilloPlans({ onCheckout, checkoutLoading }: SigilloPlansProps)
 
                                     {/* Right: prezzo + CTA (solo se NON piano attivo) */}
                                     <div className="flex items-center gap-3 shrink-0">
-                                        {/* Mostra prezzo solo se NON è il piano attivo */}
                                         {!isActive && label && (
-                                            <p className="text-sm font-bold text-white/80 text-right whitespace-nowrap">
+                                            <p className={`text-sm font-bold text-right whitespace-nowrap ${isComingSoon ? 'text-white/35' : 'text-white/80'}`}>
                                                 {label}
                                             </p>
                                         )}
                                         {!isActive && (
-                                            <button
-                                                type="button"
-                                                onClick={() => onCheckout(plan.feature_code)}
-                                                disabled={checkoutLoading === plan.feature_code}
-                                                className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-white/30"
-                                                style={{ background: 'rgba(14,165,164,0.60)', color: '#fff' }}
-                                                aria-label={`${plan.is_recurring ? 'Abbonati' : 'Acquista'} ${plan.feature_name}`}
-                                            >
-                                                {checkoutLoading === plan.feature_code
-                                                    ? '...'
-                                                    : plan.is_recurring ? 'Abbonati' : 'Acquista'
-                                                }
-                                            </button>
+                                            isComingSoon ? (
+                                                <span
+                                                    className="px-3 py-1.5 rounded-lg text-xs font-semibold cursor-default select-none"
+                                                    style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.35)' }}
+                                                    aria-label={t.comingSoonLabel}
+                                                >
+                                                    {t.comingSoon}
+                                                </span>
+                                            ) : (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => onCheckout(plan.feature_code)}
+                                                    disabled={checkoutLoading === plan.feature_code}
+                                                    className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-white/30"
+                                                    style={{ background: 'rgba(14,165,164,0.60)', color: '#fff' }}
+                                                    aria-label={`${plan.is_recurring ? 'Abbonati' : 'Acquista'} ${plan.feature_name}`}
+                                                >
+                                                    {checkoutLoading === plan.feature_code
+                                                        ? '...'
+                                                        : plan.is_recurring ? 'Abbonati' : 'Acquista'
+                                                    }
+                                                </button>
+                                            )
                                         )}
                                     </div>
                                 </div>
