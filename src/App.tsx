@@ -17,7 +17,6 @@ import { UnderConstructionPage } from '@/pages/UnderConstructionPage';
 import { SigilloPage }           from '@/pages/SigilloPage';
 import { SigilloPlansPage }      from '@/pages/SigilloPlansPage';
 import { SigilloLegalValuePage } from '@/pages/SigilloLegalValuePage';
-import { SuperadminAnalyticsPage } from '@/pages/SuperadminAnalyticsPage';
 
 // Mobile components
 import { AppShell } from '@/mobile/app/AppShell';
@@ -108,8 +107,6 @@ function App() {
         if (currentPath === '/sigillo/piani') return <SigilloPlansPage />;
         if (currentPath === '/sigillo/valore-legale') return <SigilloLegalValuePage />;
 
-        // Superadmin
-        if (currentPath === '/superadmin/analytics') return <SuperadminAnalyticsPage />;
 
         // Desktop-specific pages
         if (currentPath === '/platforms') return <PlatformsPage />;

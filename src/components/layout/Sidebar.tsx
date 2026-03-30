@@ -1,4 +1,4 @@
-import { Brain, Globe, Info, Home, Fingerprint, BarChart2 } from 'lucide-react';
+import { Brain, Globe, Info, Home, Fingerprint } from 'lucide-react';
 import { useUIStore } from '@/stores/useUIStore';
 import { useI18n } from '@/i18n';
 import config from '@/utils/config';
@@ -44,14 +44,6 @@ export const Sidebar = () => {
                 active={isActive('/sigillo')}
                 title="Sigillo — Certifica su Blockchain"
                 badge="FREE"
-            />
-            {/* Analytics Superadmin */}
-            <NavButton
-                icon={<BarChart2 />}
-                label="Analytics"
-                onClick={() => navigate('/superadmin/analytics')}
-                active={isActive('/superadmin/analytics')}
-                title="Web Analytics — Dashboard Superadmin"
             />
             {/* External Apps */}
             <NavButton
