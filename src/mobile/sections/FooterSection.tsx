@@ -13,7 +13,7 @@ import { homepageContent } from '../data/homepage';
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      'lso-ecosystem': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & { current?: string };
+      'lso-ecosystem': { current?: string; [key: string]: unknown };
     }
   }
 }
