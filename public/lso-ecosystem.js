@@ -2,7 +2,7 @@
  * lso-ecosystem.js — FlorenceEGI Living System Oracode Web Component
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 1.2.0 (FlorenceEGI — LSO)
+ * @version 1.3.0 (FlorenceEGI — LSO)
  * @date 2026-04-01
  * @purpose Web Component autonomo per il sub-footer ecosistema LSO.
  *          SSOT hostato su florenceegi.com — incluso da tutti gli organi
@@ -36,7 +36,7 @@ const SIGILLO_ICON = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAIA
 /** @param {string} s @returns {string} */
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
-const CSS =`:host{display:block}.lso-wrapper{background:#0d1117;border-top:1px solid rgba(124,58,237,.25);padding:28px 16px;text-align:center;font-family:system-ui,-apple-system,sans-serif}.lso-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#7C3AED;margin:0 0 6px}.lso-subtitle{font-size:11px;color:rgba(255,255,255,.38);margin:0 0 18px;line-height:1.5}.lso-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 20px}.lso-link{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}.lso-link:hover{color:#A78BFA}.lso-current{font-size:12px;font-weight:600;color:#7C3AED}.lso-current-badge{font-size:10px;color:rgba(255,255,255,.3);margin-left:4px}.lso-sigillo-row{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:18px;padding-top:14px;border-top:1px solid rgba(124,58,237,.12)}.lso-sigillo-icon{width:16px;height:16px;display:inline-block;vertical-align:middle;opacity:.7}.lso-sigillo-meta{font-size:10px;color:rgba(255,255,255,.28);line-height:1.4}.lso-hash{font-family:monospace;font-size:10px;color:rgba(124,58,237,.6);letter-spacing:.04em}.lso-verify{font-size:10px;color:rgba(124,58,237,.5);text-decoration:none;transition:color .2s;white-space:nowrap}.lso-verify:hover{color:#A78BFA}`;
+const CSS =`:host{display:block}.lso-wrapper{background:#0d1117;border-top:1px solid rgba(124,58,237,.25);padding:28px 16px;text-align:center;font-family:system-ui,-apple-system,sans-serif}.lso-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#7C3AED;margin:0 0 6px}.lso-subtitle{font-size:11px;color:rgba(255,255,255,.38);margin:0 0 18px;line-height:1.5}.lso-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 20px}.lso-link{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}.lso-link:hover{color:#A78BFA}.lso-current{font-size:12px;font-weight:600;color:#7C3AED}.lso-current-badge{font-size:10px;color:rgba(255,255,255,.3);margin-left:4px}.lso-sigillo-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 12px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(124,58,237,.2)}.lso-sigillo-icon{width:22px;height:22px;display:inline-block;vertical-align:middle;opacity:.9;flex-shrink:0}.lso-sigillo-meta{font-size:13px;color:rgba(255,255,255,.55);line-height:1.4}.lso-hash{font-family:monospace;font-size:12px;color:#9D71F5;letter-spacing:.06em}.lso-sep{color:rgba(255,255,255,.2);font-size:13px}.lso-verify{font-size:13px;font-weight:600;color:#A78BFA;text-decoration:none;border:1px solid rgba(124,58,237,.4);border-radius:4px;padding:2px 10px;transition:all .2s;white-space:nowrap}.lso-verify:hover{color:#fff;background:rgba(124,58,237,.3);border-color:#7C3AED}`;
 
 class LsoEcosystem extends HTMLElement {
   constructor() { super(); this.attachShadow({ mode: 'open' }); }
@@ -63,11 +63,13 @@ class LsoEcosystem extends HTMLElement {
         <p class="lso-label">Living System Oracode</p>
         <p class="lso-subtitle">${esc(t.subtitle)}</p>
         <nav class="lso-nav" aria-label="${esc(t.exploreLabel)}">${nav}</nav>
-        <div class="lso-sigillo-row" aria-label="Blockchain certification">
-          <img class="lso-sigillo-icon" src="${SIGILLO_ICON}" alt="Sigillo" width="16" height="16">
+        <div class="lso-sigillo-row" aria-label="Blockchain IP certification">
+          <img class="lso-sigillo-icon" src="${SIGILLO_ICON}" alt="Sigillo" width="22" height="22">
           <span class="lso-sigillo-meta">${esc(t.certLabel)}</span>
+          <span class="lso-sep">·</span>
           <span class="lso-hash">${SIGILLO_HASH}</span>
-          <a class="lso-verify" href="${SIGILLO_VERIFY_URL}" target="_blank" rel="noopener noreferrer" aria-label="Verifica certificato Sigillo">${esc(t.verifyLabel)}</a>
+          <span class="lso-sep">·</span>
+          <a class="lso-verify" href="${SIGILLO_VERIFY_URL}" target="_blank" rel="noopener noreferrer" aria-label="Verifica certificato Sigillo su Algorand">${esc(t.verifyLabel)}</a>
         </div>
       </section>
     `;
