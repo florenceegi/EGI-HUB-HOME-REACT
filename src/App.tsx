@@ -14,6 +14,9 @@ import { HowItWorksPage } from '@/pages/HowItWorksPage';
 import { TeamPage } from '@/pages/TeamPage';
 import { EcosystemPage } from '@/pages/EcosystemPage';
 import { UnderConstructionPage } from '@/pages/UnderConstructionPage';
+import { PrivacyPolicyPage }     from '@/pages/PrivacyPolicyPage';
+import { CookiePolicyPage }      from '@/pages/CookiePolicyPage';
+import { TermsPage }             from '@/pages/TermsPage';
 import { SigilloPage }           from '@/pages/SigilloPage';
 import { SigilloPlansPage }      from '@/pages/SigilloPlansPage';
 import { SigilloLegalValuePage } from '@/pages/SigilloLegalValuePage';
@@ -69,6 +72,9 @@ function App() {
                 <QueryClientProvider client={queryClient}>
                     <AppShell>
                         {/* Simple Mobile Routing */}
+                        {currentPath === '/privacy' && <PrivacyPolicyPage />}
+                        {currentPath === '/cookies' && <CookiePolicyPage />}
+                        {currentPath === '/terms' && <TermsPage />}
                         {currentPath === '/' && <MobileHomePage />}
                         {currentPath === '/corporate' && <CorporatePage />}
                         {currentPath === '/platforms' && <UnderConstructionPage />} {/* Fallback for now */}
@@ -93,6 +99,9 @@ function App() {
     // Desktop routing
     const renderPage = () => {
         // Static pages
+        if (currentPath === '/privacy') return <PrivacyPolicyPage />;
+        if (currentPath === '/cookies') return <CookiePolicyPage />;
+        if (currentPath === '/terms') return <TermsPage />;
         if (currentPath === '/ambiente') return <AmbientePage />;
         if (currentPath === '/oracode') return <OracodePage />;
         if (currentPath === '/corporate') return <CorporatePage />;
