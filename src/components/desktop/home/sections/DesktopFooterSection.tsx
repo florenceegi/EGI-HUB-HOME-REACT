@@ -21,7 +21,6 @@ export function DesktopFooterSection() {
     const { locale } = useI18n();
     const content = homepageContent[locale];
 
-    const currentYear = new Date().getFullYear();
 
     return (
         <>
@@ -32,9 +31,6 @@ export function DesktopFooterSection() {
             <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-2">
                     <span className="text-lg font-bold text-white tracking-tight">FlorenceEGI</span>
-                    <p className="text-xs text-gray-400">
-                        © {currentYear} Florence Consulting Group. {content.footer.rights}
-                    </p>
                 </div>
 
                 <div className="flex flex-col gap-3">

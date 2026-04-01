@@ -22,7 +22,6 @@ export function FooterSection() {
     const { locale } = useI18n();
     const content = homepageContent[locale];
 
-    const currentYear = new Date().getFullYear();
 
     return (
         <>
@@ -31,12 +30,9 @@ export function FooterSection() {
         <lso-ecosystem current="hub" />
         <footer className="py-12 px-6 border-t border-[var(--border)] bg-[var(--surface2)]/30 backdrop-blur-sm">
             <div className="flex flex-col gap-8">
-                {/* Brand & Copyright */}
+                {/* Brand */}
                 <div className="flex flex-col gap-2">
                     <span className="text-lg font-bold text-[var(--text)] tracking-tight">FlorenceEGI</span>
-                    <p className="text-xs text-[var(--muted)]">
-                        © {currentYear} Florence Consulting Group. {content.footer.rights}
-                    </p>
                 </div>
 
                 {/* Legal Links */}
