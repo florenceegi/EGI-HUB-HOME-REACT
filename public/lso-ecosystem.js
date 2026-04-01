@@ -2,7 +2,7 @@
  * lso-ecosystem.js — FlorenceEGI Living System Oracode Web Component
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 1.0.0 (FlorenceEGI — LSO)
+ * @version 1.0.1 (FlorenceEGI — LSO)
  * @date 2026-03-31
  * @purpose Web Component autonomo per il sub-footer ecosistema LSO.
  *          SSOT hostato su florenceegi.com — incluso da tutti gli organi
@@ -30,7 +30,7 @@ const LSO_SITES = [
 /** @param {string} s @returns {string} */
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
-const CSS =`:host{display:block}.lso-wrapper{background:rgba(0,0,0,.25);border-top:1px solid rgba(124,58,237,.15);padding:28px 16px;text-align:center;font-family:system-ui,-apple-system,sans-serif}.lso-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#7C3AED;margin:0 0 6px}.lso-subtitle{font-size:11px;color:rgba(255,255,255,.38);margin:0 0 18px;line-height:1.5}.lso-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 20px}.lso-link{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}.lso-link:hover{color:#A78BFA}.lso-current{font-size:12px;font-weight:600;color:#7C3AED}.lso-current-badge{font-size:10px;color:rgba(255,255,255,.3);margin-left:4px}`;
+const CSS =`:host{display:block}.lso-wrapper{background:#0d1117;border-top:1px solid rgba(124,58,237,.25);padding:28px 16px;text-align:center;font-family:system-ui,-apple-system,sans-serif}.lso-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#7C3AED;margin:0 0 6px}.lso-subtitle{font-size:11px;color:rgba(255,255,255,.38);margin:0 0 18px;line-height:1.5}.lso-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 20px}.lso-link{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}.lso-link:hover{color:#A78BFA}.lso-current{font-size:12px;font-weight:600;color:#7C3AED}.lso-current-badge{font-size:10px;color:rgba(255,255,255,.3);margin-left:4px}`;
 
 class LsoEcosystem extends HTMLElement {
   constructor() { super(); this.attachShadow({ mode: 'open' }); }
