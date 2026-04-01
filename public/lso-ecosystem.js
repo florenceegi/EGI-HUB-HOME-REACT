@@ -2,13 +2,13 @@
  * lso-ecosystem.js — FlorenceEGI Living System Oracode Web Component
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 1.5.1 (FlorenceEGI — LSO)
+ * @version 1.6.0 (FlorenceEGI — LSO)
  * @date 2026-04-01
  * @purpose Web Component autonomo per il sub-footer ecosistema LSO.
  *          SSOT hostato su florenceegi.com — incluso da tutti gli organi
  *          con 2 righe HTML. Aggiornamento = modifica di questo solo file.
  *          Zero dipendenze. Funziona in React, Blade, HTML puro.
- *          v1.5.0: modal dichiarazione IP con prova blockchain Algorand.
+ *          v1.6.0: organi da DB via GET hub.florenceegi.com/api/lso/organs (fallback hardcodato).
  */
 
 const ALGORAND_TX = '2COCRU6I6FB6PUQPKSCKV3KR4OQX2APKJDJ3CTJI5JWHUIXNSRKQ';
@@ -99,13 +99,14 @@ const I18N = {
   },
 };
 
-const LSO_SITES = [
-  { key: 'hub',        url: 'https://florenceegi.com',                name: 'FlorenceEGI'   },
-  { key: 'info',       url: 'https://info.florenceegi.com',           name: 'Info'           },
-  { key: 'egi',        url: 'https://art.florenceegi.com',            name: 'EGI'            },
-  { key: 'natan',      url: 'https://natan-loc.florenceegi.com',      name: 'NATAN_LOC'      },
-  { key: 'credential', url: 'https://egi-credential.florenceegi.com', name: 'EGI Credential' },
-  { key: 'sigillo',    url: 'https://egi-sigillo.florenceegi.com',    name: 'Sigillo'        },
+const LSO_API = 'https://hub.florenceegi.com/api/lso/organs';
+const LSO_FALLBACK = [
+  { key: 'florenceegi',    url: 'https://florenceegi.com',                name: 'FlorenceEGI'   },
+  { key: 'info',           url: 'https://info.florenceegi.com',           name: 'Info'           },
+  { key: 'art',            url: 'https://art.florenceegi.com',            name: 'EGI'            },
+  { key: 'natan-loc',      url: 'https://natan-loc.florenceegi.com',      name: 'NATAN_LOC'      },
+  { key: 'egi-credential', url: 'https://egi-credential.florenceegi.com', name: 'EGI Credential' },
+  { key: 'egi-sigillo',    url: 'https://egi-sigillo.florenceegi.com',    name: 'Sigillo'        },
 ];
 
 /** @param {string} s @returns {string} */
@@ -154,17 +155,23 @@ const CSS = `
 class LsoEcosystem extends HTMLElement {
   constructor() { super(); this.attachShadow({ mode: 'open' }); }
 
-  connectedCallback() { this._render(); }
+  connectedCallback() {
+    this._render(LSO_FALLBACK);
+    fetch(LSO_API)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (Array.isArray(data) && data.length) this._render(data); })
+      .catch(() => {});
+  }
 
   static get observedAttributes() { return ['current']; }
-  attributeChangedCallback() { this._render(); }
+  attributeChangedCallback() { this.connectedCallback(); }
 
-  _render() {
+  _render(sites) {
     const current = this.getAttribute('current') ?? '';
     const lang = (document.documentElement.lang || navigator.language || 'it').slice(0, 2).toLowerCase();
     const t = I18N[lang] ?? I18N.it;
 
-    const nav = LSO_SITES.map(site =>
+    const nav = sites.map(site =>
       site.key === current
         ? `<span class="lso-current" aria-current="page">${esc(site.name)}<span class="lso-current-badge">(${esc(t.currentLabel)})</span></span>`
         : `<a class="lso-link" href="${site.url}" target="_blank" rel="noopener noreferrer">${esc(site.name)}</a>`
