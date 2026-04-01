@@ -2,7 +2,7 @@
  * lso-ecosystem.js — FlorenceEGI Living System Oracode Web Component
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 1.0.1 (FlorenceEGI — LSO)
+ * @version 1.0.2 (FlorenceEGI — LSO)
  * @date 2026-03-31
  * @purpose Web Component autonomo per il sub-footer ecosistema LSO.
  *          SSOT hostato su florenceegi.com — incluso da tutti gli organi
@@ -21,6 +21,7 @@ const I18N = {
 
 const LSO_SITES = [
   { key: 'hub',        url: 'https://florenceegi.com',                name: 'FlorenceEGI'   },
+  { key: 'info',       url: 'https://info.florenceegi.com',           name: 'Info'           },
   { key: 'egi',        url: 'https://art.florenceegi.com',            name: 'EGI'            },
   { key: 'natan',      url: 'https://natan-loc.florenceegi.com',      name: 'NATAN_LOC'      },
   { key: 'credential', url: 'https://egi-credential.florenceegi.com', name: 'EGI Credential' },
