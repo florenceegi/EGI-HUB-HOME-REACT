@@ -121,7 +121,7 @@ const CSS = `
 .lso-link:hover{color:#A78BFA}
 .lso-current{font-size:12px;font-weight:600;color:#7C3AED}
 .lso-current-badge{font-size:10px;color:rgba(255,255,255,.3);margin-left:4px}
-.lso-cert-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 10px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(124,58,237,.2)}
+.lso-cert-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 10px;margin-top:16px}
 .lso-cert-icon{width:22px;height:22px;flex-shrink:0;opacity:.95}
 .lso-cert-text{font-size:13px;color:rgba(255,255,255,.6)}
 .lso-cert-sep{color:rgba(255,255,255,.2);font-size:13px}
