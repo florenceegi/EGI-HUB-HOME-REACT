@@ -2,7 +2,7 @@
  * lso-ecosystem.js — FlorenceEGI Living System Oracode Web Component
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 1.5.0 (FlorenceEGI — LSO)
+ * @version 1.5.1 (FlorenceEGI — LSO)
  * @date 2026-04-01
  * @purpose Web Component autonomo per il sub-footer ecosistema LSO.
  *          SSOT hostato su florenceegi.com — incluso da tutti gli organi
@@ -12,7 +12,7 @@
  */
 
 const ALGORAND_TX = '2C0CRU6I6FB6PUQPKSCKV3KR4OQX2APKJDJ3CTJI5JWHUIXNSRKQ';
-const ALGORAND_URL = 'https://algoexplorer.io/tx/' + ALGORAND_TX;
+const ALGORAND_URL = 'https://explorer.perawallet.app/tx/' + ALGORAND_TX;
 const SHA256_FULL  = '41c9588b6c0d55ac47d64723e6bac32078726172d2aa9908e1735ee8bb81b512';
 const SHA256_SHORT = '41c9588b\u202681b512';
 
