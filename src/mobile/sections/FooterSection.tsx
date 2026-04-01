@@ -1,6 +1,14 @@
+/**
+ * @package EGI-HUB-HOME — FooterSection
+ * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
+ * @version 1.1.0 (FlorenceEGI — EGI-HUB-HOME)
+ * @date 2026-03-31
+ * @purpose Footer principale con link legali e sub-footer LSO Ecosystem.
+ */
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/i18n';
 import { homepageContent } from '../data/homepage';
+import { LsoEcosystem } from './LsoEcosystem';
 
 export function FooterSection() {
     const { locale } = useI18n();
@@ -9,6 +17,8 @@ export function FooterSection() {
     const currentYear = new Date().getFullYear();
 
     return (
+        <>
+        <LsoEcosystem />
         <footer className="py-12 px-6 border-t border-[var(--border)] bg-[var(--surface2)]/30 backdrop-blur-sm">
             <div className="flex flex-col gap-8">
                 {/* Brand & Copyright */}
@@ -33,5 +43,6 @@ export function FooterSection() {
                 </div>
             </div>
         </footer>
+        </>
     );
 }
