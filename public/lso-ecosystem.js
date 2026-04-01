@@ -11,8 +11,8 @@
  *          v1.5.0: modal dichiarazione IP con prova blockchain Algorand.
  */
 
-const ALGORAND_TX = '2C0CRU6I6FB6PUQPKSCKV3KR4OQX2APKJDJ3CTJI5JWHUIXNSRKQ';
-const ALGORAND_URL = 'https://explorer.perawallet.app/tx/' + ALGORAND_TX;
+const ALGORAND_TX = '2COCRU6I6FB6PUQPKSCKV3KR4OQX2APKJDJ3CTJI5JWHUIXNSRKQ';
+const ALGORAND_URL = 'https://allo.info/tx/' + ALGORAND_TX;
 const SHA256_FULL  = '41c9588b6c0d55ac47d64723e6bac32078726172d2aa9908e1735ee8bb81b512';
 const SHA256_SHORT = '41c9588b\u202681b512';
 
