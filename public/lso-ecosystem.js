@@ -2,21 +2,22 @@
  * lso-ecosystem.js — FlorenceEGI Living System Oracode Web Component
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 1.0.2 (FlorenceEGI — LSO)
- * @date 2026-03-31
+ * @version 1.2.0 (FlorenceEGI — LSO)
+ * @date 2026-04-01
  * @purpose Web Component autonomo per il sub-footer ecosistema LSO.
  *          SSOT hostato su florenceegi.com — incluso da tutti gli organi
  *          con 2 righe HTML. Aggiornamento = modifica di questo solo file.
  *          Zero dipendenze. Funziona in React, Blade, HTML puro.
+ *          v1.2.0: Sigillo blockchain certification badge (IP ownership proof).
  */
 
 const I18N = {
-  it: { subtitle: "FlorenceEGI è un organismo software vivente. Ogni organo lavora in sinergia con gli altri.", exploreLabel: "Esplora l'ecosistema", currentLabel: "questo sito" },
-  en: { subtitle: "FlorenceEGI is a living software organism. Each organ works in synergy with the others.", exploreLabel: "Explore the ecosystem", currentLabel: "this site" },
-  de: { subtitle: "FlorenceEGI ist ein lebendiger Software-Organismus. Jedes Organ arbeitet synergetisch mit den anderen.", exploreLabel: "Ökosystem erkunden", currentLabel: "diese Seite" },
-  es: { subtitle: "FlorenceEGI es un organismo software vivo. Cada órgano trabaja en sinergia con los demás.", exploreLabel: "Explorar el ecosistema", currentLabel: "este sitio" },
-  fr: { subtitle: "FlorenceEGI est un organisme logiciel vivant. Chaque organe travaille en synergie avec les autres.", exploreLabel: "Explorer l'écosystème", currentLabel: "ce site" },
-  pt: { subtitle: "FlorenceEGI é um organismo de software vivo. Cada órgão trabalha em sinergia com os outros.", exploreLabel: "Explorar o ecossistema", currentLabel: "este site" },
+  it: { subtitle: "FlorenceEGI è un organismo software vivente. Ogni organo lavora in sinergia con gli altri.", exploreLabel: "Esplora l'ecosistema", currentLabel: "questo sito", certLabel: "Manifesto LSO v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Verifica →" },
+  en: { subtitle: "FlorenceEGI is a living software organism. Each organ works in synergy with the others.", exploreLabel: "Explore the ecosystem", currentLabel: "this site", certLabel: "LSO Manifesto v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Verify →" },
+  de: { subtitle: "FlorenceEGI ist ein lebendiger Software-Organismus. Jedes Organ arbeitet synergetisch mit den anderen.", exploreLabel: "Ökosystem erkunden", currentLabel: "diese Seite", certLabel: "LSO-Manifest v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Prüfen →" },
+  es: { subtitle: "FlorenceEGI es un organismo software vivo. Cada órgano trabaja en sinergia con los demás.", exploreLabel: "Explorar el ecosistema", currentLabel: "este sitio", certLabel: "Manifiesto LSO v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Verificar →" },
+  fr: { subtitle: "FlorenceEGI est un organisme logiciel vivant. Chaque organe travaille en synergie avec les autres.", exploreLabel: "Explorer l'écosystème", currentLabel: "ce site", certLabel: "Manifeste LSO v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Vérifier →" },
+  pt: { subtitle: "FlorenceEGI é um organismo de software vivo. Cada órgão trabalha em sinergia com os outros.", exploreLabel: "Explorar o ecossistema", currentLabel: "este site", certLabel: "Manifesto LSO v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Verificar →" },
 };
 
 const LSO_SITES = [
@@ -28,10 +29,14 @@ const LSO_SITES = [
   { key: 'sigillo',    url: 'https://egi-sigillo.florenceegi.com',    name: 'Sigillo'        },
 ];
 
+const SIGILLO_VERIFY_URL = 'https://egi-sigillo.florenceegi.com/sigillo/certificato/eb7862a0-8563-4b64-ae63-3a6ab28045e8';
+const SIGILLO_HASH = '41c9588b\u202681b512';
+const SIGILLO_ICON = 'data:image/png;base64,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';
+
 /** @param {string} s @returns {string} */
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
-const CSS =`:host{display:block}.lso-wrapper{background:#0d1117;border-top:1px solid rgba(124,58,237,.25);padding:28px 16px;text-align:center;font-family:system-ui,-apple-system,sans-serif}.lso-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#7C3AED;margin:0 0 6px}.lso-subtitle{font-size:11px;color:rgba(255,255,255,.38);margin:0 0 18px;line-height:1.5}.lso-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 20px}.lso-link{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}.lso-link:hover{color:#A78BFA}.lso-current{font-size:12px;font-weight:600;color:#7C3AED}.lso-current-badge{font-size:10px;color:rgba(255,255,255,.3);margin-left:4px}`;
+const CSS =`:host{display:block}.lso-wrapper{background:#0d1117;border-top:1px solid rgba(124,58,237,.25);padding:28px 16px;text-align:center;font-family:system-ui,-apple-system,sans-serif}.lso-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#7C3AED;margin:0 0 6px}.lso-subtitle{font-size:11px;color:rgba(255,255,255,.38);margin:0 0 18px;line-height:1.5}.lso-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 20px}.lso-link{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}.lso-link:hover{color:#A78BFA}.lso-current{font-size:12px;font-weight:600;color:#7C3AED}.lso-current-badge{font-size:10px;color:rgba(255,255,255,.3);margin-left:4px}.lso-sigillo-row{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:18px;padding-top:14px;border-top:1px solid rgba(124,58,237,.12)}.lso-sigillo-icon{width:16px;height:16px;display:inline-block;vertical-align:middle;opacity:.7}.lso-sigillo-meta{font-size:10px;color:rgba(255,255,255,.28);line-height:1.4}.lso-hash{font-family:monospace;font-size:10px;color:rgba(124,58,237,.6);letter-spacing:.04em}.lso-verify{font-size:10px;color:rgba(124,58,237,.5);text-decoration:none;transition:color .2s;white-space:nowrap}.lso-verify:hover{color:#A78BFA}`;
 
 class LsoEcosystem extends HTMLElement {
   constructor() { super(); this.attachShadow({ mode: 'open' }); }
@@ -58,6 +63,12 @@ class LsoEcosystem extends HTMLElement {
         <p class="lso-label">Living System Oracode</p>
         <p class="lso-subtitle">${esc(t.subtitle)}</p>
         <nav class="lso-nav" aria-label="${esc(t.exploreLabel)}">${nav}</nav>
+        <div class="lso-sigillo-row" aria-label="Blockchain certification">
+          <img class="lso-sigillo-icon" src="${SIGILLO_ICON}" alt="Sigillo" width="16" height="16">
+          <span class="lso-sigillo-meta">${esc(t.certLabel)}</span>
+          <span class="lso-hash">${SIGILLO_HASH}</span>
+          <a class="lso-verify" href="${SIGILLO_VERIFY_URL}" target="_blank" rel="noopener noreferrer" aria-label="Verifica certificato Sigillo">${esc(t.verifyLabel)}</a>
+        </div>
       </section>
     `;
   }
