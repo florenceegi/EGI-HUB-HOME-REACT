@@ -2,7 +2,7 @@
  * lso-ecosystem.js — FlorenceEGI Living System Oracode Web Component
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
- * @version 1.3.0 (FlorenceEGI — LSO)
+ * @version 1.4.0 (FlorenceEGI — LSO)
  * @date 2026-04-01
  * @purpose Web Component autonomo per il sub-footer ecosistema LSO.
  *          SSOT hostato su florenceegi.com — incluso da tutti gli organi
@@ -12,12 +12,12 @@
  */
 
 const I18N = {
-  it: { subtitle: "FlorenceEGI è un organismo software vivente. Ogni organo lavora in sinergia con gli altri.", exploreLabel: "Esplora l'ecosistema", currentLabel: "questo sito", certLabel: "Manifesto LSO v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Verifica →" },
-  en: { subtitle: "FlorenceEGI is a living software organism. Each organ works in synergy with the others.", exploreLabel: "Explore the ecosystem", currentLabel: "this site", certLabel: "LSO Manifesto v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Verify →" },
-  de: { subtitle: "FlorenceEGI ist ein lebendiger Software-Organismus. Jedes Organ arbeitet synergetisch mit den anderen.", exploreLabel: "Ökosystem erkunden", currentLabel: "diese Seite", certLabel: "LSO-Manifest v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Prüfen →" },
-  es: { subtitle: "FlorenceEGI es un organismo software vivo. Cada órgano trabaja en sinergia con los demás.", exploreLabel: "Explorar el ecosistema", currentLabel: "este sitio", certLabel: "Manifiesto LSO v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Verificar →" },
-  fr: { subtitle: "FlorenceEGI est un organisme logiciel vivant. Chaque organe travaille en synergie avec les autres.", exploreLabel: "Explorer l'écosystème", currentLabel: "ce site", certLabel: "Manifeste LSO v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Vérifier →" },
-  pt: { subtitle: "FlorenceEGI é um organismo de software vivo. Cada órgão trabalha em sinergia com os outros.", exploreLabel: "Explorar o ecossistema", currentLabel: "este site", certLabel: "Manifesto LSO v1.0.0 · Fabio Cherici — FlorenceEGI S.r.l.", verifyLabel: "Verificar →" },
+  it: { subtitle: "FlorenceEGI è un organismo software vivente. Ogni organo lavora in sinergia con gli altri.", exploreLabel: "Esplora l'ecosistema", currentLabel: "questo sito", certLabel: "2026 Fabio Cherici — FlorenceEGI S.r.l. · Tutti i diritti riservati e protetti su blockchain", verifyLabel: "Vedi il certificato →" },
+  en: { subtitle: "FlorenceEGI is a living software organism. Each organ works in synergy with the others.", exploreLabel: "Explore the ecosystem", currentLabel: "this site", certLabel: "2026 Fabio Cherici — FlorenceEGI S.r.l. · All rights reserved and protected on blockchain", verifyLabel: "View certificate →" },
+  de: { subtitle: "FlorenceEGI ist ein lebendiger Software-Organismus. Jedes Organ arbeitet synergetisch mit den anderen.", exploreLabel: "Ökosystem erkunden", currentLabel: "diese Seite", certLabel: "2026 Fabio Cherici — FlorenceEGI S.r.l. · Alle Rechte vorbehalten und auf der Blockchain geschützt", verifyLabel: "Zertifikat anzeigen →" },
+  es: { subtitle: "FlorenceEGI es un organismo software vivo. Cada órgano trabaja en sinergia con los demás.", exploreLabel: "Explorar el ecosistema", currentLabel: "este sitio", certLabel: "2026 Fabio Cherici — FlorenceEGI S.r.l. · Todos los derechos reservados y protegidos en blockchain", verifyLabel: "Ver certificado →" },
+  fr: { subtitle: "FlorenceEGI est un organisme logiciel vivant. Chaque organe travaille en synergie avec les autres.", exploreLabel: "Explorer l'écosystème", currentLabel: "ce site", certLabel: "2026 Fabio Cherici — FlorenceEGI S.r.l. · Tous droits réservés et protégés sur blockchain", verifyLabel: "Voir le certificat →" },
+  pt: { subtitle: "FlorenceEGI é um organismo de software vivo. Cada órgão trabalha em sinergia com os outros.", exploreLabel: "Explorar o ecossistema", currentLabel: "este site", certLabel: "2026 Fabio Cherici — FlorenceEGI S.r.l. · Todos os direitos reservados e protegidos na blockchain", verifyLabel: "Ver certificado →" },
 };
 
 const LSO_SITES = [
