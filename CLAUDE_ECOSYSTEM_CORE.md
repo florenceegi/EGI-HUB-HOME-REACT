@@ -10,8 +10,12 @@
 
 ```
 ━━━ ORGANI CORE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  EGI               → Organo principale. Creator economy, AMMk personali,
-                      blockchain Algorand, wallet Egili, certificazione asset.
+  EGI               → Cuore operativo dell'organismo. Tre livelli:
+                      1. AMMk — creator economy, asset blockchain Algorand
+                      2. Backend condiviso — servizi core per tutti gli organi
+                         (Egili, auth, payment, RAG piattaforma, Feature pricing)
+                      3. Host prodotti — Sigillo, NPE e futuri prodotti che
+                         dipendono dal core (Egili + auth + blockchain)
                       URL: art.florenceegi.com | Path: /home/fabio/EGI/
 
   EGI-HUB           → Cervello frontale. Unico SSOT per config di tutti gli organi.
@@ -24,8 +28,8 @@
                       URL: florenceegi.com | Path: /home/fabio/EGI-HUB-HOME-REACT/
 
   Sigillo           → Certificazione blockchain di file (SHA-256 + Algorand + TSA RFC 3161).
-                      Frontend: EGI-HUB-HOME-REACT (/sigillo) | Backend: EGI (Laravel)
-                      URL: florenceegi.com/sigillo | Status: IN PRODUZIONE
+                      Frontend: EGI-SIGILLO (SPA React autonoma) | Backend: EGI (Laravel)
+                      URL: egi-sigillo.florenceegi.com | Status: IN PRODUZIONE
 
   EGI-INFO          → SPA informativa pubblica FlorenceEGI (React TS, no backend).
                       URL: info.florenceegi.com | Path: /home/fabio/EGI-INFO/
