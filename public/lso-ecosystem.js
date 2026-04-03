@@ -1,5 +1,5 @@
 /**
- * lso-ecosystem.js — FlorenceEGI Living System Oracode Web Component
+ * lso-ecosystem.js — FlorenceEGI Living Software Organism Web Component
  *
  * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
  * @version 1.6.0 (FlorenceEGI — LSO)
@@ -26,7 +26,7 @@ const I18N = {
     certLine:    "Sigillo · 2026 FlorenceEGI S.r.l. · Tutti i diritti riservati",
     verifyLabel: "Vedi il certificato →",
     modalTitle:  "Dichiarazione di Proprietà Intellettuale",
-    modalBody:   "FlorenceEGI è un <strong>LSO</strong> (Living System Oracode — organismo software vivente): un sistema di organi software interconnessi che condividono infrastruttura, evolvono in sinergia e operano come un unico organismo coerente.<br><br>Composto da: <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>È vietata la riproduzione, copia, distribuzione, modifica o qualsiasi utilizzo non autorizzato, anche parziale, di qualsiasi componente di questo sistema.<br><br><em>Certificato e protetto su blockchain Algorand.</em>",
+    modalBody:   "FlorenceEGI è un <strong>LSO</strong> (Living Software Organism — organismo software vivente): un sistema di organi software interconnessi che condividono infrastruttura, evolvono in sinergia e operano come un unico organismo coerente.<br><br>Composto da: <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>È vietata la riproduzione, copia, distribuzione, modifica o qualsiasi utilizzo non autorizzato, anche parziale, di qualsiasi componente di questo sistema.<br><br><em>Certificato e protetto su blockchain Algorand.</em>",
     hashLabel:   "SHA-256",
     txLabel:     "Algorand TX",
     viewOnChain: "Verifica su blockchain →",
@@ -39,7 +39,7 @@ const I18N = {
     certLine:    "Sigillo · 2026 FlorenceEGI S.r.l. · All rights reserved",
     verifyLabel: "View certificate →",
     modalTitle:  "Intellectual Property Declaration",
-    modalBody:   "FlorenceEGI is a <strong>LSO</strong> (Living System Oracode — living software organism): a system of interconnected software organs that share infrastructure, evolve in synergy and operate as a single coherent organism.<br><br>Composed of: <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>Reproduction, copying, distribution, modification or any unauthorized use, even partial, of any component of this system is prohibited.<br><br><em>Certified and protected on Algorand blockchain.</em>",
+    modalBody:   "FlorenceEGI is a <strong>LSO</strong> (Living Software Organism — living software organism): a system of interconnected software organs that share infrastructure, evolve in synergy and operate as a single coherent organism.<br><br>Composed of: <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>Reproduction, copying, distribution, modification or any unauthorized use, even partial, of any component of this system is prohibited.<br><br><em>Certified and protected on Algorand blockchain.</em>",
     hashLabel:   "SHA-256",
     txLabel:     "Algorand TX",
     viewOnChain: "Verify on blockchain →",
@@ -52,7 +52,7 @@ const I18N = {
     certLine:    "Sigillo · 2026 FlorenceEGI S.r.l. · Alle Rechte vorbehalten",
     verifyLabel: "Zertifikat anzeigen →",
     modalTitle:  "Erklärung des geistigen Eigentums",
-    modalBody:   "FlorenceEGI ist ein <strong>LSO</strong> (Living System Oracode — lebendiger Software-Organismus): ein System vernetzter Software-Organe, die Infrastruktur teilen, synergetisch evolvieren und als kohärenter Organismus operieren.<br><br>Bestehend aus: <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>Jede Reproduktion, Kopie, Verteilung, Modifikation oder unbefugte Nutzung, auch teilweise, ist verboten.<br><br><em>Zertifiziert und geschützt auf der Algorand-Blockchain.</em>",
+    modalBody:   "FlorenceEGI ist ein <strong>LSO</strong> (Living Software Organism — lebendiger Software-Organismus): ein System vernetzter Software-Organe, die Infrastruktur teilen, synergetisch evolvieren und als kohärenter Organismus operieren.<br><br>Bestehend aus: <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>Jede Reproduktion, Kopie, Verteilung, Modifikation oder unbefugte Nutzung, auch teilweise, ist verboten.<br><br><em>Zertifiziert und geschützt auf der Algorand-Blockchain.</em>",
     hashLabel:   "SHA-256",
     txLabel:     "Algorand TX",
     viewOnChain: "Auf Blockchain prüfen →",
@@ -65,7 +65,7 @@ const I18N = {
     certLine:    "Sigillo · 2026 FlorenceEGI S.r.l. · Todos los derechos reservados",
     verifyLabel: "Ver certificado →",
     modalTitle:  "Declaración de Propiedad Intelectual",
-    modalBody:   "FlorenceEGI es un <strong>LSO</strong> (Living System Oracode — organismo de software vivo): un sistema de órganos de software interconectados que comparten infraestructura, evolucionan en sinergia y operan como un único organismo coherente.<br><br>Compuesto por: <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>Está prohibida la reproducción, copia, distribución, modificación o cualquier uso no autorizado, incluso parcial, de cualquier componente de este sistema.<br><br><em>Certificado y protegido en blockchain Algorand.</em>",
+    modalBody:   "FlorenceEGI es un <strong>LSO</strong> (Living Software Organism — organismo de software vivo): un sistema de órganos de software interconectados que comparten infraestructura, evolucionan en sinergia y operan como un único organismo coherente.<br><br>Compuesto por: <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>Está prohibida la reproducción, copia, distribución, modificación o cualquier uso no autorizado, incluso parcial, de cualquier componente de este sistema.<br><br><em>Certificado y protegido en blockchain Algorand.</em>",
     hashLabel:   "SHA-256",
     txLabel:     "Algorand TX",
     viewOnChain: "Verificar en blockchain →",
@@ -78,7 +78,7 @@ const I18N = {
     certLine:    "Sigillo · 2026 FlorenceEGI S.r.l. · Tous droits réservés",
     verifyLabel: "Voir le certificat →",
     modalTitle:  "Déclaration de Propriété Intellectuelle",
-    modalBody:   "FlorenceEGI est un <strong>LSO</strong> (Living System Oracode — organisme logiciel vivant) : un système d'organes logiciels interconnectés qui partagent une infrastructure, évoluent en synergie et opèrent comme un organisme cohérent.<br><br>Composé de : <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>Toute reproduction, copie, distribution, modification ou utilisation non autorisée, même partielle, est interdite.<br><br><em>Certifié et protégé sur la blockchain Algorand.</em>",
+    modalBody:   "FlorenceEGI est un <strong>LSO</strong> (Living Software Organism — organisme logiciel vivant) : un système d'organes logiciels interconnectés qui partagent une infrastructure, évoluent en synergie et opèrent comme un organisme cohérent.<br><br>Composé de : <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>Toute reproduction, copie, distribution, modification ou utilisation non autorisée, même partielle, est interdite.<br><br><em>Certifié et protégé sur la blockchain Algorand.</em>",
     hashLabel:   "SHA-256",
     txLabel:     "Algorand TX",
     viewOnChain: "Vérifier sur blockchain →",
@@ -91,7 +91,7 @@ const I18N = {
     certLine:    "Sigillo · 2026 FlorenceEGI S.r.l. · Todos os direitos reservados",
     verifyLabel: "Ver certificado →",
     modalTitle:  "Declaração de Propriedade Intelectual",
-    modalBody:   "FlorenceEGI é um <strong>LSO</strong> (Living System Oracode — organismo de software vivo): um sistema de órgãos de software interconectados que partilham infraestrutura, evoluem em sinergia e operam como um único organismo coerente.<br><br>Composto por: <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>É proibida a reprodução, cópia, distribuição, modificação ou qualquer utilização não autorizada, mesmo parcial, de qualquer componente deste sistema.<br><br><em>Certificado e protegido na blockchain Algorand.</em>",
+    modalBody:   "FlorenceEGI é um <strong>LSO</strong> (Living Software Organism — organismo de software vivo): um sistema de órgãos de software interconectados que partilham infraestrutura, evoluem em sinergia e operam como um único organismo coerente.<br><br>Composto por: <strong>EGI · EGI-HUB · NATAN_LOC · Info · EGI Credential · Sigillo</strong>.<br><br>É proibida a reprodução, cópia, distribuição, modificação ou qualquer utilização não autorizada, mesmo parcial, de qualquer componente deste sistema.<br><br><em>Certificado e protegido na blockchain Algorand.</em>",
     hashLabel:   "SHA-256",
     txLabel:     "Algorand TX",
     viewOnChain: "Verificar na blockchain →",
@@ -180,7 +180,7 @@ class LsoEcosystem extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>${CSS}</style>
       <section class="lso-wrapper" role="complementary" aria-label="${esc(t.exploreLabel)}">
-        <p class="lso-label">Living System Oracode</p>
+        <p class="lso-label">Living Software Organism</p>
         <p class="lso-subtitle">${esc(t.subtitle)}</p>
         <nav class="lso-nav" aria-label="${esc(t.exploreLabel)}">${nav}</nav>
         <div class="lso-cert-row">
