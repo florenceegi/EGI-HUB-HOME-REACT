@@ -20,11 +20,13 @@
 
   EGI-HUB           → Cervello frontale. Unico SSOT per config di tutti gli organi.
                       Nessun organo si auto-configura. Autorità gerarchica assoluta.
-                      Path: /home/fabio/EGI-HUB/
+                      URL: hub.florenceegi.com | Path: /home/fabio/EGI-HUB/
+                      Status: IN PRODUZIONE
 
 ━━━ SUPERFICIE PUBBLICA ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   EGI-HUB-HOME      → Vetrina 3D world-class. Punto di accesso pubblico ecosistema.
-                      Contiene Sigillo come feature integrata.
+                      Integra Sigillo come entrypoint secondario (/sigillo), ma
+                      Sigillo mantiene identita pubblica autonoma (egi-sigillo.florenceegi.com).
                       URL: florenceegi.com | Path: /home/fabio/EGI-HUB-HOME-REACT/
 
   Sigillo           → Certificazione blockchain di file (SHA-256 + Algorand + TSA RFC 3161).
@@ -33,6 +35,7 @@
 
   EGI-INFO          → SPA informativa pubblica FlorenceEGI (React TS, no backend).
                       URL: info.florenceegi.com | Path: /home/fabio/EGI-INFO/
+                      Status: IN PRODUZIONE
 
 ━━━ ORGANI COGNITIVI ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   NATAN_LOC         → Organo cognitivo documentale. RAG su atti PA + AI per Comuni.
@@ -40,6 +43,7 @@
 
   EGI-Credential    → Wallet competenze professionali certificate su Algorand.
                       URL: egi-credential.florenceegi.com | Path: /home/fabio/EGI-Credential/
+                      Status: IN PRODUZIONE (maturita funzionale parziale)
 
 ━━━ STRUMENTI INTERNI ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   EGI-STAT          → Dashboard produttività sviluppatori (GitHub metrics, commit analysis).
