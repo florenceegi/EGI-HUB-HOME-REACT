@@ -57,6 +57,12 @@
 EGI · EGI-HUB · NATAN_LOC · EGI-Credential · Sigillo (via EGI) condividono:
 `core.users` · `core.egis` · `core.wallets` · `core.egili_transactions` · `core.gdpr_*`
 
+**Mente dell'Organismo** — SSOT (`EGI-DOC/docs/`) → RAG piattaforma (`rag_natan.*`) → ai_sidebar in ogni organo.
+Tutti gli SSOT vengono indicizzati nel RAG piattaforma. Ogni organo ha una sidebar AI con chat
+che interroga questo RAG. L'utente parla con l'organismo e riceve risposte fondate sulla
+documentazione reale — contestuali al progetto e all'intero ecosistema.
+SSOT doc: `EGI-DOC/docs/lso/00_LSO_LIVING_SOFTWARE_ORGANISM.md`
+
 ---
 
 ## ⚠️ Legge Fondamentale — P0 ASSOLUTO
