@@ -123,7 +123,8 @@ const CSS = `
 .lso-current{font-size:12px;font-weight:600;color:#7C3AED}
 .lso-current-badge{font-size:10px;color:rgba(255,255,255,.3);margin-left:4px}
 .lso-cert-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 10px;margin-top:16px}
-.lso-cert-icon{width:22px;height:22px;flex-shrink:0;opacity:.95;image-rendering:-webkit-optimize-contrast;image-rendering:crisp-edges}
+.lso-cert-icon{width:22px;height:22px;flex-shrink:0;opacity:.95;image-rendering:-webkit-optimize-contrast;image-rendering:crisp-edges;transition:transform .3s ease}
+.lso-cert-icon:hover{transform:scale(2)}
 .lso-cert-text{font-size:13px;color:rgba(255,255,255,.6)}
 .lso-cert-sep{color:rgba(255,255,255,.2);font-size:13px}
 .lso-cert-btn{font-size:13px;font-weight:600;color:#A78BFA;background:none;border:1px solid rgba(124,58,237,.4);border-radius:4px;padding:3px 12px;cursor:pointer;transition:all .2s;font-family:inherit}
