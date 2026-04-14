@@ -20,6 +20,7 @@ import { TermsPage }             from '@/pages/TermsPage';
 import { SigilloPage }           from '@/pages/SigilloPage';
 import { SigilloPlansPage }      from '@/pages/SigilloPlansPage';
 import { SigilloLegalValuePage } from '@/pages/SigilloLegalValuePage';
+import { BrochureFirenzeFutureWeekPage } from '@/pages/BrochureFirenzeFutureWeekPage';
 
 // Mobile components
 import { AppShell } from '@/mobile/app/AppShell';
@@ -86,9 +87,10 @@ function App() {
                         {currentPath === '/sigillo' && <SigilloPage />}
                         {currentPath === '/sigillo/piani' && <SigilloPlansPage />}
                         {currentPath === '/sigillo/valore-legale' && <SigilloLegalValuePage />}
+                        {currentPath === '/brochures/firenze-future-week-2026' && <BrochureFirenzeFutureWeekPage />}
 
                         {/* Fallback for unknown mobile routes */}
-                        {!['/', '/corporate', '/platforms', '/ecosystem', '/what-is', '/how-it-works', '/team', '/under-construction', '/sigillo', '/sigillo/piani', '/sigillo/valore-legale'].includes(currentPath) && <MobileHomePage />}
+                        {!['/', '/corporate', '/platforms', '/ecosystem', '/what-is', '/how-it-works', '/team', '/under-construction', '/sigillo', '/sigillo/piani', '/sigillo/valore-legale', '/brochures/firenze-future-week-2026'].includes(currentPath) && <MobileHomePage />}
 
                     </AppShell>
                 </QueryClientProvider>
@@ -116,6 +118,8 @@ function App() {
         if (currentPath === '/sigillo/piani') return <SigilloPlansPage />;
         if (currentPath === '/sigillo/valore-legale') return <SigilloLegalValuePage />;
 
+        // Brochures
+        if (currentPath === '/brochures/firenze-future-week-2026') return <BrochureFirenzeFutureWeekPage />;
 
         // Desktop-specific pages
         if (currentPath === '/platforms') return <PlatformsPage />;
