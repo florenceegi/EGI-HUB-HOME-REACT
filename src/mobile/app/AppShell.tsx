@@ -10,7 +10,7 @@ import { EcosystemBackButton } from '../components/EcosystemBackButton';
 export function AppShell({ children }: { children: React.ReactNode }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const { locale, setLocale } = useI18n();
+    const { locale, setLocale, t: tKey } = useI18n();
     const t = translations[locale];
 
     useEffect(() => {
@@ -48,12 +48,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                             <EcosystemBackButton />
                             {/* Lang Switcher (Mini) */}
                             <button
+                                type="button"
                                 onClick={() => {
                                     const locales: import('@/i18n/translations').SupportedLocale[] = ['it', 'en', 'de', 'fr', 'es', 'pt'];
                                     const currentIndex = locales.indexOf(locale);
                                     const nextIndex = (currentIndex + 1) % locales.length;
                                     setLocale(locales[nextIndex]);
                                 }}
+                                aria-label={tKey('a11y.language')}
                                 className="text-xs font-medium uppercase tracking-wider text-[var(--muted)] hover:text-[var(--text)] transition-colors w-6 text-center"
                             >
                                 {locale}
@@ -61,23 +63,32 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
                             {/* Menu Toggle */}
                             <button
+                                type="button"
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                aria-label={isMenuOpen ? tKey('general.close_menu') : tKey('general.open_menu')}
+                                aria-expanded={isMenuOpen}
+                                aria-controls="mobile-drawer-menu"
                                 className="relative z-50 p-2 -mr-2 text-[var(--text)] hover:bg-[var(--border)] rounded-full transition-colors"
                             >
-                                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                                {isMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
                             </button>
                         </div>
                     </div>
                 </header>
 
                 {/* Main Content */}
-                <main className="relative pt-[120px] pb-24">
+                <main id="main-content" tabIndex={-1} className="relative pt-[120px] pb-24 outline-none">
                     {children}
                 </main>
 
                 {/* Drawer Menu — bg via inline style: Tailwind opacity modifier /N non funziona
                      con CSS vars hex, il colore diventava trasparente lasciando vedere il dark bg */}
                 <div
+                    id="mobile-drawer-menu"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-hidden={!isMenuOpen}
+                    aria-label={tKey('general.open_menu')}
                     className={`fixed inset-0 z-40 transition-transform duration-500 ease-spring ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
                     style={{ backgroundColor: 'var(--bg)' }}
                 >

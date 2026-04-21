@@ -27,6 +27,10 @@ import { AppShell } from '@/mobile/app/AppShell';
 import { HomePage as MobileHomePage } from '@/mobile/pages/HomePage';
 import { WhatIsEgiPage } from '@/mobile/pages/WhatIsEgiPage';
 
+// A11y (M-101) — WCAG 2.1 AA + AAA toggle
+import { SkipToContent } from '@/components/common/SkipToContent';
+import { A11yPanel } from '@/components/common/A11yPanel';
+
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -71,6 +75,8 @@ function App() {
         return (
             <HelmetProvider>
                 <QueryClientProvider client={queryClient}>
+                    <SkipToContent />
+                    <A11yPanel />
                     <AppShell>
                         {/* Simple Mobile Routing */}
                         {currentPath === '/privacy' && <PrivacyPolicyPage />}
@@ -141,7 +147,11 @@ function App() {
     return (
         <HelmetProvider>
             <QueryClientProvider client={queryClient}>
-                {renderPage()}
+                <SkipToContent />
+                <A11yPanel />
+                <div id="main-content" tabIndex={-1} className="outline-none">
+                    {renderPage()}
+                </div>
             </QueryClientProvider>
         </HelmetProvider>
     );

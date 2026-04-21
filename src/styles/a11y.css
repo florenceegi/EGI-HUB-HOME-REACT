@@ -1,0 +1,174 @@
+/**
+ * @package EGI-HUB-HOME-REACT — A11y globals
+ * @author Padmin D. Curtis (AI Partner OS3.0) for Fabio Cherici
+ * @version 1.0.0 (FlorenceEGI — EGI-HUB-HOME-REACT)
+ * @date 2026-04-21
+ * @purpose Stili a11y globali propagati da CREATOR-STAGING gold standard (M-101).
+ *          Focus ring :focus-visible, skip-link, high-contrast toggle, reduced-motion override, sr-only fallback.
+ */
+
+/* ─── Skip-to-content link (WCAG 2.1 AA) ─────────────────────────── */
+.a11y-skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    padding: 0.75rem 1.5rem;
+    background: #00FFDD;
+    color: #05080C;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: top 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.a11y-skip-link:focus {
+    top: 1rem;
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/* ─── Global focus ring ──────────────────────────────────────────── */
+*:focus-visible {
+    outline: 2px solid #00FFDD;
+    outline-offset: 2px;
+}
+
+/* ─── sr-only fallback (se Tailwind non lo genera) ───────────────── */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ─── High contrast (WCAG AAA user toggle) ───────────────────────── */
+html[data-a11y-contrast="high"] {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+html[data-a11y-contrast="high"] body,
+html[data-a11y-contrast="high"] *[class*="glass"],
+html[data-a11y-contrast="high"] *[class*="bg-"] {
+    background: #000000 !important;
+}
+
+html[data-a11y-contrast="high"] *:not(svg):not(path):not(line):not(circle) {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+
+html[data-a11y-contrast="high"] a,
+html[data-a11y-contrast="high"] button,
+html[data-a11y-contrast="high"] *[class*="text-primary"],
+html[data-a11y-contrast="high"] *[class*="text-accent"] {
+    color: #FFD200 !important;
+    text-decoration: underline;
+}
+
+html[data-a11y-contrast="high"] *:focus-visible {
+    outline: 3px solid #FFD200 !important;
+    outline-offset: 3px !important;
+}
+
+/* ─── Reduced motion (user override) ─────────────────────────────── */
+html[data-a11y-reduced-motion="on"] *,
+html[data-a11y-reduced-motion="on"] *::before,
+html[data-a11y-reduced-motion="on"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+}
+
+/* ─── Reduced motion (system preference) ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ─── Font size scaling (user toggle) ────────────────────────────── */
+html[data-a11y-font-scale="large"] {
+    font-size: 112.5%;
+}
+
+html[data-a11y-font-scale="xlarge"] {
+    font-size: 125%;
+}
+
+/* ─── A11y panel trigger FAB ─────────────────────────────────────── */
+.a11y-panel-trigger {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 9998;
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    background: rgba(5, 8, 12, 0.9);
+    color: #00FFDD;
+    border: 1px solid rgba(0, 255, 221, 0.4);
+    backdrop-filter: blur(10px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.a11y-panel-trigger:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 221, 0.35);
+}
+
+.a11y-panel-trigger:focus-visible {
+    outline: 2px solid #00FFDD;
+    outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+    .a11y-panel-trigger {
+        right: 0.75rem;
+        bottom: calc(env(safe-area-inset-bottom) + 4.75rem);
+    }
+}
+
+/* ─── A11y panel ──────────────────────────────────────────────────── */
+.a11y-panel {
+    position: fixed;
+    right: 1rem;
+    bottom: 4rem;
+    z-index: 9999;
+    width: min(320px, calc(100vw - 2rem));
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(5, 8, 12, 0.97);
+    border: 1px solid rgba(0, 255, 221, 0.25);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    color: #E8ECEF;
+}
+
+@media (max-width: 768px) {
+    .a11y-panel {
+        right: 0.75rem;
+        bottom: calc(env(safe-area-inset-bottom) + 8rem);
+    }
+}
