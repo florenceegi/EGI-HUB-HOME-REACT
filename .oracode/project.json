@@ -1,0 +1,19 @@
+{
+  "_meta": {
+    "description": "Descrittore progetto Oracode — M-OS3-096 (per-organo)",
+    "version": "1.0.0",
+    "created": "2026-06-07"
+  },
+  "project": "EGI-HUB-HOME-REACT",
+  "canonical_name": "EGI-HUB-HOME-REACT",
+  "aliases": [
+    "EGI-HUB-HOME-REACT"
+  ],
+  "id_prefix": "M-HUBHOME",
+  "level": 3,
+  "instance_root": "/home/fabio/EGI-HUB-HOME-REACT",
+  "registry_path": "/home/fabio/EGI-HUB-HOME-REACT/docs/missions/MISSION_REGISTRY.json",
+  "repo_map_path": "/home/fabio/EGI-HUB-HOME-REACT/docs/missions/REPO_MAP.json",
+  "read_log_path": "/home/fabio/EGI-HUB-HOME-REACT/audit/MISSION_READ_LOG.jsonl",
+  "bootstrap_index_path": "/home/fabio/EGI-HUB-HOME-REACT/docs/missions/MISSION_BOOTSTRAP_INDEX.json"
+}
