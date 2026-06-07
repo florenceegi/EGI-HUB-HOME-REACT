@@ -1,3 +1,5 @@
+@CLAUDE_ORACODE_CORE.md
+@CLAUDE_OS3_MATRIX.md
 @CLAUDE_ECOSYSTEM_CORE.md
 
 # EGI-HUB-HOME — Contesto Specifico (Oracode OS3)
