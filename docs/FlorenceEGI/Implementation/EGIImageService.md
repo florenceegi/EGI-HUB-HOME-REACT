@@ -17,7 +17,7 @@ In pratica, se la tua webapp deve caricare un’immagine di banner o avatar, `EG
 
 ## **2. Descrizione Discorsiva**
 
-Immagina di avere una collezione di “Eco Goods Inventories” (EGI), ciascuna con le sue immagini: banner, avatar, card, e via dicendo. Quando un utente carica un nuovo banner, la piattaforma deve:
+Immagina di avere una collezione di “Environment Goods Invent” (EGI), ciascuna con le sue immagini: banner, avatar, card, e via dicendo. Quando un utente carica un nuovo banner, la piattaforma deve:
 
 1. **Rimuovere** eventuali banner precedenti dal disco (o dai dischi) in uso.
 2. **Salvare** il nuovo file in tutti i servizi attivi.

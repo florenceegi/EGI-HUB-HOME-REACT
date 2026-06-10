@@ -1,6 +1,6 @@
 ### Definizione di EGI
 
-Un EGI (“Eco Goods Invent”) è un'entità digitale unica, progettata per combinare valore ambientale, culturale e utilità pratica. Questa definizione rappresenta una guida ufficiale per comprenderne la natura e le caratteristiche distintive.
+Un EGI (“Environment Goods Invent”) è un'entità digitale unica, progettata per combinare valore ambientale, culturale e utilità pratica. Questa definizione rappresenta una guida ufficiale per comprenderne la natura e le caratteristiche distintive.
 
 #### Tipologie di EGI
 

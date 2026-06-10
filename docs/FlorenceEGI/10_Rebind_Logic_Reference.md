@@ -1,7 +1,7 @@
 # 10. Logica di Rebind (Mercato Secondario)
 
 ## Introduzione
-Il **Rebind** è il processo di vendita sul mercato secondario di un EGI (Ecological Goods Invent). A differenza del "Mint" (creazione e prima vendita), il Rebind trasferisce la proprietà da un Collezionista a un altro, attivando una catena di distribuzione del valore che premia non solo il venditore, ma anche il Creatore originale e la Piattaforma.
+Il **Rebind** è il processo di vendita sul mercato secondario di un EGI (Environment Goods Invent). A differenza del "Mint" (creazione e prima vendita), il Rebind trasferisce la proprietà da un Collezionista a un altro, attivando una catena di distribuzione del valore che premia non solo il venditore, ma anche il Creatore originale e la Piattaforma.
 
 ## 1. Architettura delle Royalties
 In una transazione di Rebind, il prezzo di vendita pagato dall'acquirente viene suddiviso tra diversi beneficiari.

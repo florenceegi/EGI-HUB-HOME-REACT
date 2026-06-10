@@ -213,7 +213,7 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
         },
         about: {
             title: 'CHI SIAMO',
-            body: 'FlorenceEGI è l\'infrastruttura che certifica, protegge e rende liquidi i tuoi asset reali — arte, documenti, prodotti, idee — su blockchain Algorand.\n\nOgni EGI (Ecological Goods Invent) è un certificato digitale che unisce tre cose inscindibili: il tuo bene, royalty perpetue automatiche, e il finanziamento diretto di progetti ambientali verificati.\n\nNon custodiamo fondi. Non gestiamo crypto. Paghi in euro, il valore si genera da solo. GDPR by design, MiCA-safe, zero costi iniziali.',
+            body: 'FlorenceEGI è l\'infrastruttura che certifica, protegge e rende liquidi i tuoi asset reali — arte, documenti, prodotti, idee — su blockchain Algorand.\n\nOgni EGI (Environment Goods Invent) è un certificato digitale che unisce tre cose inscindibili: il tuo bene, royalty perpetue automatiche, e il finanziamento diretto di progetti ambientali verificati.\n\nNon custodiamo fondi. Non gestiamo crypto. Paghi in euro, il valore si genera da solo. GDPR by design, MiCA-safe, zero costi iniziali.',
             highlights: [
                 { value: '5', label: 'Piattaforme integrate' },
                 { value: '4.5%', label: 'Royalty perpetue' },
@@ -341,7 +341,7 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
         },
         about: {
             title: 'WHO WE ARE',
-            body: 'FlorenceEGI is the infrastructure that certifies, protects and makes your real assets liquid — art, documents, products, ideas — on the Algorand blockchain.\n\nEvery EGI (Ecological Goods Invent) is a digital certificate that binds three inseparable things: your asset, automatic perpetual royalties, and direct funding for verified environmental projects.\n\nWe don\'t custody funds. We don\'t handle crypto. You pay in euros, value generates itself. GDPR by design, MiCA-safe, zero upfront costs.',
+            body: 'FlorenceEGI is the infrastructure that certifies, protects and makes your real assets liquid — art, documents, products, ideas — on the Algorand blockchain.\n\nEvery EGI (Environment Goods Invent) is a digital certificate that binds three inseparable things: your asset, automatic perpetual royalties, and direct funding for verified environmental projects.\n\nWe don\'t custody funds. We don\'t handle crypto. You pay in euros, value generates itself. GDPR by design, MiCA-safe, zero upfront costs.',
             highlights: [
                 { value: '5', label: 'Integrated platforms' },
                 { value: '4.5%', label: 'Perpetual royalties' },
@@ -469,7 +469,7 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
         },
         about: {
             title: 'QUEM SOMOS',
-            body: 'FlorenceEGI é a infraestrutura que certifica, protege e torna líquidos seus ativos reais — arte, documentos, produtos, ideias — na blockchain Algorand.\n\nCada EGI (Ecological Goods Invent) é um certificado digital que une três coisas inseparáveis: seu bem, royalties perpétuas automáticas e o financiamento direto de projetos ambientais verificados.\n\nNão custodiamos fundos. Não gerenciamos crypto. Você paga em euros, o valor se gera sozinho. GDPR by design, MiCA-safe, zero custos iniciais.',
+            body: 'FlorenceEGI é a infraestrutura que certifica, protege e torna líquidos seus ativos reais — arte, documentos, produtos, ideias — na blockchain Algorand.\n\nCada EGI (Environment Goods Invent) é um certificado digital que une três coisas inseparáveis: seu bem, royalties perpétuas automáticas e o financiamento direto de projetos ambientais verificados.\n\nNão custodiamos fundos. Não gerenciamos crypto. Você paga em euros, o valor se gera sozinho. GDPR by design, MiCA-safe, zero custos iniciais.',
             highlights: [
                 { value: '5', label: 'Plataformas integradas' },
                 { value: '4.5%', label: 'Royalties perpétuas' },
@@ -597,7 +597,7 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
         },
         about: {
             title: 'QUIÉNES SOMOS',
-            body: 'FlorenceEGI es la infraestructura que certifica, protege y hace líquidos tus activos reales — arte, documentos, productos, ideas — en la blockchain Algorand.\n\nCada EGI (Ecological Goods Invent) es un certificado digital que une tres cosas inseparables: tu bien, royalties perpetuas automáticas y la financiación directa de proyectos ambientales verificados.\n\nNo custodiamos fondos. No gestionamos crypto. Pagas en euros, el valor se genera solo. GDPR by design, MiCA-safe, cero costes iniciales.',
+            body: 'FlorenceEGI es la infraestructura que certifica, protege y hace líquidos tus activos reales — arte, documentos, productos, ideas — en la blockchain Algorand.\n\nCada EGI (Environment Goods Invent) es un certificado digital que une tres cosas inseparables: tu bien, royalties perpetuas automáticas y la financiación directa de proyectos ambientales verificados.\n\nNo custodiamos fondos. No gestionamos crypto. Pagas en euros, el valor se genera solo. GDPR by design, MiCA-safe, cero costes iniciales.',
             highlights: [
                 { value: '5', label: 'Plataformas integradas' },
                 { value: '4.5%', label: 'Royalties perpetuas' },
@@ -725,7 +725,7 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
         },
         about: {
             title: 'QUI SOMMES-NOUS',
-            body: 'FlorenceEGI est l\'infrastructure qui certifie, protège et rend liquides vos actifs réels — art, documents, produits, idées — sur la blockchain Algorand.\n\nChaque EGI (Ecological Goods Invent) est un certificat numérique qui lie trois choses indissociables : votre bien, des royalties perpétuelles automatiques et le financement direct de projets environnementaux vérifiés.\n\nNous ne gardons pas de fonds. Nous ne gérons pas de crypto. Vous payez en euros, la valeur se génère d\'elle-même. GDPR by design, MiCA-safe, zéro coût initial.',
+            body: 'FlorenceEGI est l\'infrastructure qui certifie, protège et rend liquides vos actifs réels — art, documents, produits, idées — sur la blockchain Algorand.\n\nChaque EGI (Environment Goods Invent) est un certificat numérique qui lie trois choses indissociables : votre bien, des royalties perpétuelles automatiques et le financement direct de projets environnementaux vérifiés.\n\nNous ne gardons pas de fonds. Nous ne gérons pas de crypto. Vous payez en euros, la valeur se génère d\'elle-même. GDPR by design, MiCA-safe, zéro coût initial.',
             highlights: [
                 { value: '5', label: 'Plateformes intégrées' },
                 { value: '4.5%', label: 'Royalties perpétuelles' },
@@ -853,7 +853,7 @@ export const homepageContent: Record<SupportedLocale, HomepageContent> = {
         },
         about: {
             title: 'WER WIR SIND',
-            body: 'FlorenceEGI ist die Infrastruktur, die Ihre realen Güter — Kunst, Dokumente, Produkte, Ideen — auf der Algorand-Blockchain zertifiziert, schützt und liquide macht.\n\nJedes EGI (Ecological Goods Invent) ist ein digitales Zertifikat, das drei untrennbare Elemente verbindet: Ihr Gut, automatische ewige Tantiemen und die direkte Finanzierung verifizierter Umweltprojekte.\n\nWir verwahren keine Gelder. Wir verwalten keine Kryptowährung. Sie zahlen in Euro, der Wert generiert sich von selbst. GDPR by design, MiCA-safe, null Anfangskosten.',
+            body: 'FlorenceEGI ist die Infrastruktur, die Ihre realen Güter — Kunst, Dokumente, Produkte, Ideen — auf der Algorand-Blockchain zertifiziert, schützt und liquide macht.\n\nJedes EGI (Environment Goods Invent) ist ein digitales Zertifikat, das drei untrennbare Elemente verbindet: Ihr Gut, automatische ewige Tantiemen und die direkte Finanzierung verifizierter Umweltprojekte.\n\nWir verwahren keine Gelder. Wir verwalten keine Kryptowährung. Sie zahlen in Euro, der Wert generiert sich von selbst. GDPR by design, MiCA-safe, null Anfangskosten.',
             highlights: [
                 { value: '5', label: 'Integrierte Plattformen' },
                 { value: '4.5%', label: 'Ewige Tantiemen' },

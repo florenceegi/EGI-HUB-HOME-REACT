@@ -19,7 +19,7 @@ L'attuale mercato degli NFT soffre di tre problemi critici:
 
 **FlorenceEGI** è un sistema unico che risolve il Trilemma NFT attraverso un'architettura integrata che unisce:
 
-- **EGI (Eco Goods Invent)**: Certificato digitale che collega opere fisiche/digitali, traccia blockchain immutabile e contributo ambientale verificato
+- **EGI (Environment Goods Invent)**: Certificato digitale che collega opere fisiche/digitali, traccia blockchain immutabile e contributo ambientale verificato
 - **AMMk (Asset Market Maker)**: Primo motore al mondo che origina, certifica, valuta e rende liquidi gli asset digitali attraverso 5 engine specializzati
 - **Blockchain Algorand**: Carbon-negative, sostenibile, veloce e sicura
 - **Compliance Totale**: GDPR-by-design e MiCA-safe (nessuna custodia crypto per terzi)
@@ -235,7 +235,7 @@ FlorenceEGI permette di costruire **carriere professionali verificabili**:
 
 #### 3. Cos'è un EGI
 
-- 3.1 Definizione: Eco Goods Invent
+- 3.1 Definizione: Environment Goods Invent
 - 3.2 Componenti dell'EGI
   - 3.2.1 EPP (Environmental Protection Project)
   - 3.2.2 GOODS (Oggetto Fisico o Digitale)

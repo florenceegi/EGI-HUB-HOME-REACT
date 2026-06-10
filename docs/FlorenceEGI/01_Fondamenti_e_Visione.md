@@ -24,7 +24,7 @@ L'artista genera la forma, ma è l'incontro con il mecenate che **attiva la sua 
 
 ### La Trasformazione in EGI
 
-L'opera diventa **EGI – Eco Goods Invent**, unendo:
+L'opera diventa **EGI – Environment Goods Invent**, unendo:
 
 - **🎨 Valore Estetico**: Bellezza e significato culturale
 - **⛓️ Traccia Digitale**: Immutabile su Algorand blockchain

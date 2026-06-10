@@ -236,7 +236,7 @@ export function BrochureFirenzeFutureWeekPage() {
                     <motion.p variants={fadeUp} custom={1}
                         className="text-sm text-text-muted mb-8"
                     >
-                        EGI = Ecological Goods Invent. Non un NFT.
+                        EGI = Environment Goods Invent. Non un NFT.
                         Un contenitore digitale certificato che unisce un bene reale, un impatto ambientale e l'ingegno umano.
                     </motion.p>
 

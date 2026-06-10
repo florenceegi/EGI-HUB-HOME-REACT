@@ -62,7 +62,7 @@ export function AboutSection() {
 }
 
 function highlightKeyTerms(text: string) {
-    const pattern = /\b(FlorenceEGI|Ecological Goods Invent|Algorand|GDPR|MiCA(?:-safe)?|EGI|EPP)\b/g;
+    const pattern = /\b(FlorenceEGI|Environment Goods Invent|Algorand|GDPR|MiCA(?:-safe)?|EGI|EPP)\b/g;
     const parts = text.split(pattern);
 
     return parts.map((part, i) => {

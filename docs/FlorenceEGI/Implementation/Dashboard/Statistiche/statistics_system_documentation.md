@@ -28,7 +28,7 @@
 
 ## 🎯 System Overview
 
-The FlorenceEGI Statistics System provides comprehensive analytics for users' EGI (Ecological Goods Invent) collections, including:
+The FlorenceEGI Statistics System provides comprehensive analytics for users' EGI (Environment Goods Invent) collections, including:
 
 - **Likes Analytics**: Total likes on collections and individual EGIs
 - **Reservation Tracking**: Active reservations with priority logic (Strong > Weak)

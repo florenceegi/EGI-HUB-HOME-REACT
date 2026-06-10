@@ -21,7 +21,7 @@
 
 ## BLOCCO 3: COSA SONO GLI EGI
 
-> Un **EGI** (Ecological Goods Invent) è un oggetto digitale certificato su blockchain che rappresenta la tua creazione. Non è un semplice file: è un **certificato di proprietà** impossibile da falsificare, che porta con sé:
+> Un **EGI** (Environment Goods Invent) è un oggetto digitale certificato su blockchain che rappresenta la tua creazione. Non è un semplice file: è un **certificato di proprietà** impossibile da falsificare, che porta con sé:
 >
 > -   La prova che l'hai creato tu
 > -   Il diritto a guadagnare su ogni rivendita futura

@@ -4,7 +4,7 @@
 
 **FlorenceEGI** è il marketplace NFT che risolve il trilemma del settore: **Qualità artistica + Liquidità + Impatto ambientale reale**.
 
-**Il Breakthrough:** Ogni EGI (Ecological Goods Invent) combina arte autentica, utility concreta e contributo automatico agli EPP (Environment Protection Programs). Il 20% di ogni transazione finanzia automaticamente riforestazione, pulizia oceani e protezione api.
+**Il Breakthrough:** Ogni EGI (Environment Goods Invent) combina arte autentica, utility concreta e contributo automatico agli EPP (Environment Protection Programs). Il 20% di ogni transazione finanzia automaticamente riforestazione, pulizia oceani e protezione api.
 
 **La Rivoluzione:** Non competiamo con OpenSea/Blur - creiamo una categoria nuova dove sostenibilità è il moat inattaccabile.
 

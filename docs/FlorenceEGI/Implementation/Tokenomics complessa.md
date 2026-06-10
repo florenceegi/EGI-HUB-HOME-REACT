@@ -6,7 +6,7 @@
 
 ## **1. Definizione di EGI e Struttura dell'Item**
 
-### **1.1 [EGI](Definizione%20e%20spiegazioni%20di%20EGI.md) (Ecological Goods Invent)**
+### **1.1 [EGI](Definizione%20e%20spiegazioni%20di%20EGI.md) (Environment Goods Invent)**
 
 - **Descrizione**: Un EGI è un bene digitale che può essere un'immagine, un brano musicale inedito (non coperto da SIAE), un eBook o un video. Ogni EGI deve sempre avere una **consistenza fisica oltre che digitale**, distinguendosi dagli NFT tradizionali e "effimeri".
 
@@ -330,7 +330,7 @@ Per le rivendite degli EGI sul mercato secondario, viene applicata una commissio
 
 ## **13. Glossario dei Termini**
 
-- **EGI (Ecological Goods Invent)**: Un bene digitale che unisce un elemento digitale, un EPP e un'utility, garantendo una componente fisica o funzionale oltre al digitale.
+- **EGI (Environment Goods Invent)**: Un bene digitale che unisce un elemento digitale, un EPP e un'utility, garantendo una componente fisica o funzionale oltre al digitale.
 
 - **Item**: L'entità tecnica che raggruppa tutti gli elementi dell'EGI all'interno della piattaforma.
 

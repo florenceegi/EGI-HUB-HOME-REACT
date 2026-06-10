@@ -15,14 +15,14 @@ return [
     |--------------------------------------------------------------------------
     |
     | Tutte le stringhe di testo per la pagina informativa completa sugli EGI
-    | (Ecological Goods Invent) - versione italiana
+    | (Environment Goods Invent) - versione italiana
     |
     */
 
     // SEO & Meta
     'page_title' => 'EGI: Asset Digitali Beyond NFT | Certificazione Blockchain, Utilities e Impatto Ambientale',
-    'page_description' => 'EGI (Ecological Goods Invent): oltre gli NFT tradizionali. Asset digitali certificati che rappresentano opere d\'arte, utility cards, servizi, contratti e token commerciali con impatto ambientale concreto su blockchain Algorand ARC-72.',
-    'meta_keywords' => 'EGI, Ecological Goods Invent, Beyond NFT, blockchain certificazione, utilities, impatto ambientale, Algorand ARC-72, asset digitali',
+    'page_description' => 'EGI (Environment Goods Invent): oltre gli NFT tradizionali. Asset digitali certificati che rappresentano opere d\'arte, utility cards, servizi, contratti e token commerciali con impatto ambientale concreto su blockchain Algorand ARC-72.',
+    'meta_keywords' => 'EGI, Environment Goods Invent, Beyond NFT, blockchain certificazione, utilities, impatto ambientale, Algorand ARC-72, asset digitali',
 
     // Navigation
     'nav_home' => 'Home',
@@ -34,7 +34,7 @@ return [
     // Hero Section
     'hero_title' => 'EGI',
     'hero_subtitle' => 'Beyond NFT: Asset Digitali Certificati Blockchain',
-    'hero_badge' => 'Ecological Goods Invent',
+    'hero_badge' => 'Environment Goods Invent',
     'hero_badge_aria' => 'Etichetta che indica il significato di EGI',
     'hero_tagline' => 'Beyond NFT: Asset Digitali che Certificano, Servono e Impattano',
     'hero_description' => '<strong>Opere d\'arte, utility cards, servizi, contratti, token commerciali</strong> e molto altro. Gli EGI rappresentano qualsiasi tipologia di bene o servizio con <strong>valore reale, componenti fisiche e impatto ambientale concreto</strong> certificato su blockchain Algorand.',
@@ -48,7 +48,7 @@ return [
 
     // Definizione EGI Section
     'definition_title' => 'Cosa sono gli EGI?',
-    'definition_subtitle' => 'Ecological Goods Invent: La Rivoluzione degli Asset Digitali',
+    'definition_subtitle' => 'Environment Goods Invent: La Rivoluzione degli Asset Digitali',
     'definition_intro' => 'Gli EGI non sono semplici NFT. Sono asset digitali evoluti che portano utilità concreta, certificazione verificabile e impatto ambientale misurabile nel mondo reale.',
 
     'definition_beyond_title' => 'Beyond NFT',
@@ -101,7 +101,7 @@ return [
     'goods_acronym' => 'Beni o<br>Servizi',
     'goods_description' => 'Una rivoluzionaria interfaccia tra arte, utility e marketing, offrendo nuove opportunità per artisti e aziende di collaborare e innovare nel mondo digitale.',
     'goods_flexibility_title' => 'Flessibilità e Potenzialità',
-    'goods_flexibility_intro' => 'Gli EGI (Eco Goods Invent) di FlorenceEGI si distinguono nel panorama digitale per la loro straordinaria flessibilità e potenzialità creative e commerciali del marketing e del branding.',
+    'goods_flexibility_intro' => 'Gli EGI (Environment Goods Invent) di FlorenceEGI si distinguono nel panorama digitale per la loro straordinaria flessibilità e potenzialità creative e commerciali del marketing e del branding.',
     'goods_flexibility_description' => 'Ogni EGI non è soltanto una raffinata opera d\'arte digitale, ma è anche progettato per supportare un\'ampia gamma di utilità. Questa caratteristica unica apre le porte a innumerevoli possibilità creative e commerciali.',
     'goods_marketing_potential' => 'Le aziende possono sfruttare la forza espressiva e l\'attrattiva delle opere d\'arte per creare campagne di marketing più coinvolgenti e memorabili.',
 
@@ -112,7 +112,7 @@ return [
     'creativity_acronym' => 'E INVENTIVA',
     'creativity_description' => 'Gli EGI incarnano l\'essenza dell\'arte autentica e originale, rappresentando una rivoluzionaria categoria di asset digitali che celebrano l\'unicità e l\'autenticità creativa.',
     'creativity_beyond_art_title' => 'Beyond Digital Art: La Rivoluzione degli Asset Digitali',
-    'creativity_beyond_art_intro' => 'Gli <strong>EGI (Ecological Goods Invent)</strong> di FlorenceEGI non sono semplici NFT o opere d\'arte digitali. Sono <strong>oggetti digitali certificati blockchain</strong> che possono rappresentare qualsiasi tipologia di bene, servizio o utility con valore reale e impatto ambientale concreto.',
+    'creativity_beyond_art_intro' => 'Gli <strong>EGI (Environment Goods Invent)</strong> di FlorenceEGI non sono semplici NFT o opere d\'arte digitali. Sono <strong>oggetti digitali certificati blockchain</strong> che possono rappresentare qualsiasi tipologia di bene, servizio o utility con valore reale e impatto ambientale concreto.',
     'egi_types_title' => 'Cosa può essere un EGI:',
     'egi_type_artwork' => "• <strong>Opera d\'arte certificata</strong> (digitale o fisica)",
     'egi_type_document' => '• <strong>Documento firmato</strong> tra più soggetti (CoA, contratti)',
@@ -205,8 +205,8 @@ return [
 
     // Schema.org
     'schema_organization_name' => 'FlorenceEGI',
-    'schema_organization_description' => 'Beyond NFT: Piattaforma per Ecological Goods Invent con impatto ambientale certificato',
-    'schema_product_name' => 'EGI - Ecological Goods Invent',
+    'schema_organization_description' => 'Beyond NFT: Piattaforma per Environment Goods Invent con impatto ambientale certificato',
+    'schema_product_name' => 'EGI - Environment Goods Invent',
     'schema_product_description' => 'Asset digitali evoluti che certificano, servono e impattano positivamente sull\'ambiente',
 
     // Traits e Utilities Section

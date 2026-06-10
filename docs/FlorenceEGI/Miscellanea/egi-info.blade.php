@@ -63,7 +63,7 @@
         },
         "about": {
             "@type": "Thing",
-            "name": "Ecological Goods Invent",
+            "name": "Environment Goods Invent",
             "description": "Certificati digitali blockchain che garantiscono sostenibilità ambientale"
         },
         "inLanguage": "{{ app()->getLocale() }}",
@@ -77,7 +77,7 @@
         },
         "mainEntity": {
             "@type": "DefinedTerm",
-            "name": "EGI - Ecological Goods Invent",
+            "name": "EGI - Environment Goods Invent",
             "description": "Certificati digitali blockchain per sostenibilità ambientale",
             "inDefinedTermSet": "FlorenceEGI Ecosystem"
         }

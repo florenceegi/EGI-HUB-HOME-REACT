@@ -15,7 +15,7 @@
 * **Problema:** Costi/complessità/speculazione NFT, scarsa visibilità artisti, necessità di impatto ambientale misurabile.
 * **Elemento Umano:** Il progetto enfatizza la **creatività umana** ("Invent") come valore fondamentale, distinguendosi da soluzioni basate puramente su IA. Il concetto di "cura" è centrale.
 
-### 1.2. Il Manifesto EGI (Ecological Goods Invent)
+### 1.2. Il Manifesto EGI (Environment Goods Invent)
 
 * **Definizione:** EGI = NFT su **Algorand (ARC-72)** che combina:
   * **E** (Environment): Collegamento a un **EPP** (Environment Protection Program) finanziato da una % delle transazioni.

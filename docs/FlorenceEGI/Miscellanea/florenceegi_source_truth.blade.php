@@ -274,7 +274,7 @@
                 <div class="rounded-2xl bg-white p-8 shadow-lg">
                     <dl class="space-y-8">
                         <div>
-                            <dt id="glossary-egi" class="text-xl font-bold text-emerald-700">EGI (Eco Goods Invent)</dt>
+                            <dt id="glossary-egi" class="text-xl font-bold text-emerald-700">EGI (Environment Goods Invent)</dt>
                             <dd class="mt-1 text-gray-700">Il certificato digitale che unisce valore estetico, traccia
                                 <a href="#glossary-blockchain" class="glossary-link">blockchain</a> immutabile e
                                 contributo ambientale tramite <a href="#glossary-epp" class="glossary-link">EPP</a>.
@@ -658,7 +658,7 @@
                 <p class="text-lg text-gray-700">L'artista genera la forma, ma è l'incontro con il <a href="#glossary-mecenate" class="glossary-link">mecenate</a> che <strong>attiva la sua piena esistenza</strong>.</p>
                 <div class="p-6 mt-8 rounded-lg bg-gray-50">
                     <h3 class="mb-4 text-2xl font-bold text-emerald-700">La Trasformazione in <a href="#glossary-egi" class="glossary-link">EGI</a></h3>
-                    <p class="mb-4 text-gray-700">L'opera diventa <strong>EGI – Eco Goods Invent</strong>, unendo:</p>
+                    <p class="mb-4 text-gray-700">L'opera diventa <strong>EGI – Environment Goods Invent</strong>, unendo:</p>
                     <div class="grid gap-4 md:grid-cols-3">
                         <div class="p-4 text-center rounded-lg bg-emerald-50">
                             <div class="mb-2 text-3xl">🎨</div>

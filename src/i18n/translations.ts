@@ -399,8 +399,8 @@ const dictionaries = {
 
         // EGI Info Page
         'info_egi.page_title': 'EGI: Asset Digitali Beyond NFT | Certificazione Blockchain, Utilities e Impatto Ambientale',
-        'info_egi.page_description': 'Scopri cosa sono gli EGI (Ecological Goods Invent): l\'evoluzione dei beni digitali. Certifica asset reali, prodotti, idee e opere d\'arte in oggetti digitali unici, giuridicamente validi e produttivi.',
-        'info_egi.meta_keywords': 'EGI, Ecological Goods Invent, digital asset, blockchain, NFT evoluti, tokenizzazione, certificazione on-chain, smart contract, Florence EGI, diritti digitali, royalties',
+        'info_egi.page_description': 'Scopri cosa sono gli EGI (Environment Goods Invent): l\'evoluzione dei beni digitali. Certifica asset reali, prodotti, idee e opere d\'arte in oggetti digitali unici, giuridicamente validi e produttivi.',
+        'info_egi.meta_keywords': 'EGI, Environment Goods Invent, digital asset, blockchain, NFT evoluti, tokenizzazione, certificazione on-chain, smart contract, Florence EGI, diritti digitali, royalties',
 
         'info_egi.nav_definition': 'Definizione',
         'info_egi.nav_components': 'Componenti',
@@ -410,7 +410,7 @@ const dictionaries = {
         'info_egi.nav_advantages': 'Vantaggi',
 
         'info_egi.section_definition_title': 'Cosa sono gli EGI?',
-        'info_egi.section_definition_subtitle': 'Ecological Goods Invent: La Rivoluzione degli Asset Digitali',
+        'info_egi.section_definition_subtitle': 'Environment Goods Invent: La Rivoluzione degli Asset Digitali',
         'info_egi.section_definition_text_1': 'Gli EGI non sono semplici NFT. Sono asset digitali evoluti che portano utilità concreta, certificazione verificabile e impatto ambientale misurabile nel mondo reale.',
         'info_egi.section_definition_text_2': 'Immagina di avvolgere la tua opera con un sottile strato di accessori digitali che la aiutano a incontrare la domanda del mercato. Un EGI non è solo un certificato, ma un "contenitore" attivo a cui puoi attaccare moduli vitali: Certificati (CoA), Utility, Proprietà e Protocolli Ambientali (EPP).',
 

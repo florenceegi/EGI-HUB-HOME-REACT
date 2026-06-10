@@ -1,4 +1,4 @@
-**DOCUMENTO PROFESSIONALE: MANIFESTO DEGLI EGI (Ecological Goods Invent)**
+**DOCUMENTO PROFESSIONALE: MANIFESTO DEGLI EGI (Environment Goods Invent)**
 
 ---
 
@@ -6,7 +6,7 @@
 
 Gli EGI rappresentano l'evoluzione naturale degli NFT, superando i limiti speculativi del mercato per diventare strumenti concreti di trasformazione sociale, artistica ed ecologica. 🌍✨🎨
 
-Nati dalla visione del progetto Frangette, gli EGI (Ecological Goods Invent) si fondano su tre pilastri fondamentali:
+Nati dalla visione del progetto Frangette, gli EGI (Environment Goods Invent) si fondano su tre pilastri fondamentali:
 
 - **E** – Environment: Ogni EGI è collegato a un EPP (Environment Protection Program).
     
