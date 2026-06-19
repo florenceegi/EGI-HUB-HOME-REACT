@@ -29,22 +29,20 @@
         "src/App.tsx"
       ],
       "stats": {
-        "total_commits": 2,
-        "lines_added": 521,
+        "total_commits": 1,
+        "lines_added": 381,
         "lines_deleted": 1,
-        "lines_net": 520,
-        "lines_touched": 522,
-        "files_touched": 4,
-        "weighted_commits": 1.8,
-        "cognitive_load": 2.49,
-        "productivity_index": 28.06,
+        "lines_net": 380,
+        "lines_touched": 382,
+        "files_touched": 2,
+        "weighted_commits": 1.0,
+        "cognitive_load": 2.29,
+        "productivity_index": 20.96,
         "tags_breakdown": {
-          "FEAT": 1,
-          "DOC": 1
+          "FEAT": 1
         },
         "commit_hashes": [
-          "b4d0cc5cae539d1cebc6363a140d48c7dcc33083",
-          "e48dca206be2e7f19ef6f086410364a45541adde"
+          "b4d0cc5cae539d1cebc6363a140d48c7dcc33083"
         ],
         "by_repo_day": [
           {
@@ -57,20 +55,9 @@
             "tags": {
               "FEAT": 1
             }
-          },
-          {
-            "repo": "florenceegi/EGI-DOC",
-            "date": "2026-04-14",
-            "commits": 1,
-            "lines_added": 140,
-            "lines_deleted": 0,
-            "files_touched": 2,
-            "tags": {
-              "DOC": 1
-            }
           }
         ],
-        "calculated_at": "2026-06-07"
+        "calculated_at": "2026-06-19"
       },
       "organs": [
         "EGI-DOC",
