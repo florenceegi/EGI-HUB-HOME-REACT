@@ -42,7 +42,8 @@ const SIGILLO_ICON = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYA
 // Testi parametrici: {{name}} = denominazione dell'organo (da ORGANS[current].name).
 const I18N = {
   it: {
-    certLine:    "{{name}} · 2026 FlorenceEGI S.r.l. · Tutti i diritti riservati",
+    certLine:    "di anteriorità e paternità per <strong>{{name}}</strong>",
+    copyright:   "© 2026 FlorenceEGI S.r.l. · Tutti i diritti riservati",
     verifyLabel: "Vedi il certificato →",
     modalTitle:  "Sigillo di anteriorità e paternità — {{name}}",
     modalBody:   "Questo sigillo attesta due fatti sul nome <strong>{{name}}</strong>: <strong>quando</strong> — la prima adozione documentata, con data certa — e <strong>a chi appartiene</strong>, perché il documento è firmato con identità verificata (eIDAS SES via Stripe Identity). L'impronta del documento è ancorata in modo immutabile sulla blockchain Algorand.<br><br>Vale quindi come <strong>prova di anteriorità e di paternità</strong> (prior art + authorship), <em>non</em> come marchio registrato.<br><br>Verificabile in modo indipendente tramite l'impronta SHA-256 e la transazione Algorand qui sotto.",
@@ -56,7 +57,8 @@ const I18N = {
     close:       "Chiudi",
   },
   en: {
-    certLine:    "{{name}} · 2026 FlorenceEGI S.r.l. · All rights reserved",
+    certLine:    "of anteriority and authorship for <strong>{{name}}</strong>",
+    copyright:   "© 2026 FlorenceEGI S.r.l. · All rights reserved",
     verifyLabel: "View certificate →",
     modalTitle:  "Anteriority & authorship seal — {{name}}",
     modalBody:   "This seal attests two facts about the name <strong>{{name}}</strong>: <strong>when</strong> — the first documented adoption, with a certain date — and <strong>to whom it belongs</strong>, because the document is signed with verified identity (eIDAS SES via Stripe Identity). The document fingerprint is immutably anchored on the Algorand blockchain.<br><br>It therefore serves as <strong>proof of anteriority and authorship</strong> (prior art + authorship), <em>not</em> as a registered trademark.<br><br>Independently verifiable via the SHA-256 fingerprint and the Algorand transaction below.",
@@ -89,6 +91,8 @@ const CSS = `
 .lso-cert-icon:hover{transform:scale(2)}
 .lso-cert-text{font-size:13px;color:rgba(255,255,255,.6)}
 .lso-cert-tool{color:#d4af6a;font-weight:600;letter-spacing:.02em}
+.lso-cert-text strong{color:rgba(255,255,255,.85);font-weight:600}
+.lso-copyright{font-size:11px;color:rgba(255,255,255,.34);margin:11px 0 0;font-family:system-ui,-apple-system,sans-serif}
 .lso-cert-sep{color:rgba(255,255,255,.2);font-size:13px}
 .lso-cert-btn{font-size:13px;font-weight:600;color:#A78BFA;background:none;border:1px solid rgba(124,58,237,.4);border-radius:4px;padding:3px 12px;cursor:pointer;transition:all .2s;font-family:inherit}
 .lso-cert-btn:hover{color:#fff;background:rgba(124,58,237,.3);border-color:#7C3AED}
@@ -144,10 +148,11 @@ class LsoEcosystem extends HTMLElement {
       <section class="lso-wrapper" role="contentinfo" aria-label="Sigillo">
         <div class="lso-cert-row">
           <img class="lso-cert-icon" src="${SIGILLO_ICON}" alt="Sigillo" width="22" height="22">
-          <span class="lso-cert-text"><span class="lso-cert-tool">Sigillo:</span> ${certLine}</span>
+          <span class="lso-cert-text"><span class="lso-cert-tool">Sigillo</span> ${certLine}</span>
           <span class="lso-cert-sep">·</span>
           <button class="lso-cert-btn" id="lso-open-modal">${esc(t.verifyLabel)}</button>
         </div>
+        <p class="lso-copyright">${esc(t.copyright)}</p>
       </section>
 
       <div class="lso-modal-backdrop lso-modal-hidden" id="lso-modal" role="dialog" aria-modal="true">
