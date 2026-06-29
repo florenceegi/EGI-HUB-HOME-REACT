@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Footer Sigillo parametrico — demo (M-ORNEX-004)</title>
+  <style>
+    body { margin:0; background:#0a0e1c; color:#e7ecf7; font-family:system-ui,sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+    .panel { padding:28px 20px; display:flex; gap:18px; flex-wrap:wrap; align-items:center; border-bottom:1px solid rgba(255,255,255,.08); }
+    .panel h1 { font-size:16px; margin:0 16px 0 0; font-weight:700; }
+    label { font-size:13px; color:#9aa6cf; display:flex; gap:6px; align-items:center; }
+    select, button { background:#121933; color:#e7ecf7; border:1px solid #28335c; border-radius:8px; padding:7px 12px; font-size:13px; cursor:pointer; }
+    .filler { flex:1; display:flex; align-items:center; justify-content:center; color:#46507a; font-size:13px; padding:40px; text-align:center; }
+    .note { font-size:12px; color:#6a749c; padding:0 20px 14px; }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h1>Footer Sigillo parametrico</h1>
+    <label>Organo (current):
+      <select id="organ">
+        <option value="art">art → FlorenceEGI Art (segnaposto)</option>
+        <option value="florenceegi">florenceegi → FlorenceEGI</option>
+        <option value="natan">natan → NATAN_LOC</option>
+        <option value="egi-credential">egi-credential → EGI Credential</option>
+        <option value="sigillo">sigillo → Sigillo</option>
+        <option value="dimostralo">dimostralo → Dimostralo</option>
+        <option value="oracode-nexus">oracode-nexus → Oracode Nexus</option>
+        <option value="hub">hub → (escluso: nessun footer)</option>
+      </select>
+    </label>
+    <label>Lingua:
+      <select id="lang"><option value="it">IT</option><option value="en">EN</option></select>
+    </label>
+  </div>
+  <div class="note">Lo stesso file <code>lso-ecosystem.js</code> serve tutti gli organi: cambia solo <code>current</code>. Clicca «Vedi il certificato» per la modale.</div>
+  <div class="filler">↓ il footer è in fondo alla pagina ↓</div>
+
+  <lso-ecosystem current="art"></lso-ecosystem>
+
+  <script type="module" src="./lso-ecosystem.js"></script>
+  <script>
+    const el = document.querySelector('lso-ecosystem');
+    document.getElementById('organ').addEventListener('change', e => el.setAttribute('current', e.target.value));
+    document.getElementById('lang').addEventListener('change', e => {
+      document.documentElement.lang = e.target.value;
+      el.setAttribute('current', el.getAttribute('current')); // forza re-render nella nuova lingua
+    });
+  </script>
+</body>
+</html>
