@@ -11,6 +11,8 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { egiApi } from '@/services/api';
 import { useUIStore } from '@/stores/useUIStore';
+import { useI18n } from '@/i18n';
+import { AiDisclosureBanner } from '@/components/ai-act/AiDisclosureBanner';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
@@ -78,6 +80,7 @@ export function SigilloAdvisor({ user }: SigilloAdvisorProps) {
     const messagesEndRef          = useRef<HTMLDivElement>(null);
     const textareaRef             = useRef<HTMLTextAreaElement>(null);
     const currentPath             = useUIStore((s) => s.currentPath);
+    const { locale }              = useI18n();
 
     // Detect mobile
     useEffect(() => {
@@ -222,6 +225,13 @@ export function SigilloAdvisor({ user }: SigilloAdvisorProps) {
                                 onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.50)'; }}
                             >✕</button>
                         </div>
+
+                        {/* AI Act Art. 50(1) disclosure — banner CANONICO, persistente, visibile prima del primo input */}
+                        <AiDisclosureBanner
+                            variant="dark"
+                            locale={locale}
+                            transparencyUrl="https://art.florenceegi.com/ai-transparency"
+                        />
 
                         {/* Chat Area */}
                         <div style={{ flex: 1, overflowY: 'auto', padding: 16, display: 'flex', flexDirection: 'column' }}>
